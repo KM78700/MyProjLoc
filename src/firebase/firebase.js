@@ -1,0 +1,50 @@
+import firebaseConfig from "./config";
+import app from "firebase/app";
+import "firebase/auth";
+import "firebase/firestore";
+
+class Firebase {
+  constructor() {
+    app.initializeApp(firebaseConfig);
+    this.auth = app.auth();
+    this.googleProvider = new app.auth.GoogleAuthProvider();
+    this.db = app.firestore();
+  }
+
+  //--- Email Login
+  loginEmail = async (email, password) => {
+    await this.auth.signInWithEmailAndPassword(
+      email,
+      password
+    );
+    
+  };
+
+  //-- Google login
+  loginGoogle = async () => {
+    const { user } = await this.auth.signInWithPopup(this.googleProvider);
+    //console.log("Google login: " + user);
+  };
+
+  //-- LogOut
+  logOut = async () => await this.auth.signOut();
+}
+
+//--- upload posts
+uploadPosts = async () => {
+  const upload = {
+    id: id,
+    postPhoto:
+      "https://firebasestorage.googleapis.com/v0/b/myproj2-634bf.appspot.com/o/repas.jpg?alt=media&token=0d2a39a0-8347-4eab-a9c5-5265f0601fc2",
+    postDescription: "description",
+    uid: "123456",
+    photo: "url",
+    username: "username"
+  };
+  db.collection("posts")
+    .doc(id)
+    .set(upload);
+};
+
+const firebase = new Firebase();
+export default firebase;

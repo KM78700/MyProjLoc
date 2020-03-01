@@ -9,11 +9,11 @@ import {
 } from "react-native";
 import { Ionicons, Entypo } from "@expo/vector-icons";
 import styles from "../../styles";
-
+import { GlobalFilter } from "../constants/FilterGroups";
 //--- Components
 import Rate from "../components/Rate";
-import Filtres from "../components/Filtres";
-
+//import Filtres from "../components/Filtres";
+import Header from "../components/FilterHeaderBar/Header";
 //--- Navigation
 import { useNavigation } from "@react-navigation/core";
 
@@ -51,7 +51,7 @@ const Home = () => {
   return (
     <View style={styles.container}>
       {/* FILTRE */}
-      <Filtres />
+      <Header filtersList={GlobalFilter.ServicesFilters} />
 
       {/* FLATLIST */}
       <FlatList

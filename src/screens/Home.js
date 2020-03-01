@@ -13,6 +13,7 @@ import { GlobalFilter } from "../constants/FilterGroups";
 //--- Components
 import Rate from "../components/Rate";
 import Filtres from "../components/Filtres";
+import Search from "../components/Search";
 
 //--- Navigation
 import { useNavigation } from "@react-navigation/core";
@@ -26,7 +27,7 @@ const Home = () => {
 
   //--- Function Details
   details = () => {
-    //navigation.navigate("Details");
+    navigation.navigate("Details");
   };
 
   //--- Upload USERS
@@ -51,8 +52,8 @@ const Home = () => {
   return (
     <View style={styles.container}>
       {/* FILTRE */}
+      <Search />
       <Filtres />
-
       {/* FLATLIST */}
       <FlatList
         data={users}
@@ -114,7 +115,7 @@ const Home = () => {
                   source={{ uri: item.postPhoto }}
                 />
                 <Text style={{ width: "70%", paddingLeft: 10 }}>
-                  {item.postDescription}
+                  {item.description}
                 </Text>
               </View>
             </View>

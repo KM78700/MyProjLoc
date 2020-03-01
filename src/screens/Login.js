@@ -50,7 +50,7 @@ const Login = () => {
       <TouchableOpacity
         style={styles.googleButton}
         // onPress={() => firebase.loginGoogle()}
-        onPress={() => navigation.navigate("Home")}
+        onPress={() => navigation.navigate("Search")}
       >
         <Text style={styles.facebookText}>Google Login</Text>
       </TouchableOpacity>

@@ -26,7 +26,7 @@ export default TabNavigator = () => {
         tabBarIcon: ({ focused, color }) => {
           let iconName;
 
-          if (route.name === "Search") {
+          if (route.name === "Home") {
             iconName = focused ? "search" : "search";
           } else if (route.name === "Carte") {
             iconName = focused ? "map-marker" : "map-marker";
@@ -52,7 +52,7 @@ export default TabNavigator = () => {
         }
       }}
     >
-      <Tab.Screen name="Search" component={Home} />
+      <Tab.Screen name="Home" component={Home} />
       <Tab.Screen name="Carte" component={Carte} />
       <Tab.Screen name="Clients" component={Clients} />
       <Tab.Screen name="Favoris" component={Favoris} />

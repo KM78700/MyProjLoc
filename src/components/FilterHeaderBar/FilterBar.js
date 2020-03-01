@@ -39,10 +39,11 @@ export default function FilterBar(props) {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    justifyContent: "space-evenly",
-    alignItems: "center",
-    flexDirection: "row"
+    // flex: 1,
+     justifyContent: "space-evenly",
+    // alignItems: "center",
+     flexDirection: "row",
+
   },
   awesomButton: {
     // borderStyle: "solid"

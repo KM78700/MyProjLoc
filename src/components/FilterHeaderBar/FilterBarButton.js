@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Text, StyleSheet, View } from "react-native";
 import GradientButton from "react-native-gradient-buttons";
+import { Button } from "react-native-paper";
 //import { Theme } from "../../constants/Constants";
 
 export default FilterBarButton = props => {
@@ -20,8 +21,8 @@ export default FilterBarButton = props => {
           <Text style={styles.checkedText}> {myCounter}</Text>
         </View>
       )}
-      <GradientButton
-        gradientBegin="red"
+      {/* <GradientButton
+        backgroundColor="#171F33"
         gradientEnd="#000000"
         gradientDirection="diagonal"
         style={styles.btnStyle}
@@ -34,26 +35,48 @@ export default FilterBarButton = props => {
         onPressAction={onFilterPress}
       >
         {caption}
-      </GradientButton>
+      </GradientButton> */}
+      <Button style={styles.btnStyle} onPress={onFilterPress}>
+        {caption}
+      </Button>
     </>
   );
 };
 
 const styles = StyleSheet.create({
   checkedZone: {
-    width: 18,
-    height: 18,
-    left: 10,
-    top: -20,
+    width: 22,
+    height: 22,
+    left: 100,
+    top: 0,
     position: "relative",
     zIndex: 10,
     borderColor: "white",
+    color: "white",
     borderWidth: 1,
     borderRadius: 9,
-    backgroundColor: "red"
+    backgroundColor: "green"
   },
   checkedText: {
-    color: "white"
+    color: "white",
+    fontSize: 12,
+    textAlign: "center"
   },
-  btnStyle: { color: "red" }
+  btnStyle: {
+    // backgroundColor: "white",
+    // borderRadius: 12,
+    // height: 50,
+    // width: "25%",
+    // color: "black"
+
+    // borderWidth: 0.5,
+    // borderColor: "lightgray",
+    backgroundColor: "white",
+    // borderRadius: 10,
+    marginTop: 0,
+    marginBottom: 0,
+    marginLeft: 15,
+    marginRight: 15,
+    width: "25%"
+  }
 });

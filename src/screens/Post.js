@@ -15,12 +15,16 @@ import { updateLocale } from "moment";
 //--- Universally Unique IDentifiers
 import uuid from "uuid";
 
+//--- Import navigation
+import { useNavigation } from "@react-navigation/core";
+
 //--- Reducer
 // import post from "../reducer/post";
 // import { initializeApp } from "firebase";
 // import { onFrameDidUpdate } from "expo/build/AR";
 
 const Post = () => {
+  const navigation = useNavigation();
   const { user, firebase } = useContext(FirebaseContext);
   const [description, setDescription] = useState("");
   // const [state, dispatch] = useReducer(post, null);
@@ -28,6 +32,7 @@ const Post = () => {
   //Add post
   const addPost = async () => {
     await firebase.uploadPost(description);
+     user && navigation.navigate("Home");
   };
 
   //-- Return

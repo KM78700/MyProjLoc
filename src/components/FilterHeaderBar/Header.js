@@ -9,8 +9,8 @@ export default function Header(props) {
   const { filtersList } = props;
   return (
     <View style={styles.container}>
-      <FilterBar filtersList={filtersList}></FilterBar>
       <Searchbar
+        style={{ marginLeft: 8, marginRight: 8, marginBottom: 10 }}
         //onPressToFocus
         autoFocus={false}
         fontColor="#c6c6c6"
@@ -30,6 +30,8 @@ export default function Header(props) {
         }}
         onPress={() => alert("onPress")}
       />
+
+      <FilterBar filtersList={filtersList}></FilterBar>
     </View>
   );
 }
@@ -38,9 +40,9 @@ const styles = StyleSheet.create({
   container: {
     height: 120,
     flexDirection: "column",
-    backgroundColor: "red",
+    backgroundColor: "#171F33",
     // padding: 5,
-    //    margin: 2,
-    borderRadius: 10
+    //  margin: 2,
+    width: "100%"
   }
 });

@@ -47,3 +47,33 @@ Tous les prochains push de ce projet devront être effectués avec la commande g
 -> ls -la 
 
 */
+
+/*
+// Récupérer les branches
+git fetch 
+
+// Aller sur la branche master
+git checkout master 
+
+// Récupérer les données de master
+git pull 
+
+// installer les dépendances
+npm install
+
+// Créer une nouvelle
+git checkout -b ma_branche
+
+//  Checker le status 
+git status
+
+// Ajouter les fichiers modifier
+git add .
+
+// Ajouter un commentaire dans le commit
+git commit -m "Commentaire"
+
+// Pousser dans la branche ma_branche
+git push
+
+*/

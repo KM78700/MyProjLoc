@@ -42,7 +42,7 @@ const Home = () => {
 
   useEffect(() => {
     const getUsers = () => {
-      firebase.db.collection("posts").onSnapshot(handleSnapshot);
+      firebase.db.collection("users").onSnapshot(handleSnapshot);
     };
     return getUsers();
   }, [firebase]);
@@ -67,7 +67,7 @@ const Home = () => {
                     style={styles.roundImage}
                     source={{ uri: item.photo }}
                   />
-                  <Text>{item.username}</Text>
+                  <Text>{item.email}</Text>
                 </View>
 
                 <View style={styles.row}>

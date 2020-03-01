@@ -12,8 +12,8 @@ import styles from "../../styles";
 import { GlobalFilter } from "../constants/FilterGroups";
 //--- Components
 import Rate from "../components/Rate";
-//import Filtres from "../components/Filtres";
-import Header from "../components/FilterHeaderBar/Header";
+import Filtres from "../components/Filtres";
+
 //--- Navigation
 import { useNavigation } from "@react-navigation/core";
 
@@ -26,7 +26,7 @@ const Home = () => {
 
   //--- Function Details
   details = () => {
-    navigation.navigate("Details");
+    //navigation.navigate("Details");
   };
 
   //--- Upload USERS
@@ -51,7 +51,7 @@ const Home = () => {
   return (
     <View style={styles.container}>
       {/* FILTRE */}
-      <Header filtersList={GlobalFilter.ServicesFilters} />
+      <Filtres />
 
       {/* FLATLIST */}
       <FlatList

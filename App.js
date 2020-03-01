@@ -19,7 +19,8 @@ import Details from "./src/screens/Details";
 import Info from "./src/screens/Info";
 import Post from "./src/screens/Post";
 import Plus from "./src/screens/Plus";
-import FilterScreen from "./src/screens/FilterScreen";
+//import FilterScreen from "./src/screens/FilterScreen";
+
 //--- Components
 import InfoBtnHeader from "./src/components/InfoBtnHeader";
 import PrestaBtnHeader from "./src/components/PrestaBtnHeader";
@@ -100,7 +101,7 @@ const App = () => {
             name="Home"
             component={TabNavigator}
           />
-          <Stack.Screen name="Filter" component={FilterScreen} />
+          {/* <Stack.Screen name="Filter" component={FilterScreen} /> */}
         </Stack.Navigator>
       </NavigationContainer>
     </FirebaseContext.Provider>

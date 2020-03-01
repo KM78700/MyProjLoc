@@ -18,7 +18,7 @@ const Details = () => {
         style={styles.postPhoto}
         source={{
           uri:
-            "https://firebasestorage.googleapis.com/v0/b/myproj2-634bf.appspot.com/o/villers-sur-mer.jpeg?alt=media&token=1db87c21-d0b8-43a1-8a27-e5e7359bb29c"
+            "https://firebasestorage.googleapis.com/v0/b/start-c1a32.appspot.com/o/koala.jpg?alt=media&token=57861261-d7f9-44c8-8c86-8c296f1c06d8"
         }}
       />
 

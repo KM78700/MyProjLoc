@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext, useReducer } from "react";
 import { Text, View, TextInput, Image, TouchableOpacity } from "react-native";
 import {
   Ionicons,
@@ -8,23 +8,26 @@ import {
 } from "@expo/vector-icons";
 import styles from "../../styles";
 
+//-- Import FirebaseContext
+import FirebaseContext from "../firebase/FirebaseContext";
+import { updateLocale } from "moment";
+
+//--- Universally Unique IDentifiers
+import uuid from "uuid";
+
+//--- Reducer
+// import post from "../reducer/post";
+// import { initializeApp } from "firebase";
+// import { onFrameDidUpdate } from "expo/build/AR";
+
 const Post = () => {
-  //-- Hooks
+  const { user, firebase } = useContext(FirebaseContext);
   const [description, setDescription] = useState("");
+  // const [state, dispatch] = useReducer(post, null);
 
-  const upload = {
-    id: "555555",
-    postPhoto:
-      "https://firebasestorage.googleapis.com/v0/b/myproj2-634bf.appspot.com/o/villers-sur-mer.jpeg?alt=media&token=376b6522-01fd-4d4d-af02-6ba27fec467b",
-    postDescription: description
-  };
-
-  const addUser = () => {
-    // firebase
-    //   .firestore()
-    //   .collection("posts")
-    //   .add(upload);
-    // setDescription("");
+  //Add post
+  const addPost = async () => {
+    await firebase.uploadPost(description);
   };
 
   //-- Return
@@ -41,11 +44,13 @@ const Post = () => {
       <TextInput
         style={styles.border}
         value={description}
-        onChange={e => setDescription(e.target.value)}
+        onChangeText={text => {
+          setDescription(text);
+        }}
         placeholder="Description"
       />
 
-      <TouchableOpacity style={styles.button} onPress={addUser}>
+      <TouchableOpacity style={styles.button} onPress={addPost}>
         <Text>Post</Text>
       </TouchableOpacity>
     </View>

@@ -32,7 +32,7 @@ const Stack = createStackNavigator();
 
 //--- Firebase
 import firebase from "./src/firebase/firebase";
-import FirebaseContext from "./src/firebase/context";
+import FirebaseContext from "./src/firebase/FirebaseContext";
 import useAuth from "./src/hooks/useAuth";
 
 const App = () => {
@@ -73,7 +73,7 @@ const App = () => {
 
   //--- Return
   return (
-    <FirebaseContext.Provider value={{ user, firebase }}>
+    <FirebaseContext.Provider value={{ firebase, user }}>
       <NavigationContainer>
         <StatusBar barStyle="light-content" />
         <Stack.Navigator initialRouteName="Login">

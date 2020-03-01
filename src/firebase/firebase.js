@@ -3,6 +3,9 @@ import app from "firebase/app";
 import "firebase/auth";
 import "firebase/firestore";
 
+//--- Universally Unique IDentifiers
+import uuid from "uuid";
+
 class Firebase {
   constructor() {
     app.initializeApp(firebaseConfig);
@@ -13,11 +16,7 @@ class Firebase {
 
   //--- Email Login
   loginEmail = async (email, password) => {
-    await this.auth.signInWithEmailAndPassword(
-      email,
-      password
-    );
-    
+    await this.auth.signInWithEmailAndPassword(email, password);
   };
 
   //-- Google login
@@ -28,23 +27,50 @@ class Firebase {
 
   //-- LogOut
   logOut = async () => await this.auth.signOut();
-}
 
-//--- upload posts
-uploadPosts = async () => {
-  const upload = {
-    id: id,
-    postPhoto:
-      "https://firebasestorage.googleapis.com/v0/b/myproj2-634bf.appspot.com/o/repas.jpg?alt=media&token=0d2a39a0-8347-4eab-a9c5-5265f0601fc2",
-    postDescription: "description",
-    uid: "123456",
-    photo: "url",
-    username: "username"
+  //--- Add post
+  uploadPost = async description => {
+    const id = uuid.v4();
+
+    //--- upload post
+    const upload = {
+      id: id,
+      postPhoto:
+        "https://firebasestorage.googleapis.com/v0/b/myproj2-634bf.appspot.com/o/repas.jpg?alt=media&token=0d2a39a0-8347-4eab-a9c5-5265f0601fc2",
+      postDescription: description
+    };
+    await this.db
+      .collection("posts")
+      .doc(id)
+      .set(upload);
   };
-  db.collection("posts")
-    .doc(id)
-    .set(upload);
-};
+
+  //--- New user
+  SignupUser = async (email, password) => {
+    const response = await this.auth.createUserWithEmailAndPassword(
+      email,
+      password
+    );
+
+    if (response.user.uid) {
+      const user = {
+        uid: response.user.uid,
+        email: email,
+        username: "username",
+        bio: "bio",
+        photo:
+          "https://firebasestorage.googleapis.com/v0/b/myproj2-634bf.appspot.com/o/portrait.png?alt=media&token=1316cdcc-1de2-4cef-83d0-8ce66cabb1dc",
+        token: null
+      };
+      this.db
+        .collection("users")
+        .doc(response.user.uid)
+        .set(user);
+    }
+  };
+
+  //---- fin class Firebase
+}
 
 const firebase = new Firebase();
 export default firebase;

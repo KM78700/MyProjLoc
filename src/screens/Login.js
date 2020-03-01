@@ -6,7 +6,7 @@ import styles from "../../styles";
 import { useNavigation } from "@react-navigation/core";
 
 //-- Import FirebaseContext
-import FirebaseContext from "../firebase/context";
+import FirebaseContext from "../firebase/FirebaseContext";
 
 const Login = () => {
   const navigation = useNavigation();
@@ -14,10 +14,10 @@ const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  //LOGIN EMAIL
-  const handleSignUp = () => {
-    firebase.loginEmail(email, password);
-    navigation.navigate("Home")
+  //Login email
+  const handleLogin = async () => {
+    await firebase.loginEmail(email, password);
+    user && navigation.navigate("Home");
   };
 
   //-- Return
@@ -42,11 +42,7 @@ const Login = () => {
         secureTextEntry={true}
       />
       {/* LOGIN EMAIL */}
-      <TouchableOpacity
-        style={styles.button}
-        //onPress={() => firebase.loginEmail({ email, password })}
-        onPress={handleSignUp}
-      >
+      <TouchableOpacity style={styles.button} onPress={handleLogin}>
         <Text>Login</Text>
       </TouchableOpacity>
 

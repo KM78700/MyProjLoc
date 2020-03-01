@@ -18,7 +18,7 @@ import Filtres from "../components/Filtres";
 import { useNavigation } from "@react-navigation/core";
 
 //-- Import FirebaseContext
-import FirebaseContext from "../firebase/context";
+import FirebaseContext from "../firebase/FirebaseContext";
 
 const Home = () => {
   const navigation = useNavigation();

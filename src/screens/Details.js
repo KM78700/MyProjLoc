@@ -10,6 +10,7 @@ import styles from "../../styles";
 
 const Details = () => {
   //-- Function
+
   //-- Return
   return (
     <View style={styles.containerPost}>

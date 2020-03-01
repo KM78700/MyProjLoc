@@ -6,7 +6,7 @@ import styles from "../../styles";
 import { useNavigation } from "@react-navigation/core";
 
 //-- Import FirebaseContext
-import FirebaseContext from "../firebase/context";
+import FirebaseContext from "../firebase/FirebaseContext";
 
 const Profile = () => {
   const navigation = useNavigation();

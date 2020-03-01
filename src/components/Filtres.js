@@ -1,14 +1,17 @@
-import React from "react";
+import React, { useContext, useState } from "react";
 import { Text, View, TouchableOpacity } from "react-native";
 import styles from "../../styles";
 
-//-- Icônes
+//--- Icônes
 import { Ionicons, Entypo, FontAwesome } from "@expo/vector-icons";
 
 //--- Component
 import Filtre from "../components/Filtre";
 
 const Filtres = () => {
+  [key, useKey] = useState(false);
+
+  //--- Return
   return (
     <View
       style={{

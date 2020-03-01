@@ -1,16 +1,23 @@
-import React from "react";
+import React, { useContext, useState } from "react";
 import { Text, View, TextInput, TouchableOpacity } from "react-native";
 import styles from "../../styles";
 
 //--- Import navigation
 import { useNavigation } from "@react-navigation/core";
 
+//-- Import FirebaseContext
+import FirebaseContext from "../firebase/FirebaseContext";
+
 const Signup = () => {
   const navigation = useNavigation();
+  const { user, firebase } = useContext(FirebaseContext);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
   //--- Function
-  signup = () => {
-    navigation.navigate("Home");
+  const UserSignup = async () => {
+    await firebase.SignupUser(email, password);
+    user && navigation.navigate("Home");
   };
 
   //-- return
@@ -19,18 +26,22 @@ const Signup = () => {
       <Text style={styles.logo}> MyProj </Text>
       <TextInput
         style={styles.border}
-        // value={}
-        onChangeText={input => {}}
+        value={email}
+        onChangeText={text => {
+          setEmail(text);
+        }}
         placeholder="Email"
       />
       <TextInput
         style={styles.border}
-        // value={}
-        onChangeText={input => {}}
+        value={password}
+        onChangeText={text => {
+          setPassword(text);
+        }}
         placeholder="Password"
         secureTextEntry={true}
       />
-      <TextInput
+      {/* <TextInput
         style={styles.border}
         // value={}
         onChangeText={input => {}}
@@ -41,11 +52,8 @@ const Signup = () => {
         // value={}
         onChangeText={input => {}}
         placeholder="Bio"
-      />
-      <TouchableOpacity
-        style={styles.button}
-        onPress={() => {}}
-      >
+      /> */}
+      <TouchableOpacity style={styles.button} onPress={UserSignup}>
         <Text>Créer un compte</Text>
       </TouchableOpacity>
     </View>

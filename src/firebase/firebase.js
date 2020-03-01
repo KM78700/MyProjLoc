@@ -36,7 +36,7 @@ class Firebase {
     const upload = {
       id: id,
       postPhoto:
-        "https://firebasestorage.googleapis.com/v0/b/myproj2-634bf.appspot.com/o/repas.jpg?alt=media&token=0d2a39a0-8347-4eab-a9c5-5265f0601fc2",
+        "https://firebasestorage.googleapis.com/v0/b/start-c1a32.appspot.com/o/koala.jpg?alt=media&token=57861261-d7f9-44c8-8c86-8c296f1c06d8",
       postDescription: description
     };
     await this.db

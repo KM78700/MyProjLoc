@@ -4,7 +4,7 @@ import { View, Text, Button } from "react-native";
 //--- Screens
 import Home from "../screens/Home";
 import Carte from "../screens/Carte";
-import Chat from "../screens/Chat";
+import ChatList from "../screens/ChatList";
 import Favoris from "../screens/Favoris";
 import Plus from "../screens/Plus";
 
@@ -30,7 +30,7 @@ export default TabNavigator = () => {
             iconName = focused ? "search" : "search";
           } else if (route.name === "Carte") {
             iconName = focused ? "map-marker" : "map-marker";
-          } else if (route.name === "Chat") {
+          } else if (route.name === "ChatList") {
             iconName = focused ? "comments" : "comments";
           } else if (route.name === "Favoris") {
             iconName = focused ? "heart" : "heart";
@@ -54,7 +54,7 @@ export default TabNavigator = () => {
     >
       <Tab.Screen name="Search" component={Home} />
       <Tab.Screen name="Carte" component={Carte} />
-      <Tab.Screen name="Chat" component={Chat} />
+      <Tab.Screen name="ChatList" component={ChatList} />
       <Tab.Screen name="Favoris" component={Favoris} />
       <Tab.Screen name="Plus" component={Plus} />
     </Tab.Navigator>

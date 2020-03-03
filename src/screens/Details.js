@@ -1,17 +1,28 @@
 import React from "react";
-import { Text, View, TextInput, Image, TouchableOpacity } from "react-native";
+import { Text, View, StyleSheet, Image, TouchableOpacity } from "react-native";
 import {
   Ionicons,
   MaterialIcons,
   MaterialCommunityIcons,
   FontAwesome
 } from "@expo/vector-icons";
+import { useNavigation } from "@react-navigation/core";
+
 import styles from "../../styles";
 
-const Details = () => {
-  //-- Function
+export default Details = () => {
+  const navigation = useNavigation();
 
-  //-- Return
+  // const onChatClick = event => {
+  //   navigation.navigate("Chat", {
+  //     userID: 86,
+  //     Form: "Notification"
+  //   });
+  // };
+
+  const onChatClick = event => {
+    navigation.navigate("Chat");
+  };
   return (
     <View style={styles.containerPost}>
       <Image
@@ -46,7 +57,7 @@ const Details = () => {
             <Text>Ajouter un avis</Text>
           </View>
         </TouchableOpacity>
-        <TouchableOpacity>
+        <TouchableOpacity onPress={onChatClick}>
           <View
             style={{
               flexDirection: "column",
@@ -85,4 +96,10 @@ const Details = () => {
   );
 };
 
-export default Details;
+const style = StyleSheet.create({
+  text: {
+    width: "80%",
+    marginHorizontal: "10%",
+    marginTop: "10%"
+  }
+});

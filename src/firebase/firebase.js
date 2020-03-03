@@ -69,8 +69,31 @@ class Firebase {
     }
   };
 
+  // checkAuth = () => {
+  //   this.auth().onAuthStateChange(user => {
+  //     if (!user) {
+  //       this.auth().signInAnonymously();
+  //     }
+  //   });
+  // };
+
+  // send = message => {
+  //   item => {
+  //     const message = {
+  //       text: item.text,
+  //       timestamp: this.database.serverValue.TIMESTAMP,
+  //       user: item.user
+  //     };
+  //     this.db.push(message);
+  //   };
+  // };
+  // get db() {
+  //   return this.database().ref("message");
+  // }
+
   //---- fin class Firebase
 }
 
 const firebase = new Firebase();
+
 export default firebase;

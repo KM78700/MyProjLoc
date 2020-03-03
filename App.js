@@ -29,6 +29,7 @@ import PrestaBtnHeader from "./src/components/PrestaBtnHeader";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import TabNavigator from "./src/navigation/TabNavigator";
+import ChatScreen from "./src/screens/Chat";
 const Stack = createStackNavigator();
 
 //--- Firebase
@@ -100,6 +101,11 @@ const App = () => {
             options={optionHeader}
             name="Home"
             component={TabNavigator}
+          />
+          <Stack.Screen
+            options={optionHeaderDetails}
+            name="Chat"
+            component={ChatScreen}
           />
           {/* <Stack.Screen name="Filter" component={FilterScreen} /> */}
         </Stack.Navigator>

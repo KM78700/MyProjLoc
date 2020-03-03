@@ -1,22 +1,48 @@
-import React from "react";
-import { Text, View } from "react-native";
-import styles from "../../styles";
+import React, { Component } from "react";
+import { GiftedChat } from "react-native-gifted-chat";
 
-const Chat = () => {
-  //--- Function
+class ChatScreen extends Component {
+  state = {
+    messages: []
+  };
 
-  //--- Return
-  return (
-    <View style={styles.container}>
-      <Text style={{ fontSize: 25 }}>Chat</Text>
-      <Text style={{ fontSize: 20, color: "#909090" }}>
-        Liste des prestataires en relation via le chat
-      </Text>
-      <Text style={{ fontSize: 20, color: "#909090" }}>
-        A trier par date du dernier Chat
-      </Text>
-    </View>
-  );
-};
+  componentDidMount() {
+    this.setState({
+      messages: [
+        {
+          _id: 1,
+          text: "Salut M. le proprio",
+          createdAt: new Date(),
 
-export default Chat;
+          user: {
+            _id: 2,
+            name: "React Native",
+            avatar: "https://placeimg.com/140/140/any"
+          }
+        }
+      ]
+    });
+  }
+
+  onSend(messages = []) {
+    this.setState(previousState => ({
+      messages: GiftedChat.append(previousState.messages, messages)
+    }));
+  }
+
+  render() {
+    return (
+      <GiftedChat
+        messages={this.state.messages}
+        onSend={messages => this.onSend(messages)}
+        placeholder="Messace text"
+        user={{
+          _id: 1,
+          name: "Ridha"
+        }}
+      />
+    );
+  }
+}
+
+export default ChatScreen;

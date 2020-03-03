@@ -1,5 +1,12 @@
-import React, { useContext, useState } from "react";
-import { Text, View, TextInput, Button, TouchableOpacity } from "react-native";
+import React, { useContext, useState, useEffect } from "react";
+import {
+  Text,
+  View,
+  TextInput,
+  Button,
+  TouchableOpacity,
+  AsyncStorage
+} from "react-native";
 import styles from "../../styles";
 
 //--- Import navigation
@@ -14,9 +21,21 @@ const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
+  const getAccount = async () => {
+    const localAccount = await AsyncStorage.getItem("account");
+    if (localAccount) {
+      setTimeout(() => navigation.replace("Home"));
+    }
+  };
+
+  useEffect(() => {
+    getAccount();
+  }, []);
+
   //Login email
   const handleLogin = async () => {
     await firebase.loginEmail(email, password);
+    AsyncStorage.setItem("account", JSON.stringify(user));
     user && navigation.navigate("Home");
   };
 

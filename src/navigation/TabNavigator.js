@@ -7,7 +7,7 @@ import Carte from "../screens/Carte";
 import ChatList from "../screens/ChatList";
 import Favoris from "../screens/Favoris";
 import Plus from "../screens/Plus";
-
+import SettingsTopTabNavigator from "./SettingsTopTabNavigator";
 //--- Tabnavigator
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { createStackNavigator } from "@react-navigation/stack";
@@ -56,7 +56,7 @@ export default TabNavigator = () => {
       <Tab.Screen name="Carte" component={Carte} />
       <Tab.Screen name="ChatList" component={ChatList} />
       <Tab.Screen name="Favoris" component={Favoris} />
-      <Tab.Screen name="Plus" component={Plus} />
+      <Tab.Screen name="Plus" component={SettingsTopTabNavigator} />
     </Tab.Navigator>
   );
 };

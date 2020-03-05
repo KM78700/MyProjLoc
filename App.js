@@ -18,7 +18,6 @@ import Signup from "./src/screens/Signup";
 import Details from "./src/screens/Details";
 import Info from "./src/screens/Info";
 import Post from "./src/screens/Post";
-import Plus from "./src/screens/Plus";
 //import FilterScreen from "./src/screens/FilterScreen";
 
 //--- Components

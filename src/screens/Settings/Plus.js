@@ -6,13 +6,13 @@ import {
   TouchableOpacity,
   AsyncStorage
 } from "react-native";
-import styles from "../../styles";
+import styles from "../../../styles";
 
 //--- Import navigation
 import { useNavigation } from "@react-navigation/core";
 
 //-- Import FirebaseContext
-import FirebaseContext from "../firebase/FirebaseContext";
+import FirebaseContext from "../../firebase/FirebaseContext";
 
 const Profile = () => {
   const navigation = useNavigation();

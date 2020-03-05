@@ -6,7 +6,7 @@ import Home from "../screens/Home";
 import Carte from "../screens/Carte";
 import ChatList from "../screens/ChatList";
 import Favoris from "../screens/Favoris";
-import Plus from "../screens/Plus";
+import Plus from "../screens/Settings/Plus";
 import SettingsTopTabNavigator from "./SettingsTopTabNavigator";
 //--- Tabnavigator
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";

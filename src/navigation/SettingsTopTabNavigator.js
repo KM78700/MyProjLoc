@@ -1,8 +1,8 @@
 import React from "react";
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
 
-import Plus from "../screens/Plus";
-import Profil from "../screens/Profil";
+import Plus from "../screens/Settings/Plus";
+import Profil from "../screens/Settings/Profil";
 
 const Tab = createMaterialTopTabNavigator();
 

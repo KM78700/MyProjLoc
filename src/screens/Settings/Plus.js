@@ -1,19 +1,30 @@
 import React, { useContext } from "react";
-import { Text, View, Button, TouchableOpacity } from "react-native";
-import styles from "../../styles";
+import {
+  Text,
+  View,
+  Button,
+  TouchableOpacity,
+  AsyncStorage
+} from "react-native";
+import styles from "../../../styles";
 
 //--- Import navigation
 import { useNavigation } from "@react-navigation/core";
 
 //-- Import FirebaseContext
-import FirebaseContext from "../firebase/FirebaseContext";
+import FirebaseContext from "../../firebase/FirebaseContext";
 
 const Profile = () => {
   const navigation = useNavigation();
   const { user, firebase } = useContext(FirebaseContext);
 
+  const removeAccount = async () => {
+    const localAccount = await AsyncStorage.removeItem("account");
+  };
+
   //--- Function LogOut
   signOut = () => {
+    removeAccount();
     firebase.logOut();
     navigation.navigate("Login");
   };

@@ -6,13 +6,22 @@ export default styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#fff",
     alignItems: "center"
-    // justifyContent: "center"
+    //justifyContent: "center",
+    //width:"100%"
   },
   container: {
     flex: 1,
     backgroundColor: "#fff",
     alignItems: "center",
-    justifyContent: "center"
+    justifyContent: "center",
+    width: "100%"
+  },
+  containerAvis: {
+    flex: 1,
+    alignItems: "center",
+    marginTop: 40,
+    // justifyContent: "center",
+    width: "100%"
   },
   center: {
     alignItems: "center",
@@ -70,16 +79,20 @@ export default styles = StyleSheet.create({
     textAlign: "center"
   },
   postPhoto: {
-    marginBottom: 20,
+    // marginBottom: 20,
     height: 250,
     width: width
   },
   roundImage: {
-    width: 40,
-    height: 40,
+    flex: 1,
+    width: "80%",
+    height: "80%",
     borderRadius: 20,
     margin: 5,
-    backgroundColor: "#adadad"
+    backgroundColor: "lightgrey"
+
+    // alignItems: "center",
+    // justifyContent: "center"
   },
   cameraButton: {
     height: 100,
@@ -107,5 +120,28 @@ export default styles = StyleSheet.create({
     borderWidth: 1,
     borderRadius: 5,
     width: 125
+  },
+  style1: {
+    marginTop: 20,
+    marginLeft: 20,
+    fontSize: 16,
+    fontWeight: "bold"
+  },
+  style2: {
+    marginTop: 8,
+    marginLeft: 20,
+    fontSize: 16
+  },
+  titleAvis: {
+    marginTop: 20,
+    paddingLeft: 20,
+    backgroundColor: "#eee",
+    paddingTop: 8,
+    paddingBottom: 8,
+    fontSize: 20,
+    fontWeight: "bold",
+    borderRadius: 4,
+    borderWidth: 0.5,
+    borderColor: "#d6d7da"
   }
 });

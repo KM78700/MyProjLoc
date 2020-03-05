@@ -18,6 +18,7 @@ import Signup from "./src/screens/Signup";
 import Details from "./src/screens/Details";
 import Info from "./src/screens/Info";
 import Post from "./src/screens/Post";
+import Avis from "./src/screens/Avis";
 import Plus from "./src/screens/Plus";
 //import FilterScreen from "./src/screens/FilterScreen";
 
@@ -94,6 +95,11 @@ const App = () => {
             options={optionHeaderDetails}
             name="Info"
             component={Info}
+          />
+          <Stack.Screen
+            options={optionHeaderDetails}
+            name="Avis"
+            component={Avis}
           />
 
           <Stack.Screen

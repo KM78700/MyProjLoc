@@ -15,6 +15,10 @@ const Filtre = props => {
     if (isFiltreColor) {
       setBackColor("#ffc7bd");
       setTextColor("black");
+    } else if (isFiltreColor) {
+      setBackColor("#ffc7bd");
+      setTextColor("black");
+      alert("screen filtre");
     } else {
       setBackColor("white");
       setTextColor("black");
@@ -52,7 +56,7 @@ const Filtre = props => {
         />
         <Text
           style={{
-            paddingTop: 8,
+            paddingTop: 2,
             fontSize: 12,
             textAlign: "center",
             color: textColor
@@ -62,7 +66,7 @@ const Filtre = props => {
         </Text>
         <Text
           style={{
-            paddingBottom: 8,
+            paddingBottom: 2,
             fontSize: 12,
             textAlign: "center",
             color: textColor

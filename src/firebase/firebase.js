@@ -14,12 +14,13 @@ class Firebase {
     this.db = app.firestore();
   }
 
-  //--- Email Login
+  /* ------------------  AUTHENTIFICATION -----------------*/
+  //--- Login Email
   loginEmail = async (email, password) => {
     await this.auth.signInWithEmailAndPassword(email, password);
   };
 
-  //-- Google login
+  //-- login Google
   loginGoogle = async () => {
     const { user } = await this.auth.signInWithPopup(this.googleProvider);
     //console.log("Google login: " + user);
@@ -28,24 +29,7 @@ class Firebase {
   //-- LogOut
   logOut = async () => await this.auth.signOut();
 
-  //--- Add post
-  uploadPost = async description => {
-    const id = uuid.v4();
-
-    //--- upload post
-    const upload = {
-      id: id,
-      postPhoto:
-        "https://firebasestorage.googleapis.com/v0/b/start-c1a32.appspot.com/o/koala.jpg?alt=media&token=57861261-d7f9-44c8-8c86-8c296f1c06d8",
-      postDescription: description
-    };
-    await this.db
-      .collection("posts")
-      .doc(id)
-      .set(upload);
-  };
-
-  //--- New user
+  //-- Signup
   SignupUser = async (email, password) => {
     const response = await this.auth.createUserWithEmailAndPassword(
       email,
@@ -67,6 +51,54 @@ class Firebase {
         .doc(response.user.uid)
         .set(user);
     }
+  };
+
+  /* ------------------  POST -----------------*/
+  //--- addPost
+  uploadPost = async description => {
+    const id = uuid.v4();
+
+    //--- upload
+    const upload = {
+      id: id,
+      postPhoto:
+        "https://firebasestorage.googleapis.com/v0/b/start-c1a32.appspot.com/o/koala.jpg?alt=media&token=57861261-d7f9-44c8-8c86-8c296f1c06d8",
+      postDescription: description
+    };
+    await this.db
+      .collection("posts")
+      .doc(id)
+      .set(upload);
+  };
+
+  /* ------------------  AVIS -----------------*/
+  //--- addAvis
+  addAvis = async item => {
+    const id = uuid.v4();
+
+    await this.db
+      .collection("avis_services")
+      .doc(id)
+      .set(item)
+      .then(function() {
+        console.log("Document successfully written!");
+      })
+      .catch(function() {
+        console.log("Error writing document", error);
+      });
+  };
+
+  //--- readAvis
+  readAvis = async () => {
+    await this.db
+      .collection("avis_services")
+      .get()
+      .then(querySnapshot => {
+        console.log(querySnapshot);
+      })
+      .catch(err => {
+        console.log(err);
+      });
   };
 
   //---- fin class Firebase

@@ -23,8 +23,8 @@ const Filtres = () => {
     >
       <View style={{ width: "25%" }}>
         <Filtre
-          title1="Remise"
-          title2=" des clés"
+          title1="Accueil"
+          // title2=" des clés"
           service="key"
           color="brown"
         />
@@ -32,18 +32,27 @@ const Filtres = () => {
       <View style={{ width: "25%" }}>
         <Filtre
           title1="Ménage"
-          title2="et linge"
+          // title2="et linge"
           service="trash"
           color="green"
         />
       </View>
 
       <View style={{ width: "25%" }}>
-        <Filtre title1="Travaux" title2="divers" service="tools" color="blue" />
+        <Filtre
+          title1="Travaux"
+          // title2="divers"
+          service="tools"
+          color="blue"
+        />
       </View>
 
       <View style={{ width: "25%" }}>
-        <Filtre title1="Filtres" title2="Distance" service="menu" />
+        <Filtre
+          title1="Filtres"
+          // title2="Distance"
+          service="menu"
+        />
       </View>
     </View>
   );

@@ -21,7 +21,7 @@ const Search = () => {
       //iconColor="#EE578D"
       placeholder="A proximité"
       onChangeText={text => {
-
+        console.log(text);
       }}
       onPressCancel={() => {
         this.filterList("");

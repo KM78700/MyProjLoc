@@ -26,9 +26,11 @@ const Post = () => {
   // const [state, dispatch] = useReducer(post, null);
 
   //Add post
-  const addPost = async () => {
-    await firebase.uploadPost(description);
-  };
+  // const addPost = async () => {
+  //   await firebase.uploadPost(description);
+  // };
+
+  const post = { description: description, photo: description };
 
   //-- Return
   return (
@@ -50,7 +52,7 @@ const Post = () => {
         placeholder="Description"
       />
 
-      <TouchableOpacity style={styles.button} onPress={addPost}>
+      <TouchableOpacity style={styles.button} onPress={() => addPost(post)}>
         <Text>Post</Text>
       </TouchableOpacity>
     </View>

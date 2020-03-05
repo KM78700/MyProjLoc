@@ -1,3 +1,4 @@
+//------ COURS
 /*
 
 # pensez à créer un fichier .gitignore avant d'effectuer les commandes suivantes 
@@ -23,7 +24,7 @@ Tous les prochains push de ce projet devront être effectués avec la commande g
 
 */
 
-// ------ APRES -----
+// ------ APRES
 
 /*
 
@@ -33,7 +34,7 @@ Tous les prochains push de ce projet devront être effectués avec la commande g
 
 */
 
-// ------- MODIF -------
+// ------- MODIF UTILE
 
 /*
 
@@ -48,6 +49,26 @@ Tous les prochains push de ce projet devront être effectués avec la commande g
 
 */
 
+//----------- FeedBack Kriddina
+/*
+
+# Pour faire un push de ma branche vers la branche principale 
+-> git branch (pour vérifier sur quelle branche je suis)
+-> git status 
+-> git add .
+-> git commit -m "User_teaser"
+-> git push
+
+# Pour crée une nouvelle branche 
+-> git checkout -b "screen details"
+-> git fetch 
+-> git checkout master ?
+-> git pull 
+-> npm i
+
+*/
+
+//----------- FeedBack Eric
 /*
 // Récupérer les branches
 git fetch 

@@ -35,16 +35,14 @@ const Profile = () => {
       {/* TAB BAR */}
       <Text style={{ fontSize: 25 }}>Tab View (2 onglets)</Text>
       <Text style={{ fontSize: 20, color: "#909090", paddingBottom: 20 }}>
-        FILTRE + PROFIL
+        SERVICE + PROFIL
       </Text>
 
-      {/* FILTRE */}
+      {/* SERVICE */}
       <Text style={{ fontSize: 25 }}>Filtre</Text>
-      <Text style={{ fontSize: 20, color: "#909090" }}>
-        Recherche par nom de ville
-      </Text>
+      <Text style={{ fontSize: 20, color: "#909090" }}>Service proposé</Text>
       <Text style={{ fontSize: 20, color: "#909090", paddingBottom: 20 }}>
-        Trier les resultats (distance / Evaluation)
+        -
       </Text>
 
       {/* PROFIL */}

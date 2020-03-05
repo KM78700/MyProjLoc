@@ -28,7 +28,7 @@ const Signup = () => {
         style={styles.border}
         value={email}
         onChangeText={text => {
-          setEmail(text);
+          setEmail(text.toLowerCase());
         }}
         placeholder="Email"
       />

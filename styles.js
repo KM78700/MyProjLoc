@@ -42,7 +42,7 @@ export default styles = StyleSheet.create({
     padding: 30,
     fontSize: 35,
     fontWeight: "bold",
-    color: "#171F33",
+    color: Theme.buttonLabelColor,
     // borderColor: "#d3d3d3",
     // borderBottomWidth: 1,
     textAlign: "center"
@@ -143,5 +143,23 @@ export default styles = StyleSheet.create({
   buttonTitle: {
     color: Theme.AppColor,
     fontSize: 25
-  }
+  },
+  buttonBar: {
+    position: "absolute",
+    zIndex: 1,
+    width: "100%"
+  },
+  buttonBand: {
+    width: "100%",
+    height:80,
+    flexDirection: "row",
+    justifyContent: "space-around",
+    paddingTop: 10,
+    paddingBottom: 10,
+    backgroundColor: Theme.buttonBandColor,
+    borderRadius: 4,
+    borderWidth: 0.5,
+    borderColor: "#d6d7da"
+  },
+  buttonLabel: { color: Theme.buttonLabelColor }
 });

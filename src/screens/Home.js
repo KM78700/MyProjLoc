@@ -63,7 +63,6 @@ const Home = () => {
           >
             <View
               style={{
-                // flex: 1,
                 width: "100%",
                 height: 120,
                 flexDirection: "row",

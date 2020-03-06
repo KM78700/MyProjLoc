@@ -2,6 +2,7 @@ import React, { useContext, useState } from "react";
 import { Text, View } from "react-native";
 import GlobalFilter from "../constants/FilterGroups";
 import FiltreButton from "./FiltreButton";
+import { Theme } from "../constants/GlobalConstantes";
 
 const FiltresBar = () => {
   [key, useKey] = useState(false);
@@ -11,7 +12,7 @@ const FiltresBar = () => {
         flexDirection: "row",
         paddingLeft: 5,
         paddingRight: 5,
-        backgroundColor: "#d4e6f1"
+        backgroundColor: Theme.buttonBandColor
       }}
     >
       {GlobalFilter.ServicesFilters &&

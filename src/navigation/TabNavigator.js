@@ -12,6 +12,7 @@ import SettingsTopTabNavigator from "./SettingsTopTabNavigator";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { createStackNavigator } from "@react-navigation/stack";
 import { FontAwesome, Ionicons } from "@expo/vector-icons";
+import { Theme } from "../constants/GlobalConstantes";
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -45,7 +46,7 @@ export default TabNavigator = () => {
         activeTintColor: "tomato",
         inactiveTintColor: "#909090",
         style: {
-          backgroundColor: "#171F33",
+          backgroundColor: Theme.buttonLabelColor,
           height: 60,
           paddingTop: 10,
           paddingBottom: 5

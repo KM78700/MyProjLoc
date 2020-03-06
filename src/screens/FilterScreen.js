@@ -7,7 +7,7 @@ import {
   TouchableOpacity,
   Switch
 } from "react-native";
-import Stars from "../components/FilterHeaderBar/Stars";
+import Stars from "../components/Stars";
 import { GlobalFilter } from "../constants/FilterGroups";
 
 //import { Theme } from "../constants/Constants";

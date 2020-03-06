@@ -13,9 +13,8 @@ import { GlobalFilter } from "../constants/FilterGroups";
 
 //--- Components
 import Rate from "../components/Rate";
-import Filtres from "../components/Filtres";
 import Search from "../components/Search";
-
+import FiltresBar from "../components/FiltresBar";
 //--- Navigation
 import { useNavigation } from "@react-navigation/core";
 
@@ -48,8 +47,7 @@ const Home = () => {
     <View style={styles.container}>
       {/* FILTRE */}
       <Search />
-      <Filtres />
-
+      <FiltresBar />
       {/* FLATLIST */}
       <FlatList
         data={users}
@@ -57,7 +55,10 @@ const Home = () => {
           //--- TouchableOpacity
           <TouchableOpacity
             onPress={() => {
-              navigation.navigate("Details", { id: item.uid , messageId: item.messageId});
+              navigation.navigate("Details", {
+                id: item.uid,
+                messageId: item.messageId
+              });
             }}
           >
             <View

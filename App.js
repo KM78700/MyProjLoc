@@ -19,7 +19,7 @@ import Details from "./src/screens/Details";
 import Info from "./src/screens/Info";
 import Post from "./src/screens/Post";
 import Avis from "./src/screens/Avis";
-//import FilterScreen from "./src/screens/FilterScreen";
+import FilterScreen from "./src/screens/FilterScreen";
 
 //--- Components
 import InfoBtnHeader from "./src/components/InfoBtnHeader";
@@ -112,7 +112,7 @@ const App = () => {
             name="Chat"
             component={ChatScreen}
           />
-          {/* <Stack.Screen name="Filter" component={FilterScreen} /> */}
+          <Stack.Screen name="Filter" component={FilterScreen} />
         </Stack.Navigator>
       </NavigationContainer>
     </FirebaseContext.Provider>

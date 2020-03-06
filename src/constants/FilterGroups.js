@@ -4,24 +4,42 @@ export const GlobalFilter = {
   ServicesFilters: [
     {
       code: "FILTER_1",
-      caption: "Ménage",
+      titre1: "Accueil",
+      //titre2: "des clés",
+      color: "brown",
+      width: "25%",
+      service: "key",
       selected: false
     },
     {
       code: "FILTER_2",
-      caption: "Checkin checkout",
+      titre1: "Ménage",
+      //titre2: "et linge",
+      color: "green",
+      width: "25%",
+      service: "trash",
       selected: false
     },
     {
       code: "FILTER_3",
-      caption: "Bricolage",
+      titre1: "Traveaux",
+      //titre2: "divres",
+      color: "blue",
+      width: "25%",
+      service: "tools",
       selected: false
     },
+
     {
       code: "FILTER-GLOBAL",
-      caption: "Filtrer",
+      titre1: "Filtres",
+      //titre2: "Distance",
+      width: "25%",
+      service: "menu",
       selected: false,
-      isAll: true
+      isGlobalFilter: true
     }
   ]
 };
+
+export default GlobalFilter;

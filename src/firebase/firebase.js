@@ -7,11 +7,26 @@ import "firebase/firestore";
 import uuid from "uuid";
 
 class Firebase {
+  uid = "";
+  messagesRef = null;
   constructor() {
     app.initializeApp(firebaseConfig);
     this.auth = app.auth();
     this.googleProvider = new app.auth.GoogleAuthProvider();
     this.db = app.firestore();
+
+    // firebase.auth().onAuthStateChanged(user => {
+    //   if (user) {
+    //     this.setUid(user.uid);
+    //   } else {
+    //     firebase
+    //       .auth()
+    //       .signInAnonymously()
+    //       .catch(error => {
+    //         alert(error.message);
+    //       });
+    //   }
+    // });
   }
 
   /* ------------------  AUTHENTIFICATION -----------------*/
@@ -120,6 +135,18 @@ class Firebase {
       .catch(err => {
         console.log(err);
       });
+  };
+
+  sendMessage = message => {
+    var today = new Date();
+    var timestamp = today.toISOString();
+    for (let i = 0; i < message.length; i++) {
+      messagesRef.push({
+        text: message[i].text,
+        user: message[i].user,
+        createdAt: timestamp
+      });
+    }
   };
 
   //---- fin class Firebase

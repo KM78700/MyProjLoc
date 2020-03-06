@@ -39,7 +39,7 @@ const Post = () => {
         style={styles.postPhoto}
         source={{
           uri:
-            "https://firebasestorage.googleapis.com/v0/b/myproj2-634bf.appspot.com/o/villers-sur-mer.jpeg?alt=media&token=1db87c21-d0b8-43a1-8a27-e5e7359bb29c"
+            "https://firebasestorage.googleapis.com/v0/b/2-634bf.appspot.com/o/villers-sur-mer.jpeg?alt=media&token=1db87c21-d0b8-43a1-8a27-e5e7359bb29c"
         }}
       />
 

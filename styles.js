@@ -1,13 +1,14 @@
 import { StyleSheet, Dimensions } from "react-native";
+import { Theme } from "./src/constants/GlobalConstantes";
+
 const { width } = Dimensions.get("window");
 
 export default styles = StyleSheet.create({
   containerAuth: {
     flex: 1,
     backgroundColor: "#fff",
-    alignItems: "center"
-    //justifyContent: "center",
-    //width:"100%"
+    alignItems: "center",
+    backgroundColor: Theme.appColor
   },
   container: {
     flex: 1,
@@ -46,16 +47,8 @@ export default styles = StyleSheet.create({
     // borderBottomWidth: 1,
     textAlign: "center"
   },
-  button: {
-    marginTop: 20,
-    paddingVertical: 10,
-    alignItems: "center",
-    borderColor: "#d3d3d3",
-    borderWidth: 1,
-    borderRadius: 5,
-    width: 200
-  },
   googleButton: {
+    height: 70,
     backgroundColor: "red",
     marginTop: 20,
     paddingVertical: 10,
@@ -63,7 +56,10 @@ export default styles = StyleSheet.create({
     borderColor: "red",
     borderWidth: 1,
     borderRadius: 5,
-    width: 200
+    width: "50%",
+    borderRadius: 40,
+    justifyContent: "center",
+    alignItems: "center"
   },
   facebookText: {
     color: "white",
@@ -103,13 +99,13 @@ export default styles = StyleSheet.create({
     marginBottom: 50
   },
   button: {
-    marginTop: 20,
-    paddingVertical: 10,
+    height: 70,
+    backgroundColor: "white",
+    width: "50%",
+    borderRadius: 40,
+    justifyContent: "center",
     alignItems: "center",
-    borderColor: "#d3d3d3",
-    borderWidth: 1,
-    borderRadius: 5,
-    width: 200
+    marginTop: 30
   },
   buttonSmall: {
     margin: 10,
@@ -143,5 +139,9 @@ export default styles = StyleSheet.create({
     borderRadius: 4,
     borderWidth: 0.5,
     borderColor: "#d6d7da"
+  },
+  buttonTitle: {
+    color: Theme.AppColor,
+    fontSize: 25
   }
 });

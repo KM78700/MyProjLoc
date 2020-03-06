@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { GiftedChat } from "react-native-gifted-chat";
+import Firebase from "../firebase/firebase";
 
 const ChatScreen = () => {
   const [myMessages, setMyMessages] = useState([]);

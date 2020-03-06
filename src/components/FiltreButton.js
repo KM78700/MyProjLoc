@@ -5,7 +5,7 @@ import { useNavigation } from "@react-navigation/core";
 import { Ionicons, Entypo, FontAwesome } from "@expo/vector-icons";
 
 const FiltreButton = props => {
-  const { title1, title2, service, color, isGlobalFilter } = props;
+  const { caption, service, color, isGlobalFilter } = props;
   const [isFiltreColor, setIsFiltreColor] = useState(true);
   const [backColor, setBackColor] = useState("white");
   const [textColor, setTextColor] = useState("black");
@@ -51,8 +51,7 @@ const FiltreButton = props => {
     <TouchableOpacity style={styles.button} onPress={checkFiltreSelected}>
       <View style={styles.container}>
         <Entypo style={styles.icon} color={color} name={service} size={22} />
-        <Text style={styles.text}>{title1}</Text>
-        <Text style={styles.text}>{title2}</Text>
+        <Text style={styles.text}>{caption}</Text>
       </View>
     </TouchableOpacity>
   );

@@ -4,8 +4,7 @@ export const GlobalFilter = {
   ServicesFilters: [
     {
       code: "FILTER_1",
-      titre1: "Accueil",
-      //titre2: "des clés",
+      caption: "Accueil",
       color: "brown",
       width: "25%",
       service: "key",
@@ -13,8 +12,7 @@ export const GlobalFilter = {
     },
     {
       code: "FILTER_2",
-      titre1: "Ménage",
-      //titre2: "et linge",
+      caption: "Ménage",
       color: "green",
       width: "25%",
       service: "trash",
@@ -22,8 +20,7 @@ export const GlobalFilter = {
     },
     {
       code: "FILTER_3",
-      titre1: "Traveaux",
-      //titre2: "divres",
+      caption: "Traveaux",
       color: "blue",
       width: "25%",
       service: "tools",
@@ -32,8 +29,7 @@ export const GlobalFilter = {
 
     {
       code: "FILTER-GLOBAL",
-      titre1: "Filtres",
-      //titre2: "Distance",
+      caption: "Filtres",
       width: "25%",
       service: "menu",
       selected: false,

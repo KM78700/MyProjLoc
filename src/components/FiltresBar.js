@@ -19,8 +19,7 @@ const FiltresBar = () => {
           return (
             <View key={index} style={{ width: btn.width }}>
               <FiltreButton
-                title1={btn.titre1}
-                title2={btn.titre2}
+                caption={btn.caption}
                 service={btn.service}
                 color={btn.color}
                 isGlobalFilter={btn.isGlobalFilter}

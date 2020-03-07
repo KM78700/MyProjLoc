@@ -10,7 +10,6 @@ import {
 import Stars from "../components/Stars";
 import { GlobalFilter } from "../constants/FilterGroups";
 
-//import { Theme } from "../constants/Constants";
 
 export default function FilterScreen() {
   const [pathLength, setPathLength] = useState(100);

@@ -14,7 +14,7 @@ export default function ButtonBar() {
   };
 
   return (
-    <View style={styles.buttonBand}>
+    <View style={styles.transparentButtonBand}>
       <IconButton
         icon="camera"
         color={Theme.buttonLabelColor}

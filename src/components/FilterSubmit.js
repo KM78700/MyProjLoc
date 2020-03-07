@@ -1,6 +1,6 @@
 import React from "react";
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
-//import { Theme } from "../appConstants/AppConstants";
+
 
 export default function FilterSubmit(props) {
   const { text, onPress } = props;

@@ -151,15 +151,19 @@ export default styles = StyleSheet.create({
   },
   buttonBand: {
     width: "100%",
-    height:80,
+    height: 80,
     flexDirection: "row",
     justifyContent: "space-around",
     paddingTop: 10,
     paddingBottom: 10,
     backgroundColor: Theme.buttonBandColor,
-    borderRadius: 4,
-    borderWidth: 0.5,
-    borderColor: "#d6d7da"
+    borderRadius: 50
+  },
+  transparentButtonBand: {
+    width: "100%",
+    height: 70,
+    flexDirection: "row",
+    justifyContent: "space-around"
   },
   buttonLabel: { color: Theme.buttonLabelColor }
 });

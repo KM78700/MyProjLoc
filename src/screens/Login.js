@@ -5,15 +5,13 @@ import {
   TextInput,
   Button,
   TouchableOpacity,
-  AsyncStorage
+  AsyncStorage,
+  StyleSheet
 } from "react-native";
 import styles from "../../styles";
-
-//--- Import navigation
 import { useNavigation } from "@react-navigation/core";
-
-//-- Import FirebaseContext
 import FirebaseContext from "../firebase/FirebaseContext";
+import { Theme } from "../constants/GlobalConstantes";
 
 const Login = () => {
   const navigation = useNavigation();
@@ -42,12 +40,12 @@ const Login = () => {
   //-- Return
   return (
     <View style={styles.containerAuth}>
-      <Text style={styles.logo}> MyProj </Text>
+      <Text style={styles.logo}> {Theme.appName} </Text>
       <TextInput
         style={styles.border}
         value={email}
         onChangeText={text => {
-          setEmail(text);
+          setEmail(text.toLowerCase());
         }}
         placeholder="Email"
       />
@@ -62,7 +60,7 @@ const Login = () => {
       />
       {/* LOGIN EMAIL */}
       <TouchableOpacity style={styles.button} onPress={handleLogin}>
-        <Text>Login</Text>
+        <Text style={styles.buttonTitle}>Login</Text>
       </TouchableOpacity>
 
       {/* LOGIN GOOGLE */}
@@ -71,16 +69,18 @@ const Login = () => {
         // onPress={() => firebase.loginGoogle()}
         onPress={() => navigation.navigate("Home")}
       >
-        <Text style={styles.facebookText}>Google Login</Text>
+        <Text style={[styles.facebookText, styles.buttonTitle]}>
+          Google Login
+        </Text>
       </TouchableOpacity>
-      <Text style={{ paddingTop: 20, paddingBottom: 0 }}>OR</Text>
+      <Text style={{ paddingTop: 20, paddingBottom: 0, fontSize: 25 }}>OR</Text>
 
       {/* SIGNUP */}
       <TouchableOpacity
         style={styles.button}
         onPress={() => navigation.navigate("Signup")}
       >
-        <Text>Signup</Text>
+        <Text style={styles.buttonTitle}>Signup</Text>
       </TouchableOpacity>
     </View>
   );

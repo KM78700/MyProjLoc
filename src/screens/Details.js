@@ -1,19 +1,12 @@
 import React, { useContext, useState, useEffect } from "react";
-import {
-  StyleSheet,
-  Text,
-  View,
-  TextInput,
-  Image,
-  TouchableOpacity
-} from "react-native";
+import { Text, View, TextInput, Image, TouchableOpacity } from "react-native";
 import {
   Ionicons,
   MaterialIcons,
   MaterialCommunityIcons,
   FontAwesome
 } from "@expo/vector-icons";
-//import { useNavigation } from "@react-navigation/core";
+import ButtonBar from "../components/ButtonBar";
 
 import styles from "../../styles";
 
@@ -76,27 +69,17 @@ export default Details = () => {
   };
   return (
     <View style={styles.containerPost}>
-      <Image
-        style={styles.postPhoto}
-        source={{
-          uri:
-            "https://firebasestorage.googleapis.com/v0/b/start-c1a32.appspot.com/o/koala.jpg?alt=media&token=57861261-d7f9-44c8-8c86-8c296f1c06d8"
-        }}
-      />
-
-      <View
-        style={{
-          width: "100%",
-          flexDirection: "row",
-          justifyContent: "space-around",
-          paddingTop: 10,
-          paddingBottom: 10,
-          backgroundColor: "#d4e6f1",
-          borderRadius: 4,
-          borderWidth: 0.5,
-          borderColor: "#d6d7da"
-        }}
-      >
+      <View>
+        <ButtonBar></ButtonBar>
+        <Image
+          style={styles.postPhoto}
+          source={{
+            uri:
+              "https://firebasestorage.googleapis.com/v0/b/start-c1a32.appspot.com/o/koala.jpg?alt=media&token=57861261-d7f9-44c8-8c86-8c296f1c06d8"
+          }}
+        />
+      </View>
+      <View style={styles.buttonBand}>
         {/* Avis */}
         <TouchableOpacity
           onPress={() =>
@@ -112,9 +95,7 @@ export default Details = () => {
             }}
           >
             <FontAwesome
-              style={{
-                color: "#171F33"
-              }}
+              style={styles.buttonLabel}
               name={"pencil-square"}
               size={30}
             />
@@ -128,13 +109,7 @@ export default Details = () => {
               alignItems: "center"
             }}
           >
-            <FontAwesome
-              style={{
-                color: "#171F33"
-              }}
-              name={"wechat"}
-              size={30}
-            />
+            <FontAwesome style={styles.buttonLabel} name={"wechat"} size={30} />
             <Text>Envoyer un message</Text>
           </View>
         </TouchableOpacity>
@@ -148,9 +123,7 @@ export default Details = () => {
             }}
           >
             <FontAwesome
-              style={{
-                color: "#171F33"
-              }}
+              style={styles.buttonLabel}
               name={"phone-square"}
               size={30}
             />
@@ -183,11 +156,3 @@ export default Details = () => {
     </View>
   );
 };
-
-const style = StyleSheet.create({
-  text: {
-    width: "80%",
-    marginHorizontal: "10%",
-    marginTop: "10%"
-  }
-});

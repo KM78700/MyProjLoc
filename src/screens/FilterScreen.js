@@ -7,13 +7,13 @@ import {
   TouchableOpacity,
   Switch
 } from "react-native";
-import Stars from "../components/FilterHeaderBar/Stars";
+import Stars from "../components/Stars";
 import { GlobalFilter } from "../constants/FilterGroups";
 
 //import { Theme } from "../constants/Constants";
 
 export default function FilterScreen() {
-  const [pathLength, setPathLength] = useState(0);
+  const [pathLength, setPathLength] = useState(100);
   const [prestationValue, setPrestationValue] = useState([]);
   const starsList = [false, false, false, true, false];
 
@@ -39,7 +39,7 @@ export default function FilterScreen() {
         GlobalFilter.ServicesFilters.map((elem, index) => {
           return (
             <View>
-              {!elem.isAll ? (
+              {!elem.isGlobalFilter ? (
                 <View style={styles.presta}>
                   <Switch
                     onValueChange={() => {}}

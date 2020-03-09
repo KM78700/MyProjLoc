@@ -90,7 +90,7 @@ export default function Map(props) {
       <MapButtonsBar
         onDeltaPlus={onDeltaPlus}
         onDeltaMinus={onDeltaMinus}
-      ></MapButtonsBar> 
+      ></MapButtonsBar>
     </View>
   );
 }

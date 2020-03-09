@@ -7,14 +7,10 @@ import {
   AsyncStorage
 } from "react-native";
 import styles from "../../../styles";
-
-//--- Import navigation
 import { useNavigation } from "@react-navigation/core";
-
-//-- Import FirebaseContext
 import FirebaseContext from "../../firebase/FirebaseContext";
 
-const Profile = () => {
+export default Profile = () => {
   const navigation = useNavigation();
   const { user, firebase } = useContext(FirebaseContext);
 
@@ -58,5 +54,3 @@ const Profile = () => {
     </View>
   );
 };
-
-export default Profile;

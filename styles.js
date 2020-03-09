@@ -151,15 +151,69 @@ export default styles = StyleSheet.create({
   },
   buttonBand: {
     width: "100%",
-    height:80,
+    height: 80,
     flexDirection: "row",
     justifyContent: "space-around",
     paddingTop: 10,
     paddingBottom: 10,
     backgroundColor: Theme.buttonBandColor,
+    borderRadius: 50
+  },
+  transparentButtonBand: {
+    width: "100%",
+    height: 70,
+    flexDirection: "row",
+    justifyContent: "space-around"
+  },
+  buttonLabel: {
+    color: Theme.buttonLabelColor
+  },
+  userItem: {
+    width: "100%",
+    height: 120,
+    flexDirection: "row",
     borderRadius: 4,
     borderWidth: 0.5,
-    borderColor: "#d6d7da"
+    borderColor: "#d6d7da",
+    paddingTop: 5,
+    paddingBottom: 5
   },
-  buttonLabel: { color: Theme.buttonLabelColor }
+  profilItem: {
+    width: "25%",
+    //backgroundColor: "grey",
+    flexDirection: "column"
+  },
+  profilItemImage: {
+    flex: 1,
+    // width: 80,
+    // height: 80,
+    width: "80%",
+    height: "80%",
+    resizeMode: "contain",
+    borderRadius: 20,
+    margin: 5,
+    backgroundColor: "lightgrey"
+  },
+  profilItemDistance: {
+    textAlign: "center",
+    fontSize: 12,
+    fontWeight: "bold",
+    color: "brown"
+  },
+  descriptionRateAndServices: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    //backgroundColor: "yellow",
+    marginLeft: 15,
+    marginRight: 5,
+    marginTop: 5,
+    marginBottom: 5
+  },
+  descriptionItem: {
+    //flex: 1,
+    flexDirection: "row",
+    //justifyContent: "space-around",
+    //backgroundColor: "#eee",
+    paddingRight: 15
+  }
 });

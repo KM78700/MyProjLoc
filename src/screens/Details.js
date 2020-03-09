@@ -36,7 +36,6 @@ export default Details = () => {
         if (!doc.exists) {
           console.log("No such document!");
         } else {
-          //console.log("Document data:", doc.data());
           setUserId(doc.data());
         }
       })
@@ -65,7 +64,7 @@ export default Details = () => {
   }, [firebase]);
 
   const onChatClick = event => {
-    navigation.navigate("Chat");
+    navigation.navigate("Chat", { connectedUser: user, serviceUser: userId });
   };
   return (
     <View style={styles.containerPost}>

@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useRoute } from "@react-navigation/core";
 import { GiftedChat } from "react-native-gifted-chat";
 import Firebase from "../firebase/firebase";
 import { View, Text } from "react-native";
@@ -32,15 +33,19 @@ const renderSend = props => {
   </View>;
 };
 
-const ChatScreen = () => {
+const ChatScreen = props => {
+  const route = useRoute();
   const [myMessages, setMyMessages] = useState([]);
   useEffect(() => {
+    const connectedUserId = route.params.connectedUser.uid;
+    const serviceUserId = route.params.serviceUser.uid;
+
     myMessages.push({
       _id: 1,
-      text: "Salut M. le proprio",
+      text: "Salut M. le " + connectedUserId + " to " + serviceUserId,
       createdAt: new Date(),
       user: {
-        _id: 2,
+        _id: serviceUserId,
         name: "React Native",
         avatar: "https://placeimg.com/140/140/any"
       }
@@ -63,8 +68,9 @@ const ChatScreen = () => {
       onSend={messages => onSend(messages)}
       placeholder="Messace text"
       user={{
-        _id: 1,
-        name: "Ridha"
+        _id: connectedUserId,
+        name: "Ridha",
+        avatar: "https://placeimg.com/140/140/any"
       }}
     />
   );

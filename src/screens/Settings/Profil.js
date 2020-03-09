@@ -22,14 +22,17 @@ export default function Profil() {
     }));
     setCurrentUser(user);
   };
+
   useEffect(() => {
-    const getUsers = () => {
-      firebase.db
-        .collection("users")
-        .where("uid", "==", user.uid)
-        .onSnapshot(handleSnapshot);
-    };
-    return getUsers();
+    if (user) {
+      const getUser = () => {
+        firebase.db
+          .collection("users")
+          .where("uid", "==", user.uid)
+          .onSnapshot(handleSnapshot);
+      };
+      return getUser();
+    }
   }, [firebase]);
 
   const [newUsername, setNewUsername] = useState();

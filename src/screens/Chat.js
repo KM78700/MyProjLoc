@@ -38,14 +38,14 @@ const ChatScreen = props => {
   const [myMessages, setMyMessages] = useState([]);
   useEffect(() => {
     const connectedUserId = route.params.connectedUser.uid;
-    const serviceUser = route.params.serviceUser.uid;
+    const serviceUserId = route.params.serviceUser.uid;
 
     myMessages.push({
       _id: 1,
-      text: "Salut M. le " + connectedUserId + " to " + serviceUser,
+      text: "Salut M. le " + connectedUserId + " to " + serviceUserId,
       createdAt: new Date(),
       user: {
-        _id: 2,
+        _id: serviceUserId,
         name: "React Native",
         avatar: "https://placeimg.com/140/140/any"
       }
@@ -68,7 +68,7 @@ const ChatScreen = props => {
       onSend={messages => onSend(messages)}
       placeholder="Messace text"
       user={{
-        _id: 1,
+        _id: connectedUserId,
         name: "Ridha",
         avatar: "https://placeimg.com/140/140/any"
       }}

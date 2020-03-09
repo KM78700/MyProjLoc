@@ -136,17 +136,16 @@ class Firebase {
         console.log(err);
       });
   };
-
-  sendMessage = message => {
+  addMessage = async message => {
+    console.log(message);
     var today = new Date();
     var timestamp = today.toISOString();
-    for (let i = 0; i < message.length; i++) {
-      messagesRef.push({
-        text: message[i].text,
-        user: message[i].user,
-        createdAt: timestamp
+    let addDoc = this.db
+      .collection("messages")
+      .add(message)
+      .then(ref => {
+        console.log("Added document with ID: ", ref.id);
       });
-    }
   };
 
   //---- fin class Firebase

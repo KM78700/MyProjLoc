@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { useRoute } from "@react-navigation/core";
 import { GiftedChat } from "react-native-gifted-chat";
-import Firebase from "../firebase/firebase";
 import { View, Text } from "react-native";
 import { Composer } from "react-native-gifted-chat";
+import FirebaseContext from "../firebase/FirebaseContext";
 
 const renderComposer = props => {
   return (
@@ -36,13 +36,17 @@ const renderSend = props => {
 const ChatScreen = props => {
   const route = useRoute();
   const [myMessages, setMyMessages] = useState([]);
+  const [connectedUserId, setConnectedUserId] = useState("");
+  const [serviceUserId, setServiceUserId] = useState("");
+  const { user, firebase } = useContext(FirebaseContext);
+
   useEffect(() => {
-    const connectedUserId = route.params.connectedUser.uid;
-    const serviceUserId = route.params.serviceUser.uid;
+    setConnectedUserId(route.params.connectedUser.uid);
+    setServiceUserId(route.params.serviceUser.uid);
 
     myMessages.push({
       _id: 1,
-      text: "Salut M. le " + connectedUserId + " to " + serviceUserId,
+      text: "Salut M. ...",
       createdAt: new Date(),
       user: {
         _id: serviceUserId,
@@ -56,6 +60,7 @@ const ChatScreen = props => {
     let msg = [...myMessages];
     msg.unshift(message[0]);
     setMyMessages(msg);
+    firebase.addMessage(message[0]);
   };
 
   return (
@@ -69,8 +74,8 @@ const ChatScreen = props => {
       placeholder="Messace text"
       user={{
         _id: connectedUserId,
-        name: "Ridha",
-        avatar: "https://placeimg.com/140/140/any"
+        createdAt: new Date(),
+        name: "Ridha"
       }}
     />
   );

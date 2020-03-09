@@ -10,7 +10,6 @@ import {
 import Stars from "../components/Stars";
 import { GlobalFilter } from "../constants/FilterGroups";
 
-
 export default function FilterScreen() {
   const [pathLength, setPathLength] = useState(100);
   const [prestationValue, setPrestationValue] = useState([]);
@@ -68,7 +67,7 @@ export default function FilterScreen() {
       })}
       <TouchableOpacity>
         <View style={styles.button}>
-          <Text style={styles.buttonText}>Appliquer Fitre</Text>
+          <Text style={styles.buttonText}>Appliquer Filtre</Text>
         </View>
       </TouchableOpacity>
     </View>

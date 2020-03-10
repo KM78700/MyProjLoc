@@ -5,6 +5,8 @@ import { View, Text } from "react-native";
 import { Composer } from "react-native-gifted-chat";
 import FirebaseContext from "../firebase/FirebaseContext";
 
+import Messages from "../../src/firebase/services/messageService";
+
 const renderComposer = props => {
   return (
     <View style={{ flexDirection: "row" }}>
@@ -36,31 +38,68 @@ const renderSend = props => {
 const ChatScreen = props => {
   const route = useRoute();
   const [myMessages, setMyMessages] = useState([]);
-  const [connectedUserId, setConnectedUserId] = useState("");
-  const [serviceUserId, setServiceUserId] = useState("");
+  const [connectedUser, setConnectedUser] = useState("");
+  const [currentUser, setCurrentUser] = useState("");
   const { user, firebase } = useContext(FirebaseContext);
 
   useEffect(() => {
-    setConnectedUserId(route.params.connectedUser.uid);
-    setServiceUserId(route.params.serviceUser.uid);
+    setConnectedUser(route.params.connectedUser);
+    setCurrentUser(route.params.serviceUser);
+    //console.log("---------");
+    //console.log(connectedUser);
+    console.log(currentUser.uid);
 
-    myMessages.push({
-      _id: 1,
-      text: "Salut M. ...",
-      createdAt: new Date(),
-      user: {
-        _id: serviceUserId,
-        name: "React Native",
-        avatar: "https://placeimg.com/140/140/any"
-      }
-    });
+    // myMessages.push({
+    //   _id: 1,
+    //   text: "Salut M. ...",
+    //   createdAt: new Date(),
+    //   user: {
+    //     _id: serviceUserId,
+    //     name: "React Native",
+    //     avatar: "https://placeimg.com/140/140/any"
+    //   }
+    // });
+
+    // const msgData = firebase.db
+    //   .collection("messages")
+    //   .get()
+    //   .then(querySnapshot => {
+    //     console.log("-------------- Deb ------------------------");
+    //     console.log(querySnapshot);
+    //     console.log("--------------- Fin -----------------------");
+    //   })
+    //   .catch(err => {
+    //     console.log(err);
+    //   });
+
+    let messRef = firebase.db.collection("messages");
+    let query = messRef
+      // .where("_id", "==", "XXXXXXX")
+      .get()
+      .then(snapshot => {
+        if (snapshot.empty) {
+          console.log("No matching documents.");
+          return;
+        }
+        //console.log("-------------- Deb ------------------------");
+
+        snapshot.forEach(doc => {
+          //console.log(doc.id, "=>", doc.data());
+        });
+        //console.log("-------------- Fin ------------------------");
+      })
+      .catch(err => {
+        console.log("Error getting documents", err);
+      });
   }, []);
 
   const onSend = message => {
     let msg = [...myMessages];
     msg.unshift(message[0]);
     setMyMessages(msg);
-    firebase.addMessage(message[0]);
+
+    firebase.addMessage(message);
+    //Messages.addMessage(message[0]);
   };
 
   return (
@@ -73,9 +112,11 @@ const ChatScreen = props => {
       onSend={messages => onSend(messages)}
       placeholder="Messace text"
       user={{
-        _id: connectedUserId,
+        _id: connectedUser.uid,
+        _id2: connectedUser.uid,
+        //_id2: currentUser.uid,
         createdAt: new Date(),
-        name: "Ridha"
+        name: "connectedUser.pseudo"
       }}
     />
   );

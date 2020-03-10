@@ -94,7 +94,7 @@ class Firebase {
       .set(upload);
   };
 
-  /* ------------------  AVIS -----------------*/
+  /* ------------------  AVIS ----------------- */
   //--- addAvis
   addAvis = async item => {
     const id = uuid.v4();

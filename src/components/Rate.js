@@ -23,10 +23,7 @@ const Rate = props => {
   return (
     <View>
       <View style={styles.titleWrapper}>
-        <View style={styles.starWrapper}>
-          {displayStars(note)}
-          <Text> ({note} notes)</Text>
-        </View>
+        <View style={styles.starWrapper}>{displayStars(note)}</View>
       </View>
     </View>
   );

@@ -13,6 +13,36 @@ export default function ServicesSettings() {
   const { user, firebase } = useContext(FirebaseContext);
   const [userServices, setUserServices] = useState([]);
 
+  const [accueilService, setAccueilService] = useState(
+    <View style={{ backgroundColor: "transparent" }}>
+      <TouchableOpacity
+        onPress={() => {
+          navigation.navigate("PostService", { type: "accueil" });
+        }}
+      >
+        <Text>Créér mon service : Accueil</Text>
+      </TouchableOpacity>
+    </View>
+  );
+  const [menageService, setMenageService] = useState(
+    <TouchableOpacity
+      onPress={() => {
+        navigation.navigate("PostService", { type: "menage" });
+      }}
+    >
+      <Text>Créér mon service : Ménage</Text>
+    </TouchableOpacity>
+  );
+  const [bricolageService, setBricolageService] = useState(
+    <TouchableOpacity
+      onPress={() => {
+        navigation.navigate("PostService", { type: "bricolage" });
+      }}
+    >
+      <Text>Créér mon service : Bricolage</Text>
+    </TouchableOpacity>
+  );
+
   const handleSnapshot = snapshot => {
     if (snapshot.empty) {
       console.log("No matching documents.");
@@ -33,11 +63,37 @@ export default function ServicesSettings() {
         .where("user_uid", "==", user.uid)
         .onSnapshot(handleSnapshot);
     };
-
-    let serviceDispo = [];
     {
       userServices.map((service, index) => {
-        serviceDispo.push(service.category_code);
+        console.log(service.category_code);
+
+        if (service.category_code == "accueil") {
+          setAccueilService(
+            <View style={{ padding: 25 }}>
+              <Text>Mon service d'accueil</Text>
+              <Text>Description : {service.description}</Text>
+              <Text>Prix : {service.price}</Text>
+            </View>
+          );
+        }
+        if (service.category_code == "menage") {
+          setMenageService(
+            <View style={{ padding: 25 }}>
+              <Text>Mon service de ménage</Text>
+              <Text>Description : {service.description}</Text>
+              <Text>Prix : {service.price}</Text>
+            </View>
+          );
+        }
+        if (service.category_code == "bricolage") {
+          setBricolageService(
+            <View style={{ padding: 25 }}>
+              <Text>Mon service de bricolage</Text>
+              <Text>Description : {service.description}</Text>
+              <Text>Prix : {service.price}</Text>
+            </View>
+          );
+        }
       });
     }
 
@@ -46,29 +102,9 @@ export default function ServicesSettings() {
 
   return (
     <View>
-      <View style={{ backgroundColor: "transparent" }}>
-        <TouchableOpacity
-          onPress={() => {
-            navigation.navigate("PostService", { type: "accueil" });
-          }}
-        >
-          <Text>Créér mon service : Accueil</Text>
-        </TouchableOpacity>
-      </View>
-      <TouchableOpacity
-        onPress={() => {
-          navigation.navigate("PostService", { type: "menage" });
-        }}
-      >
-        <Text>Créér mon service : Ménage</Text>
-      </TouchableOpacity>
-      <TouchableOpacity
-        onPress={() => {
-          navigation.navigate("PostService", { type: "bricolage" });
-        }}
-      >
-        <Text>Créér mon service : Bricolage</Text>
-      </TouchableOpacity>
+      {accueilService}
+      {menageService}
+      {bricolageService}
     </View>
   );
 }

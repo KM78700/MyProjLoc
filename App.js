@@ -20,6 +20,7 @@ import Info from "./src/screens/Info";
 import Post from "./src/screens/Post";
 import Avis from "./src/screens/Avis";
 import FilterScreen from "./src/screens/FilterScreen";
+import PostService from "./src/screens/Settings/PostService";
 
 //--- Components
 import InfoBtnHeader from "./src/components/InfoBtnHeader";
@@ -110,6 +111,11 @@ const App = () => {
             options={optionHeaderDetails}
             name="Chat"
             component={ChatScreen}
+          />
+          <Stack.Screen
+            options={optionHeaderDetails}
+            name="PostService"
+            component={PostService}
           />
           <Stack.Screen name="Filter" component={FilterScreen} />
         </Stack.Navigator>

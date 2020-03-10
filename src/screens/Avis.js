@@ -2,6 +2,9 @@ import React, { useState, useEffect, useContext, useReducer } from "react";
 import { Text, View, TextInput, Image, TouchableOpacity } from "react-native";
 import styles from "../../styles";
 
+//--- Universally Unique IDentifiers
+import uuid from "uuid";
+
 //-- Icônes
 import { Ionicons, Entypo, FontAwesome } from "@expo/vector-icons";
 
@@ -28,32 +31,72 @@ const Avis = () => {
     } else {
       setColor("#fdce02");
     }
-     isCheck1 ? setIsValue1(0) : setIsValue1(1);
+    isCheck1 ? setIsValue1(0) : setIsValue1(1);
     setIsCheck1(!isCheck1);
   };
 
   //-- Avis
-  const [titreAvis, setTitreAvis] = useState("");
-  const [descriptionAvis, setDescriptionAvis] = useState("");
+  const [titreAvis, setTitreAvis] = useState("Tire de l'avis");
+  const [descriptionAvis, setDescriptionAvis] = useState(
+    "Le lorem ipsum est, en imprimerie, une suite de mots sans signification utilisée à titre provisoire pour calibrer une mise en page"
+  );
+
+  //--- Chargement des informations de l'utilisateur connecté
+  const [userConnected, setUserConnected] = useState({});
+  useEffect(() => {
+    firebase.db
+      .collection("users")
+      .doc(user.uid) // user connecté
+      .get()
+      .then(doc => {
+        if (!doc.exists) {
+          console.log("No such document!");
+        } else {
+          console.log("Document data:", doc.data());
+          setUserConnected(doc.data());
+        }
+      })
+      .catch(err => {
+        console.log("Error getting document", err);
+      });
+  }, []);
 
   const objetAvis = {
     user_id: user.uid,
-    destinataire_id: route.params.presta_id.uid,
+    proprietaire_id: user.uid,
+    proprietaire_photo: userConnected.photo,
+    proprietaire_ville: userConnected.ville,
+    proprietaire: userConnected.pseudo,
+    destinataire_id: route.params.presta_id.uid, //a supprimer
+    prestataire_id: route.params.presta_id.uid,
     titre: titreAvis,
     description: descriptionAvis,
+
     rate: isValue1,
     createAt: new Date()
   };
 
-  const writeAvis = () => {
-    firebase.addAvis(objetAvis);
+  //--- WriteAvis
+  const writeAvis = async () => {
+    const id = uuid.v4();
+    await firebase.db
+      .collection("avis_services")
+      .doc(id)
+      .set(objetAvis)
+      .then(function() {
+        console.log("Document successfully written!");
+      })
+      .catch(function() {
+        console.log("Error writing document", error);
+      });
+    navigation.navigate("Details");
   };
 
   //--- Return
   return (
     <View style={styles.containerAvis}>
       {/* RATE */}
-      <Text style={{fontSize:16}}>Appuyer pour noter</Text>
+      <Text style={{ fontSize: 16 }}>Appuyer pour noter</Text>
       <TouchableOpacity
         style={{
           marginTop: 5,

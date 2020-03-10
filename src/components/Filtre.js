@@ -13,10 +13,10 @@ const Filtre = props => {
 
   const checkFiltreColor = () => {
     if (isFiltreColor) {
-      setBackColor("#ffc7bd");
+      setBackColor("#d4e6f1");
       setTextColor("black");
     } else if (isFiltreColor) {
-      setBackColor("#ffc7bd");
+      setBackColor("#d4e6f1");
       setTextColor("black");
       alert("screen filtre");
     } else {
@@ -29,7 +29,7 @@ const Filtre = props => {
   return (
     <TouchableOpacity
       style={{
-        borderWidth: 0.5,
+        borderWidth: 1.5,
         borderColor: "lightgray",
         backgroundColor: backColor,
         borderRadius: 10,
@@ -47,16 +47,17 @@ const Filtre = props => {
       >
         <Entypo
           style={{
-            paddingTop: 10,
+            paddingTop: 8,
             textAlign: "center"
           }}
           color={color}
           name={service}
-          size={22}
+          size={20}
         />
         <Text
           style={{
             paddingTop: 2,
+            paddingBottom:8,
             fontSize: 12,
             textAlign: "center",
             color: textColor
@@ -64,16 +65,16 @@ const Filtre = props => {
         >
           {title1}
         </Text>
-        <Text
+        {/* <Text
           style={{
-            paddingBottom: 2,
+            paddingBottom: 0,
             fontSize: 12,
             textAlign: "center",
             color: textColor
           }}
         >
           {title2}
-        </Text>
+        </Text> */}
       </View>
     </TouchableOpacity>
   );

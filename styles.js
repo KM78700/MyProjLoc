@@ -168,6 +168,7 @@ export default styles = StyleSheet.create({
     position: "absolute", // child
     top: 20, // position where you want
     left: 20
+  },
   buttonTitle: {
     color: Theme.AppColor,
     fontSize: 25

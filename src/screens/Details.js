@@ -19,6 +19,7 @@ import {
   Entypo
 } from "@expo/vector-icons";
 import Swiper from "react-native-swiper";
+import ButtonBar from "../components/ButtonBar";
 
 //import { useNavigation } from "@react-navigation/core";
 import styles from "../../styles";
@@ -37,7 +38,7 @@ import { useScreens } from "react-native-screens";
 import uuid from "uuid";
 import { Button } from "react-native-paper";
 
-const Details = () => {
+export default Details = () => {
   const navigation = useNavigation();
   const route = useRoute();
 
@@ -58,7 +59,6 @@ const Details = () => {
         if (!doc.exists) {
           console.log("No such document!");
         } else {
-          //console.log("Document data:", doc.data());
           setUserId(doc.data());
           setTimeout(() => {
             setIsUseEffect1(false);
@@ -97,7 +97,9 @@ const Details = () => {
       </View>
     );
   }
-
+  const onChatClick = event => {
+    navigation.navigate("Chat", { connectedUser: user, serviceUser: userId });
+  };
   //---
   return (
     <ScrollView>
@@ -394,6 +396,12 @@ const Details = () => {
               </View>
             </View>
             {/*  */}
+            <FontAwesome
+              style={styles.buttonLabel}
+              name={"phone-square"}
+              size={30}
+            />
+            <Text>Appeler</Text>
           </View>
 
           {/* Description */}
@@ -529,13 +537,3 @@ const Details = () => {
     </ScrollView>
   );
 };
-
-export default Details;
-
-const style = StyleSheet.create({
-  text: {
-    width: "80%",
-    marginHorizontal: "10%",
-    marginTop: "10%"
-  }
-});

@@ -2,7 +2,7 @@ import React from "react";
 import { StatusBar, Text, View, Button, TouchableOpacity } from "react-native";
 import { FontAwesome, Ionicons, Entypo } from "@expo/vector-icons";
 console.disableYellowBox = true;
-
+import { Theme } from "./src/constants/GlobalConstantes";
 //--- Base-64
 import { decode, encode } from "base-64";
 if (!global.btoa) {
@@ -19,7 +19,8 @@ import Details from "./src/screens/Details";
 import Info from "./src/screens/Info";
 import Post from "./src/screens/Post";
 import Avis from "./src/screens/Avis";
-//import FilterScreen from "./src/screens/FilterScreen";
+import FilterScreen from "./src/screens/FilterScreen";
+import PostService from "./src/screens/Settings/PostService";
 
 //--- Components
 import InfoBtnHeader from "./src/components/InfoBtnHeader";
@@ -54,21 +55,18 @@ const App = () => {
 
   //-- optionHeader
   const optionHeader = {
-    headerStyle: { backgroundColor: "#171F33", height: 90 },
+    headerStyle: { backgroundColor: Theme.buttonLabelColor, height: 90 },
     headerTitle: () => (
-      <Text style={{ color: "white", fontSize: 25 }}>MyProject</Text>
+      <Text style={{ color: "white", fontSize: 25 }}>{Theme.appName}</Text>
     ),
     headerLeft: () => <InfoBtnHeader />,
     headerRight: () => <PrestaBtnHeader />
   };
-
   //--- optionHeaderDetails
   const optionHeaderDetails = {
-    headerStyle: { backgroundColor: "#171F33", height: 90 },
-    headerBackTitle: " ",
-    headerTintColor: "white",
+    headerStyle: { backgroundColor: Theme.buttonLabelColor, height: 90 },
     headerTitle: () => (
-      <Text style={{ color: "white", fontSize: 25 }}>MyProject</Text>
+      <Text style={{ color: "white", fontSize: 25 }}>{Theme.appName}</Text>
     ),
     headerRight: () => (
       <TouchableOpacity onPress={() => console.log("")}></TouchableOpacity>
@@ -114,7 +112,12 @@ const App = () => {
             name="Chat"
             component={ChatScreen}
           />
-          {/* <Stack.Screen name="Filter" component={FilterScreen} /> */}
+          <Stack.Screen
+            options={optionHeaderDetails}
+            name="PostService"
+            component={PostService}
+          />
+          <Stack.Screen name="Filter" component={FilterScreen} />
         </Stack.Navigator>
       </NavigationContainer>
     </FirebaseContext.Provider>

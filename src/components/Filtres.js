@@ -17,8 +17,8 @@ const Filtres = () => {
       style={{
         flexDirection: "row",
         paddingLeft: 5,
-        paddingRight: 5
-        // backgroundColor: "#d4e6f1"
+        paddingRight: 5,
+        backgroundColor: Theme.buttonBandColor
       }}
     >
       <View style={{ width: "25%" }}>

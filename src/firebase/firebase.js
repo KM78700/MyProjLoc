@@ -7,6 +7,8 @@ import "firebase/firestore";
 import uuid from "uuid";
 
 class Firebase {
+  uid = "";
+  messagesRef = null;
   constructor() {
     app.initializeApp(firebaseConfig);
     this.auth = app.auth();
@@ -121,7 +123,43 @@ class Firebase {
         console.log(err);
       });
   };
+  // -------- Chat  --------------
+  addMessage = async message => {
+    let addDoc = await this.db
+      .collection("messages")
+      .add(message[0])
+      .then(ref => {
+        console.log("Added message with ID: ", ref.id);
+      });
+  };
 
+  loadMessages = async callback => {
+    console.log("---------------- Deb -----------------------");
+    this.messagesRef = await this.db.collection("messages");
+    // console.log(this.messagesRef);
+    console.log("--------------- fin ------------------------");
+    this.messagesRef.off();
+
+    // const onRecrive = data => {
+    //   const message = data.val();
+    //   callback({
+    //     _id: data.key,
+    //     text: message.text,
+    //     createAt: new Date(message.createAt),
+    //     user: {
+    //       _id: message.user._id,
+    //       name: message.user.name
+    //     }
+    //   });
+    // };
+  };
+
+  closeChat() {
+    if (this.messagesRef) {
+      this.messagesRef.off();
+    }
+  }
+  // -------- fin Chat  --------------
   //---- fin class Firebase
 }
 

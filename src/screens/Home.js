@@ -8,15 +8,17 @@ import {
   FlatList,
   TouchableOpacity
 } from "react-native";
-import { Ionicons, Entypo } from "@expo/vector-icons";
+import { Ionicons } from "@expo/vector-icons";
 import styles from "../../styles";
 import { GlobalFilter } from "../constants/FilterGroups";
 
 //--- Components
 import RateAverage from "../components/RateAverage";
 import Filtres from "../components/Filtres";
+import Rate from "../components/Rate";
 import Search from "../components/Search";
-
+import FiltresBar from "../components/FiltresBar";
+import ServicesBar from "../components/ServicesBar";
 //--- Navigation
 import { useNavigation } from "@react-navigation/core";
 
@@ -38,6 +40,7 @@ const Home = () => {
       ...doc.data()
     }));
     setUsers(users);
+    console.log(users);
   };
 
   useEffect(() => {
@@ -90,8 +93,7 @@ const Home = () => {
     <View style={styles.container}>
       {/* FILTRE */}
       <Search />
-      <Filtres />
-
+      <FiltresBar />
       {/* FLATLIST */}
       <FlatList
         data={users}
@@ -106,103 +108,28 @@ const Home = () => {
               });
             }}
           >
-            <View
-              style={{
-                // flex: 1,
-                width: "100%",
-                height: 120,
-                flexDirection: "row",
-                borderRadius: 4,
-                borderWidth: 0.5,
-                borderColor: "#d6d7da",
-                paddingTop: 5,
-                paddingBottom: 5
-              }}
-            >
+            <View style={styles.userItem}>
               {/* SECTION 25% - Photo + pseudo */}
-              <View
-                style={{
-                  width: "25%",
-                  //backgroundColor: "grey",
-                  flexDirection: "column"
-                }}
-              >
+              <View style={styles.profilItem}>
                 <Image
-                  style={{
-                    flex: 1,
-                    width: 80,
-                    height: 80,
-                    // width: "80%",
-                    // height: "80%",
-                    resizeMode: "cover",
-                    borderRadius: 15,
-                    margin: 5,
-                    backgroundColor: "lightgrey"
-                  }}
+                  style={styles.profilItemImage}
                   source={{ uri: item.photo }}
                 />
                 <Text style={{ textAlign: "center" }}>{item.pseudo}</Text>
-                <Text
-                  style={{
-                    textAlign: "center",
-                    fontSize: 12,
-                    fontWeight: "bold",
-                    color: "brown"
-                  }}
-                >
-                  3,2 km
-                </Text>
+                <Text style={styles.profilItemDistance}>3,2 km</Text>
               </View>
 
               {/* SECTION 75% */}
               <View style={{ width: "75%" }}>
                 {/* Rate + Icônes services */}
-                <View
-                  style={{
-                    flexDirection: "row",
-                    justifyContent: "space-between",
-                    //backgroundColor: "yellow",
-                    marginLeft: 15,
-                    marginRight: 5,
-                    marginTop: 5,
-                    marginBottom: 5
-                  }}
-                >
-                  <RateAverage note={item.rate_average} />
-                  <View style={{ flexDirection: "row" }}>
-                    <Entypo
-                      style={{ marginRight: 5 }}
-                      color="brown"
-                      name="key"
-                      size={20}
-                    />
-                    <Entypo
-                      style={{ marginRight: 5 }}
-                      color="green"
-                      name="trash"
-                      size={20}
-                    />
-                    <Entypo
-                      style={{ marginRight: 5 }}
-                      color="blue"
-                      name="tools"
-                      size={20}
-                    />
-                  </View>
+                <View style={styles.descriptionRateAndServices}>
+                  <Rate note={3} />
+                  <ServicesBar />
                 </View>
                 {/* Fin Rate + Icônes service */}
 
                 {/* Description */}
-                <View
-                  style={{
-                    //flex: 1,
-                    flexDirection: "row",
-                    //justifyContent: "space-around",
-                    //backgroundColor: "#eee",
-                    fontsize: 16,
-                    paddingRight: 15
-                  }}
-                >
+                <View style={styles.descriptionItem}>
                   <Text numberOfLines={4} style={{ textAlign: "justify" }}>
                     {item.description}
                   </Text>

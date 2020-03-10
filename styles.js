@@ -23,13 +23,6 @@ export default styles = StyleSheet.create({
     // justifyContent: "center",
     width: "100%"
   },
-  center: {
-    alignItems: "center",
-    justifyContent: "space-between"
-  },
-  row: {
-    flexDirection: "row"
-  },
   containerPost: {
     flex: 1,
     backgroundColor: "#fff",
@@ -37,6 +30,14 @@ export default styles = StyleSheet.create({
     marginTop: 0
     // justifyContent: "center"
   },
+  center: {
+    alignItems: "center",
+    justifyContent: "space-between"
+  },
+  row: {
+    flexDirection: "row"
+  },
+
   logo: {
     padding: 30,
     fontSize: 35,
@@ -133,7 +134,7 @@ export default styles = StyleSheet.create({
     fontSize: 16
   },
   titleAvis: {
-    marginTop: 20,
+    marginTop: 10,
     paddingLeft: 20,
     backgroundColor: "#eee",
     paddingTop: 8,
@@ -143,5 +144,33 @@ export default styles = StyleSheet.create({
     borderRadius: 4,
     borderWidth: 0.5,
     borderColor: "#d6d7da"
+  },
+  wrapper: {
+    height: 230
+  },
+  slide1: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "white",
+    color: "white"
+  },
+  ImgSwiper: {
+    height: "100%",
+    width: "100%",
+    position: "relative", // because it's parent
+    top: 0,
+    left: 0
+  },
+  TextSwiper: {
+    fontWeight: "bold",
+    fontSize: 16,
+    color: "black",
+    backgroundColor: "yellow",
+    padding: 8,
+    borderRadius: 12,
+    position: "absolute", // child
+    top: 20, // position where you want
+    left: 20
   }
 });

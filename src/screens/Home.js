@@ -1,5 +1,6 @@
 import React, { useContext, useState, useEffect } from "react";
 import {
+  ActivityIndicator,
   Text,
   View,
   Button,
@@ -12,7 +13,7 @@ import styles from "../../styles";
 import { GlobalFilter } from "../constants/FilterGroups";
 
 //--- Components
-import Rate from "../components/Rate";
+import RateAverage from "../components/RateAverage";
 import Filtres from "../components/Filtres";
 import Search from "../components/Search";
 
@@ -25,6 +26,9 @@ import FirebaseContext from "../firebase/FirebaseContext";
 const Home = () => {
   const navigation = useNavigation();
   const { user, firebase } = useContext(FirebaseContext);
+
+  //---
+  const [isLoding, setIsLoding] = useState(true);
   const [users, setUsers] = useState([]);
 
   //--- Upload USERS
@@ -40,9 +44,47 @@ const Home = () => {
     const getUsers = () => {
       firebase.db.collection("users").onSnapshot(handleSnapshot);
     };
+    setTimeout(() => {
+      setIsLoding(false);
+    }, 1500);
     return getUsers();
   }, [firebase]);
 
+  //--- ActivityIndicator
+  if (isLoding) {
+    return (
+      <View
+        style={{
+          flex: 1,
+          flexDirection: "column",
+          justifyContent: "center"
+        }}
+      >
+        <Text
+          style={{
+            fontSize: 40,
+            fontWeight: "bold",
+            textAlign: "center",
+            color: "brown",
+            padding: 10
+          }}
+        >
+          Bienvenue
+        </Text>
+        <Text
+          style={{
+            fontSize: 16,
+            textAlign: "center",
+            paddingTop: 10,
+            paddingBottom: 20
+          }}
+        >
+          Chargement des données
+        </Text>
+        <ActivityIndicator size="large" color="blue" />
+      </View>
+    );
+  }
   //--- Return
   return (
     <View style={styles.container}>
@@ -53,11 +95,15 @@ const Home = () => {
       {/* FLATLIST */}
       <FlatList
         data={users}
+        // keyExtractor={(item, index) => index.toString()}
         renderItem={({ item }) => (
           //--- TouchableOpacity
           <TouchableOpacity
             onPress={() => {
-              navigation.navigate("Details", { id: item.uid , messageId: item.messageId});
+              navigation.navigate("Details", {
+                id: item.uid,
+                messageId: item.messageId
+              });
             }}
           >
             <View
@@ -84,12 +130,12 @@ const Home = () => {
                 <Image
                   style={{
                     flex: 1,
-                    // width: 80,
-                    // height: 80,
-                    width: "80%",
-                    height: "80%",
-                    resizeMode: "contain",
-                    borderRadius: 20,
+                    width: 80,
+                    height: 80,
+                    // width: "80%",
+                    // height: "80%",
+                    resizeMode: "cover",
+                    borderRadius: 15,
                     margin: 5,
                     backgroundColor: "lightgrey"
                   }}
@@ -122,7 +168,7 @@ const Home = () => {
                     marginBottom: 5
                   }}
                 >
-                  <Rate note={3} />
+                  <RateAverage note={item.rate_average} />
                   <View style={{ flexDirection: "row" }}>
                     <Entypo
                       style={{ marginRight: 5 }}

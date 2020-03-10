@@ -65,6 +65,8 @@ const App = () => {
   //--- optionHeaderDetails
   const optionHeaderDetails = {
     headerStyle: { backgroundColor: "#171F33", height: 90 },
+    headerBackTitle: " ",
+    headerTintColor: "white",
     headerTitle: () => (
       <Text style={{ color: "white", fontSize: 25 }}>MyProject</Text>
     ),

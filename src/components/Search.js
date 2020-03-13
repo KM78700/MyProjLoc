@@ -3,10 +3,7 @@ import { Text, View } from "react-native";
 import styles from "../../styles";
 import { Searchbar } from "react-native-paper";
 
-const Search = () => {
-  //--- Function
-
-  //--- Return
+const Search = props => {
   return (
     <Searchbar
       //onPressToFocus
@@ -20,9 +17,7 @@ const Search = () => {
       cancelButtonDisable
       //iconColor="#EE578D"
       placeholder="A proximité"
-      onChangeText={text => {
-        console.log(text);
-      }}
+      onChangeText={props.onSearchLocation}
       onPressCancel={() => {
         this.filterList("");
       }}

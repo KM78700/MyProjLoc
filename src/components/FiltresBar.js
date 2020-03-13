@@ -4,8 +4,10 @@ import GlobalFilter from "../constants/FilterGroups";
 import FiltreButton from "./FiltreButton";
 import { Theme } from "../constants/GlobalConstantes";
 
-const FiltresBar = () => {
+const FiltresBar = props => {
   [key, useKey] = useState(false);
+  const { filterState } = props.filterState;
+  console.log(filterState);
   return (
     <View
       style={{
@@ -24,6 +26,7 @@ const FiltresBar = () => {
                 service={btn.service}
                 color={btn.color}
                 isGlobalFilter={btn.isGlobalFilter}
+                filterState={filterState}
               />
             </View>
           );

@@ -16,8 +16,10 @@ const ChatScreen = props => {
   useEffect(() => {
     setConnectedUser(route.params.connectedUser);
     setCurrentUser(route.params.currentUser);
-
-    let messRef = firebase.db.collection("messages");
+    //setMyMessages([]);
+    let messRef = firebase.db
+      .collection("messages")
+      .orderBy("createdAt", "desc");
     let query = messRef
       // .where("_id", "==", "XXXXXXX")
       .get()
@@ -49,7 +51,6 @@ const ChatScreen = props => {
     let msg = [...myMessages];
     msg.unshift(message[0]);
     setMyMessages(msg);
-
     firebase.addMessage(message);
   };
 

@@ -1,7 +1,7 @@
 import React from "react";
 import { StyleSheet, View, Text } from "react-native";
 import { Entypo } from "@expo/vector-icons";
-//import { Theme } from "../appConstants/AppConstants";
+import { Theme } from "../constants/GlobalConstantes";
 
 export default function Stars(props) {
   const { rate, taille, filtre, canSelect, selected } = props;
@@ -37,9 +37,10 @@ export default function Stars(props) {
     starWrapper: {
       flexDirection: "row",
       alignItems: "center",
-      // borderColor: Theme.AppColor,
+      borderColor: Theme.AppColor,
       borderWidth: canSelect && selected ? 2 : 0,
-      borderRadius: 5
+      borderRadius: 3
+      //borderColor: "red"
     }
   });
 

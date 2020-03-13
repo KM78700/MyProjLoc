@@ -1,6 +1,6 @@
 export const GlobalFilter = {
-  Rayon: 0,
-  MinStars: 0,
+  Rayon: 50,
+  MinStars: 4,
   ServicesFilters: [
     {
       code: "FILTER_1",
@@ -16,7 +16,7 @@ export const GlobalFilter = {
       color: "green",
       width: "25%",
       service: "trash",
-      selected: false
+      selected: true
     },
     {
       code: "FILTER_3",

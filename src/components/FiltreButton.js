@@ -4,20 +4,16 @@ import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
 import { useNavigation } from "@react-navigation/core";
 import { Ionicons, Entypo, FontAwesome } from "@expo/vector-icons";
 
-const FiltreButton = props => {
-  const { caption, service, color, isGlobalFilter } = props;
-  const [isFiltreColor, setIsFiltreColor] = useState(true);
+export default FiltreButton = props => {
+  const { caption, service, color, isGlobalFilter, filterState } = props;
+  const [isFiltreSelected, setIsFiltreSelected] = useState(true);
   const [backColor, setBackColor] = useState("white");
-  const [textColor, setTextColor] = useState("black");
   const navigation = useNavigation();
+
   const checkFiltreSelected = () => {
     if (!isGlobalFilter) {
-      if (isFiltreColor) {
-        setBackColor("#ffc7bd");
-      } else {
-        setBackColor("white");
-      }
-      setIsFiltreColor(!isFiltreColor);
+      setIsFiltreSelected(!isFiltreSelected);
+      setBackColor(isFiltreSelected ? "#ffc7bd" : "white");
     } else {
       navigation.navigate("Filter");
     }
@@ -44,7 +40,7 @@ const FiltreButton = props => {
       paddingBottom: 8,
       fontSize: 12,
       textAlign: "center",
-      color: textColor
+      color: "black"
     }
   });
   return (
@@ -56,5 +52,3 @@ const FiltreButton = props => {
     </TouchableOpacity>
   );
 };
-
-export default FiltreButton;

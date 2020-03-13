@@ -24,6 +24,7 @@ import { useNavigation } from "@react-navigation/core";
 
 //-- Import FirebaseContext
 import FirebaseContext from "../firebase/FirebaseContext";
+import RNReverseGeocode from "@kiwicom/react-native-reverse-geocode";
 
 const Home = () => {
   const navigation = useNavigation();
@@ -32,6 +33,8 @@ const Home = () => {
   //---
   const [isLoding, setIsLoding] = useState(true);
   const [users, setUsers] = useState([]);
+  const [filterState, setFilterState] = useState({});
+  const [searchText, setSearchText] = useState();
 
   //--- Upload USERS
   const handleSnapshot = snapshot => {
@@ -40,7 +43,6 @@ const Home = () => {
       ...doc.data()
     }));
     setUsers(users);
-    console.log(users);
   };
 
   useEffect(() => {
@@ -51,7 +53,7 @@ const Home = () => {
       setIsLoding(false);
     }, 1500);
     return getUsers();
-  }, [firebase]);
+  }, [firebase, searchText]);
 
   //--- ActivityIndicator
   if (isLoding) {
@@ -88,12 +90,35 @@ const Home = () => {
       </View>
     );
   }
+
+  onSearchLocation = text => {
+    const region = {
+      latitude: 50,
+      longitude: 14,
+      latitudeDelta: 0.01,
+      longitudeDelta: 0.01
+    };
+    RNReverseGeocode.searchForLocations(text, region, (err, res) => {
+      // console.log({
+      //   error: err,
+      //   addresses: res
+      // });
+    });
+  };
   //--- Return
   return (
     <View style={styles.container}>
+      <View style={{ height: 110 }}>
+        <Text style={{ fontSize: 20 }}>FilterResult</Text>
+        <Text>Accueil : {filterState.accueil ? "true" : "false"}</Text>
+        <Text>Menage : {filterState.menage ? "true" : "false"}</Text>
+        <Text>Travaux : {filterState.travaux ? "true" : "false"}</Text>
+        <Text>Distance : {GlobalFilter.Rayon}</Text>
+        <Text>Note : {3}</Text>
+      </View>
       {/* FILTRE */}
-      <Search />
-      <FiltresBar />
+      <Search onSearchLocation={onSearchLocation} />
+      <FiltresBar filterState={filterState} />
       {/* FLATLIST */}
       <FlatList
         data={users}

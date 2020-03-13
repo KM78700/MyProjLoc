@@ -7,13 +7,23 @@ import {
   TouchableOpacity,
   Switch
 } from "react-native";
+
 import Stars from "../components/Stars";
 import { GlobalFilter } from "../constants/FilterGroups";
+import { useNavigation } from "@react-navigation/core";
 
 export default function FilterScreen() {
-  const [pathLength, setPathLength] = useState(100);
+  const navigation = useNavigation();
+  const [pathLength, setPathLength] = useState(GlobalFilter.Rayon);
+  const [minStars, setMinStars] = useState(GlobalFilter.MinStars - 1);
+
   const [prestationValue, setPrestationValue] = useState([]);
   const starsList = [false, false, false, true, false];
+  const [selectedStars, setSelectedStars] = useState(0);
+
+  const onAppliquerFilter = () => {
+    navigation.navigate("Home");
+  };
 
   return (
     <View>
@@ -28,7 +38,10 @@ export default function FilterScreen() {
             step={1}
             maximumValue={100}
             value={pathLength}
-            onValueChange={sliderValue => setPathLength(sliderValue)}
+            onValueChange={sliderValue => {
+              setPathLength(sliderValue);
+              GlobalFilter.Rayon = sliderValue;
+            }}
           />
           <Text style={styles.sliderText}>{pathLength} KM</Text>
         </View>
@@ -36,15 +49,15 @@ export default function FilterScreen() {
       {GlobalFilter.ServicesFilters &&
         GlobalFilter.ServicesFilters.map((elem, index) => {
           return (
-            <View>
+            <View key={index}>
               {!elem.isGlobalFilter ? (
                 <View style={styles.presta}>
                   <Switch
                     onValueChange={() => {}}
                     style={styles.prestaSwitch}
                     value={elem.selected}
+                    //GlobalFilter.fin
                   />
-
                   <Text style={styles.prestaText}>{elem.caption}</Text>
                 </View>
               ) : null}
@@ -53,19 +66,26 @@ export default function FilterScreen() {
         })}
       {starsList.map((elem, index) => {
         return (
-          <TouchableOpacity style={styles.stars} onPress={() => {}}>
+          <TouchableOpacity
+            key={index}
+            style={styles.stars}
+            onPress={() => {
+              setMinStars(index);
+              GlobalFilter.MinStars = index + 1;
+            }}
+          >
             <Stars
               style={styles.stars}
               rate={index + 1}
               taille={25}
               filtre={true}
               canSelect={true}
-              selected={elem}
+              selected={index === minStars}
             ></Stars>
           </TouchableOpacity>
         );
       })}
-      <TouchableOpacity>
+      <TouchableOpacity onPress={onAppliquerFilter}>
         <View style={styles.button}>
           <Text style={styles.buttonText}>Appliquer Filtre</Text>
         </View>

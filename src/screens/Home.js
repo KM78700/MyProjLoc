@@ -24,17 +24,27 @@ import { useNavigation } from "@react-navigation/core";
 
 //-- Import FirebaseContext
 import FirebaseContext from "../firebase/FirebaseContext";
-import RNReverseGeocode from "@kiwicom/react-native-reverse-geocode";
 
-const Home = () => {
+const Home = props => {
   const navigation = useNavigation();
   const { user, firebase } = useContext(FirebaseContext);
-
   //---
   const [isLoding, setIsLoding] = useState(true);
   const [users, setUsers] = useState([]);
-  const [filterState, setFilterState] = useState({});
   const [searchText, setSearchText] = useState();
+
+  //  ---- Filtres
+  const [distance, setDistance] = useState(GlobalFilter.Rayon);
+  const [minStars, setMinStars] = useState(GlobalFilter.MinStars);
+  const [menage, setMenage] = useState(
+    GlobalFilter.ServicesFilters[0].selected
+  );
+  const [accueil, setAccueil] = useState(
+    GlobalFilter.ServicesFilters[1].selected
+  );
+  const [travaux, setTravaux] = useState(
+    GlobalFilter.ServicesFilters[2].selected
+  );
 
   //--- Upload USERS
   const handleSnapshot = snapshot => {
@@ -43,6 +53,21 @@ const Home = () => {
       ...doc.data()
     }));
     setUsers(users);
+  };
+
+  reloadServices = () => {
+    setDistance(GlobalFilter.Rayon);
+    setMinStars(GlobalFilter.MinStars);
+
+    console.log("--------------------------");
+    console.log(GlobalFilter.ServicesFilters[0].selected);
+    console.log(GlobalFilter.ServicesFilters[1].selected);
+    console.log(GlobalFilter.ServicesFilters[2].selected);
+    console.log("--------------------------");
+
+    setMenage(GlobalFilter.ServicesFilters[0].selected);
+    setAccueil(GlobalFilter.ServicesFilters[1].selected);
+    setTravaux(GlobalFilter.ServicesFilters[2].selected);
   };
 
   useEffect(() => {
@@ -98,27 +123,22 @@ const Home = () => {
       latitudeDelta: 0.01,
       longitudeDelta: 0.01
     };
-    RNReverseGeocode.searchForLocations(text, region, (err, res) => {
-      // console.log({
-      //   error: err,
-      //   addresses: res
-      // });
-    });
   };
+
   //--- Return
   return (
     <View style={styles.container}>
       <View style={{ height: 110 }}>
         <Text style={{ fontSize: 20 }}>FilterResult</Text>
-        <Text>Accueil : {filterState.accueil ? "true" : "false"}</Text>
-        <Text>Menage : {filterState.menage ? "true" : "false"}</Text>
-        <Text>Travaux : {filterState.travaux ? "true" : "false"}</Text>
-        <Text>Distance : {GlobalFilter.Rayon}</Text>
-        <Text>Note : {3}</Text>
+        <Text>Distance : {distance}</Text>
+        <Text>Note : {minStars}</Text>
+        <Text>Accueil : {accueil}</Text>
+        <Text>Menage : {menage}</Text>
+        <Text>Travaux : {travaux}</Text>
       </View>
       {/* FILTRE */}
       <Search onSearchLocation={onSearchLocation} />
-      <FiltresBar filterState={filterState} />
+      <FiltresBar reloadServices={reloadServices} />
       {/* FLATLIST */}
       <FlatList
         data={users}

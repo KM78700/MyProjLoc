@@ -12,36 +12,45 @@ import Stars from "../components/Stars";
 import { GlobalFilter } from "../constants/FilterGroups";
 import { useNavigation } from "@react-navigation/core";
 
-export default function FilterScreen() {
-  const navigation = useNavigation();
-  const [pathLength, setPathLength] = useState(GlobalFilter.Rayon);
-  const [minStars, setMinStars] = useState(GlobalFilter.MinStars - 1);
+export default function FilterScreen(props) {
+  const { reloadServices } = props.route.params.reloadServices;
 
-  const [menage, setMenage] = useState(false);
-  const [accueil, setAccueil] = useState(false);
-  const [travau, setTravau] = useState(false);
+  const navigation = useNavigation();
+
+  const [pathLength, setPathLength] = useState(GlobalFilter.Rayon);
+  const [minStars, setMinStars] = useState(GlobalFilter.MinStars);
+
+  const [menage, setMenage] = useState(
+    GlobalFilter.ServicesFilters[0].selected
+  );
+  const [accueil, setAccueil] = useState(
+    GlobalFilter.ServicesFilters[1].selected
+  );
+  const [travaux, setTravaux] = useState(
+    GlobalFilter.ServicesFilters[2].selected
+  );
 
   const [prestationValue, setPrestationValue] = useState([]);
   const starsList = [false, false, false, true, false];
   const [selectedStars, setSelectedStars] = useState(0);
 
   const onAppliquerFilter = () => {
-    let filterText = `Filtre(s) appliqué(s) \n  \n  Distance : ${pathLength}  \n MinStars : ${minStars} \n 
-                      Services (menage : ${menage} \n accueil : ${accueil} \n  travau : ${travau}) `;
-    alert(filterText);
+    let filterText = `Filtre(s) appliqué(s) \n  \n  Distance : ${pathLength}  \n MinStars : ${minStars} \n\n Menage : ${menage} \n Accueil : ${accueil} \n  Travau : ${travaux} `;
+    // alert(filterText);
+    props.route.params.reloadServices();
     navigation.navigate("Home");
   };
 
   useEffect(() => {
     setMenage(GlobalFilter.ServicesFilters[0].selected);
     setAccueil(GlobalFilter.ServicesFilters[1].selected);
-    setTravau(GlobalFilter.ServicesFilters[2].selected);
+    setTravaux(GlobalFilter.ServicesFilters[2].selected);
   }, []);
 
   const getServiceState = elem => {
     if (elem.code === "FILTER_1") return menage;
     else if (elem.code === "FILTER_2") return accueil;
-    else if (elem.code === "FILTER_3") return travau;
+    else if (elem.code === "FILTER_3") return travaux;
     else return false;
   };
 
@@ -76,9 +85,16 @@ export default function FilterScreen() {
                   <Switch
                     style={styles.prestaSwitch}
                     onValueChange={() => {
-                      if (elem.code === "FILTER_1") setMenage(!menage);
-                      else if (elem.code === "FILTER_2") setAccueil(!accueil);
-                      else if (elem.code === "FILTER_3") setTravau(!travau);
+                      if (elem.code === "FILTER_1") {
+                        setMenage(!menage);
+                        GlobalFilter.ServicesFilters[0].selected = menage;
+                      } else if (elem.code === "FILTER_2") {
+                        setAccueil(!accueil);
+                        GlobalFilter.ServicesFilters[1].selected = accueil;
+                      } else if (elem.code === "FILTER_3") {
+                        setTravaux(!travaux);
+                        GlobalFilter.ServicesFilters[2].selected = travaux;
+                      }
                     }}
                     value={getServiceState(elem)}
                   />
@@ -103,7 +119,7 @@ export default function FilterScreen() {
               taille={25}
               filtre={true}
               canSelect={true}
-              selected={index === minStars}
+              selected={index === minStars - 1}
             ></Stars>
           </TouchableOpacity>
         );

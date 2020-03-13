@@ -5,7 +5,15 @@ import { Ionicons, Entypo, FontAwesome } from "@expo/vector-icons";
 import GlobalFilter from "../constants/FilterGroups";
 
 export default FiltreButton = props => {
-  const { code, caption, service, color, isGlobalFilter, filterState } = props;
+  const {
+    code,
+    caption,
+    service,
+    color,
+    isGlobalFilter,
+    filterState,
+    reloadServices
+  } = props;
   const [isFiltreSelected, setIsFiltreSelected] = useState(true);
   const [backColor, setBackColor] = useState("white");
   const navigation = useNavigation();
@@ -21,7 +29,7 @@ export default FiltreButton = props => {
       setBackColor(isFiltreSelected ? "#ffc7bd" : "white");
       if (serv) serv.selected = isFiltreSelected;
     } else {
-      navigation.navigate("Filter");
+      navigation.navigate("Filter", { reloadServices: reloadServices });
     }
   };
 

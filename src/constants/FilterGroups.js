@@ -16,7 +16,7 @@ export const GlobalFilter = {
       color: "green",
       width: "25%",
       service: "trash",
-      selected: true
+      selected: false
     },
     {
       code: "FILTER_3",

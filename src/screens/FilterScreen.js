@@ -36,7 +36,7 @@ export default function FilterScreen(props) {
 
   const onAppliquerFilter = () => {
     let filterText = `Filtre(s) appliqué(s) \n  \n  Distance : ${pathLength}  \n MinStars : ${minStars} \n\n Menage : ${menage} \n Accueil : ${accueil} \n  Travau : ${travaux} `;
-    // alert(filterText);
+    alert(filterText);
     props.route.params.reloadServices();
     navigation.navigate("Home");
   };

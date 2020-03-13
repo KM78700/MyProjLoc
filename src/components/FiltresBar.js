@@ -7,7 +7,6 @@ import { Theme } from "../constants/GlobalConstantes";
 const FiltresBar = props => {
   [key, useKey] = useState(false);
   const { filterState } = props.filterState;
-  console.log(filterState);
   return (
     <View
       style={{
@@ -22,6 +21,7 @@ const FiltresBar = props => {
           return (
             <View key={index} style={{ width: btn.width }}>
               <FiltreButton
+                code={btn.code}
                 caption={btn.caption}
                 service={btn.service}
                 color={btn.color}

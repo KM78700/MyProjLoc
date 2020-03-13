@@ -1,4 +1,4 @@
-import React, { useState, Component } from "react";
+import React, { useState, Component, useEffect } from "react";
 import {
   View,
   Text,
@@ -17,12 +17,30 @@ export default function FilterScreen() {
   const [pathLength, setPathLength] = useState(GlobalFilter.Rayon);
   const [minStars, setMinStars] = useState(GlobalFilter.MinStars - 1);
 
+  const [menage, setMenage] = useState(false);
+  const [accueil, setAccueil] = useState(false);
+  const [travau, setTravau] = useState(false);
+
   const [prestationValue, setPrestationValue] = useState([]);
   const starsList = [false, false, false, true, false];
   const [selectedStars, setSelectedStars] = useState(0);
 
   const onAppliquerFilter = () => {
+    console.log(GlobalFilter);
     navigation.navigate("Home");
+  };
+
+  useEffect(() => {
+    setMenage(GlobalFilter.ServicesFilters[0].selected);
+    setAccueil(GlobalFilter.ServicesFilters[1].selected);
+    setTravau(GlobalFilter.ServicesFilters[2].selected);
+  }, []);
+
+  const getServiceState = elem => {
+    if (elem.code === "FILTER_1") return menage;
+    else if (elem.code === "FILTER_2") return accueil;
+    else if (elem.code === "FILTER_3") return travau;
+    else return false;
   };
 
   return (
@@ -52,13 +70,16 @@ export default function FilterScreen() {
             <View key={index}>
               {!elem.isGlobalFilter ? (
                 <View style={styles.presta}>
-                  <Switch
-                    onValueChange={() => {}}
-                    style={styles.prestaSwitch}
-                    value={elem.selected}
-                    //GlobalFilter.fin
-                  />
                   <Text style={styles.prestaText}>{elem.caption}</Text>
+                  <Switch
+                    style={styles.prestaSwitch}
+                    onValueChange={() => {
+                      if (elem.code === "FILTER_1") setMenage(!menage);
+                      else if (elem.code === "FILTER_2") setAccueil(!accueil);
+                      else if (elem.code === "FILTER_3") setTravau(!travau);
+                    }}
+                    value={getServiceState(elem)}
+                  />
                 </View>
               ) : null}
             </View>
@@ -115,8 +136,10 @@ const styles = StyleSheet.create({
     paddingVertical: 10,
     paddingLeft: 20,
     flexDirection: "row",
-    alignItems: "center"
+    alignItems: "center",
+    justifyContent: "space-between"
   },
+  prestaSwitch: { marginHorizontal: 25 },
   prestaText: {
     paddingLeft: 20,
     fontSize: 20
@@ -126,8 +149,6 @@ const styles = StyleSheet.create({
   },
   sliderZone: {
     padding: 10
-    //marginHorizontal: 20,
-    //marginHorizontal: 20,
   },
   sliderText: {
     top: 20,

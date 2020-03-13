@@ -20,7 +20,7 @@ export const GlobalFilter = {
     },
     {
       code: "FILTER_3",
-      caption: "Traveaux",
+      caption: "Travaux",
       color: "blue",
       width: "25%",
       service: "tools",

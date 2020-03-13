@@ -38,10 +38,17 @@ export default Profile = () => {
     <View style={styles.container}>
       <View style={{ width: "90%", height: 100 }}>
         <TouchableOpacity
-          style={{ borderColor: "#0000FF", borderWidth: 2 }}
+          style={{ borderColor: "#0000FF", borderWidth: 5, borderRadius: 10 }}
           onPress={handleCalcDistance}
         >
-          <Text style={{ fontSize: 28, textAlign: "center" }}>
+          <Text
+            style={{
+              fontSize: 28,
+              textAlign: "center",
+              marginTop: 10,
+              marginBottom: 10
+            }}
+          >
             Géolocalisarion
           </Text>
         </TouchableOpacity>

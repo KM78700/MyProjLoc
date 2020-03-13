@@ -1,9 +1,16 @@
 import React, { Component } from "react";
-import { Platform, Text, View, StyleSheet, Button } from "react-native";
+import {
+  Platform,
+  Text,
+  View,
+  StyleSheet,
+  TouchableOpacity
+} from "react-native";
 import Constants from "expo-constants";
 import * as Location from "expo-location";
 import * as Permissions from "expo-permissions";
 import Modal from "react-native-modal";
+import Icon from "react-native-vector-icons/FontAwesome";
 
 export default class myLocation extends Component {
   state = {
@@ -71,17 +78,22 @@ export default class myLocation extends Component {
         <Text style={styles.paragraph}>{text}</Text>
         <Text style={styles.paragraph}>longitude : {long}</Text>
         <Text style={styles.paragraph}>latitude : {lat}</Text>
-        <Button
-          style={{
-            backgroundColor: "red",
-            borderColor: "blue",
-            borderWidth: 2,
-            borderStyle: "solid"
-          }}
-          title="calculer"
+        <TouchableOpacity
+          style={{ borderColor: "blue", borderWidth: 5, borderRadius: 10 }}
           onPress={this._getRegionName}
-        ></Button>
-
+        >
+          <Text
+            style={{
+              fontSize: 30,
+              marginTop: 10,
+              marginBottom: 10,
+              marginLeft: 50,
+              marginRight: 50
+            }}
+          >
+            Get ADDRESS
+          </Text>
+        </TouchableOpacity>
         <Text style={styles.paragraph}>
           city : {this.state.regionName ? this.state.regionName.city : ""}
         </Text>

@@ -26,7 +26,9 @@ export default function FilterScreen() {
   const [selectedStars, setSelectedStars] = useState(0);
 
   const onAppliquerFilter = () => {
-    console.log(GlobalFilter);
+    let filterText = `Filtre(s) appliqué(s) \n  \n  Distance : ${pathLength}  \n MinStars : ${minStars} \n 
+                      Services (menage : ${menage} \n accueil : ${accueil} \n  travau : ${travau}) `;
+    alert(filterText);
     navigation.navigate("Home");
   };
 
@@ -91,7 +93,7 @@ export default function FilterScreen() {
             key={index}
             style={styles.stars}
             onPress={() => {
-              setMinStars(index);
+              setMinStars(index + 1);
               GlobalFilter.MinStars = index + 1;
             }}
           >

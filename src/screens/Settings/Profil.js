@@ -1,7 +1,9 @@
 import React, { useEffect, useState, useContext } from "react";
 import { View, Text, Image, TouchableOpacity, StyleSheet } from "react-native";
+import { useNavigation } from "@react-navigation/native";
 
 import { TextInput, ScrollView } from "react-native-gesture-handler";
+import PhotoPicker from "./PhotoPicker";
 
 //-- Import FirebaseContext
 import FirebaseContext from "../../firebase/FirebaseContext";
@@ -9,6 +11,8 @@ import FirebaseContext from "../../firebase/FirebaseContext";
 export default function Profil() {
   const { user, firebase } = useContext(FirebaseContext);
   const [currentUser, setCurrentUser] = useState([]);
+
+  const navigation = useNavigation();
 
   const handleSnapshot = snapshot => {
     snapshot &&
@@ -93,12 +97,7 @@ export default function Profil() {
   return (
     <ScrollView>
       <View>
-        {currentUser[0] && (
-          <Image
-            style={{ width: 50, height: 50 }}
-            source={{ uri: currentUser[0].photo }}
-          />
-        )}
+        <PhotoPicker label="Modifier votre photo" />
 
         <View style={styles.field}>
           <Text>Votre username </Text>

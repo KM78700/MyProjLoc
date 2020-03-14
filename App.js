@@ -21,6 +21,7 @@ import Post from "./src/screens/Post";
 import Avis from "./src/screens/Avis";
 import FilterScreen from "./src/screens/FilterScreen";
 import PostService from "./src/screens/Settings/PostService";
+import Location from "./src/screens/Location";
 
 //--- Components
 import InfoBtnHeader from "./src/components/InfoBtnHeader";
@@ -118,6 +119,7 @@ const App = () => {
             component={PostService}
           />
           <Stack.Screen name="Filter" component={FilterScreen} />
+          <Stack.Screen name="Location" component={Location} />
         </Stack.Navigator>
       </NavigationContainer>
     </FirebaseContext.Provider>

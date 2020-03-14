@@ -12,6 +12,7 @@ import styles from "../../styles";
 import { useNavigation } from "@react-navigation/core";
 import FirebaseContext from "../firebase/FirebaseContext";
 import { Theme } from "../constants/GlobalConstantes";
+import PasswordTextBox from "../components/PasswordTextBox";
 
 const Login = () => {
   const navigation = useNavigation();
@@ -37,6 +38,7 @@ const Login = () => {
     AsyncStorage.setItem("account", JSON.stringify(user));
     user && navigation.navigate("Home");
   };
+  const _updateState = () => {};
 
   //-- Return
   return (
@@ -50,7 +52,7 @@ const Login = () => {
         }}
         placeholder="Email"
       />
-      <TextInput
+      {/* <TextInput
         style={styles.border}
         value={password}
         onChangeText={text => {
@@ -58,6 +60,16 @@ const Login = () => {
         }}
         placeholder="Password"
         secureTextEntry={true}
+      /> */}
+
+      <PasswordTextBox
+        style={{ width: 20 }}
+        icon="lock"
+        label="Password"
+        value={password}
+        onChange={text => {
+          setPassword(text);
+        }}
       />
       {/* LOGIN EMAIL */}
       <TouchableOpacity style={styles.button} onPress={handleLogin}>

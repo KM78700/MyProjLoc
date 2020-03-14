@@ -72,7 +72,6 @@ const Home = props => {
   };
 
   //--- hooks
-  const [isLoding, setIsLoding] = useState(true);
   const [prestataires, setPrestataires] = useState([]);
 
   //DATA -liste des prestataires
@@ -89,10 +88,7 @@ const Home = props => {
     setTimeout(() => {
       setIsLoding(false);
     }, 1500);
-
-    return getUsers();
   }, [firebase, searchText]);
-
 
   //--- ActivityIndicator
   if (isLoding) {

@@ -1,8 +1,9 @@
 import React, { useEffect, useState, useContext } from "react";
 import { View, Text, Image, TouchableOpacity, StyleSheet } from "react-native";
+import { useNavigation } from "@react-navigation/native";
 
 import { TextInput, ScrollView } from "react-native-gesture-handler";
-import styles from "../../../styles";
+import PhotoPicker from "./PhotoPicker";
 
 //-- Import FirebaseContext
 import FirebaseContext from "../../firebase/FirebaseContext";
@@ -11,16 +12,16 @@ export default function Profil() {
   const { user, firebase } = useContext(FirebaseContext);
   const [currentUser, setCurrentUser] = useState([]);
 
+  const navigation = useNavigation();
+
   const handleSnapshot = snapshot => {
-    if (snapshot.empty) {
-      console.log("No matching documents.");
-      return;
-    }
-    const user = snapshot.docs.map(doc => ({
-      id: doc.id,
-      ...doc.data()
-    }));
-    setCurrentUser(user);
+    snapshot &&
+      setCurrentUser(
+        snapshot.docs.map(doc => ({
+          id: doc.id,
+          ...doc.data()
+        }))
+      );
   };
 
   useEffect(() => {
@@ -33,7 +34,7 @@ export default function Profil() {
       };
       return getUser();
     }
-  }, [firebase]);
+  }, [user]);
 
   const [newUsername, setNewUsername] = useState();
   const [newPseudo, setNewPseudo] = useState();
@@ -45,22 +46,40 @@ export default function Profil() {
   const [newCodePostal, setNewCodePostal] = useState();
   const [newVille, setNewVille] = useState();
 
-  const handleChangeUsername = text => {
-    setNewUsername(text);
-  };
-
   const handleSubmit = () => {
+    console.log(user);
     firebase.db
       .collection("users")
       .doc(user.uid)
       .update({
-        bio: newBio ? newBio : currentUser[0].bio,
+        bio: newBio ? newBio : currentUser[0].bio ? currentUser[0].bio : "",
+        description: newDescription
+          ? newDescription
+          : currentUser[0].description
+          ? currentUser[0].description
+          : "",
         pseudo: newPseudo ? newPseudo : currentUser[0].pseudo,
         email: newEmail ? newEmail : currentUser[0].email,
-        username: newUsername ? newUsername : currentUser[0].username,
-        address: newAddress ? newAddress : currentUser[0].address,
-        postal_code: newCodePostal ? newCodePostal : currentUser[0].postal_code,
-        ville: newVille ? newVille : currentUser[0].ville
+        username: newUsername
+          ? newUsername
+          : currentUser[0].username
+          ? currentUser[0].username
+          : "",
+        address: newAddress
+          ? newAddress
+          : currentUser[0].address
+          ? currentUser[0].address
+          : "",
+        postal_code: newCodePostal
+          ? newCodePostal
+          : currentUser[0].postal_code
+          ? currentUser[0].postal_code
+          : "",
+        ville: newVille
+          ? newVille
+          : currentUser[0].ville
+          ? currentUser[0].ville
+          : ""
       });
 
     alert("Modification");
@@ -68,175 +87,166 @@ export default function Profil() {
     setNewPseudo("");
     setNewBio("");
     setNewEmail("");
-    newAddress("");
-    newCodePostal("");
-    newVille("");
+    setNewAddress("");
+    setNewCodePostal("");
+    setNewVille("");
 
     //firebase.db.console.log("Modifier les données dans la base de données");
   };
 
   return (
     <ScrollView>
-      <View style={styles.container}>
-        {currentUser[0] && (
-          <Image
-            style={{ width: 50, height: 50 }}
-            source={{ uri: currentUser[0].photo }}
+      <View>
+        <PhotoPicker label="Modifier votre photo" />
+
+        <View style={styles.field}>
+          <Text>Votre username </Text>
+          <TextInput
+            style={styles.input}
+            onChangeText={text => setNewUsername(text)}
+            value={newUsername}
+            placeholder={currentUser[0] && currentUser[0].username}
           />
-        )}
-        <Text>Votre adresse email </Text>
+        </View>
 
-        <TextInput
-          style={{
-            height: 40,
-            width: 225,
-            borderColor: "gray",
-            borderWidth: 1,
-            justifyContent: "center"
-          }}
-          onChangeText={text => setNewEmail(text)}
-          value={newEmail}
-          placeholder={currentUser[0] && currentUser[0].email}
-        />
-        <Text>Votre username </Text>
+        <View style={styles.field}>
+          <Text>Votre pseudo </Text>
+          <TextInput
+            style={styles.input}
+            onChangeText={text => setNewPseudo(text)}
+            value={newPseudo}
+            placeholder={currentUser[0] && currentUser[0].pseudo}
+          />
+        </View>
 
-        <TextInput
-          style={{
-            height: 40,
-            width: 225,
-            borderColor: "gray",
-            borderWidth: 1,
-            justifyContent: "center"
-          }}
-          onChangeText={text => setNewUsername(text)}
-          value={newUsername}
-          placeholder={currentUser[0] && currentUser[0].username}
-        />
-        <Text>Votre pseudo </Text>
+        <View style={styles.field}>
+          <Text>Votre Adresse </Text>
+          <Text>Rue </Text>
 
-        <TextInput
-          style={{
-            height: 40,
-            width: 225,
-            borderColor: "gray",
-            borderWidth: 1,
-            justifyContent: "center"
-          }}
-          onChangeText={text => setNewPseudo(text)}
-          value={newPseudo}
-          placeholder={currentUser[0] && currentUser[0].pseudo}
-        />
+          <TextInput
+            style={styles.input}
+            onChangeText={text => setNewAddress(text)}
+            value={newAddress}
+            placeholder={currentUser[0] && currentUser[0].address}
+          />
+          <Text>Code Postal </Text>
 
-        <Text>Votre Adresse </Text>
-        <Text>Rue </Text>
+          <TextInput
+            style={styles.input}
+            onChangeText={text => setNewCodePostal(text)}
+            value={newCodePostal}
+            placeholder={currentUser[0] && currentUser[0].postal_code}
+          />
+          <Text>Ville </Text>
 
-        <TextInput
-          style={{
-            height: 60,
-            width: 225,
-            borderColor: "gray",
-            borderWidth: 1,
-            justifyContent: "center"
-          }}
-          onChangeText={text => setNewAddress(text)}
-          value={newAddress}
-          placeholder={currentUser[0] && currentUser[0].address}
-        />
-        <Text>Code Postal </Text>
+          <TextInput
+            style={styles.input}
+            onChangeText={text => setNewVille(text)}
+            value={newVille}
+            placeholder={currentUser[0] && currentUser[0].ville}
+          />
+        </View>
 
-        <TextInput
-          style={{
-            height: 40,
-            width: 225,
-            borderColor: "gray",
-            borderWidth: 1,
-            justifyContent: "center"
-          }}
-          onChangeText={text => setNewCodePostal(text)}
-          value={newCodePostal}
-          placeholder={currentUser[0] && currentUser[0].postal_code}
-        />
-        <Text>Ville </Text>
+        <View style={styles.field}>
+          <Text>Votre Description </Text>
+          <TextInput
+            style={styles.input}
+            onChangeText={text => setNewDescription(text)}
+            value={newDescription}
+            placeholder={currentUser[0] && currentUser[0].description}
+          />
+        </View>
 
-        <TextInput
-          style={{
-            height: 40,
-            width: 225,
-            borderColor: "gray",
-            borderWidth: 1,
-            justifyContent: "center"
-          }}
-          onChangeText={text => setNewCodePostal(text)}
-          value={newVille}
-          placeholder={currentUser[0] && currentUser[0].ville}
-        />
+        <View style={styles.field}>
+          <Text>Votre bio </Text>
 
-        <Text>Votre Description </Text>
+          <TextInput
+            style={styles.input}
+            onChangeText={text => setNewBio(text)}
+            value={newBio}
+            placeholder={currentUser[0] && currentUser[0].bio}
+          />
+        </View>
 
-        <TextInput
-          style={{
-            height: 60,
-            width: 225,
-            borderColor: "gray",
-            borderWidth: 1,
-            justifyContent: "center"
-          }}
-          onChangeText={text => setNewDescription(text)}
-          value={newBio}
-          placeholder={currentUser[0] && currentUser[0].description}
-        />
-
-        <Text>Votre bio </Text>
-
-        <TextInput
-          style={{
-            height: 40,
-            width: 225,
-            borderColor: "gray",
-            borderWidth: 1,
-            justifyContent: "center"
-          }}
-          onChangeText={text => setNewBio(text)}
-          value={newBio}
-          placeholder={currentUser[0] && currentUser[0].bio}
-        />
-
-        <TouchableOpacity style={styles.button} onPress={handleSubmit}>
+        <TouchableOpacity style={styles.buttonSmall} onPress={handleSubmit}>
           <Text>Modifier</Text>
         </TouchableOpacity>
 
-        <Text>Nouveau mot de passe </Text>
-        <TextInput
-          style={{
-            height: 40,
-            width: 225,
-            borderColor: "gray",
-            borderWidth: 1,
-            justifyContent: "center"
-          }}
-          onChangeText={text => setNewUsername(text)}
-          value={newUsername}
-          placeholder={"******"}
-          secureTextEntry={true}
-        />
-        <Text>Confirmer votre nouveau mot de passe </Text>
-        <TextInput
-          style={{
-            height: 40,
-            width: 225,
-            borderColor: "gray",
-            borderWidth: 1,
-            justifyContent: "center"
-          }}
-          onChangeText={text => setNewUsername(text)}
-          value={newUsername}
-          placeholder={"******"}
-          secureTextEntry={true}
-        />
-        <TouchableOpacity style={styles.button} onPress={handleSubmit}>
+        <View style={styles.field}>
+          <Text>Votre adresse email </Text>
+          <TextInput
+            style={styles.input}
+            onChangeText={text => setNewEmail(text)}
+            value={newEmail}
+            placeholder={currentUser[0] && currentUser[0].email}
+          />
+        </View>
+        <View style={styles.field}>
+          <Text>Nouveau mot de passe </Text>
+          <TextInput
+            style={styles.input}
+            onChangeText={text => setNewUsername(text)}
+            value={newUsername}
+            placeholder={"******"}
+            secureTextEntry={true}
+          />
+        </View>
+        <View style={styles.field}>
+          <Text>Confirmer votre nouveau mot de passe </Text>
+          <TextInput
+            style={styles.input}
+            onChangeText={text => setNewUsername(text)}
+            value={newUsername}
+            placeholder={"******"}
+            secureTextEntry={true}
+          />
+        </View>
+
+        <TouchableOpacity style={styles.buttonSmall} onPress={handleSubmit}>
           <Text>Modifier votre mot de passe</Text>
         </TouchableOpacity>
       </View>
     </ScrollView>
   );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: "#fff",
+    alignItems: "center",
+    justifyContent: "center",
+    width: "100%"
+  },
+  field: {
+    margin: 0,
+    padding: 10
+  },
+  input: {
+    width: "95%",
+
+    fontSize: 12,
+    borderColor: "#d3d3d3",
+    borderBottomWidth: 1
+    //textAlign: "center"
+  },
+  button: {
+    height: 70,
+    backgroundColor: "white",
+    width: "50%",
+    borderRadius: 40,
+    justifyContent: "center",
+    alignItems: "center",
+    marginTop: 30
+  },
+  buttonSmall: {
+    margin: 10,
+    marginBottom: 0,
+    padding: 5,
+    alignItems: "center",
+    borderColor: "#d3d3d3",
+    borderWidth: 1,
+    borderRadius: 5,
+    width: 125
+  }
+});

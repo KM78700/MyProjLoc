@@ -8,7 +8,7 @@ export default styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#fff",
     alignItems: "center",
-    backgroundColor: Theme.appColor
+    backgroundColor: Theme.appColorfnac
   },
   container: {
     flex: 1,
@@ -210,17 +210,20 @@ export default styles = StyleSheet.create({
   profilItem: {
     width: "25%",
     //backgroundColor: "grey",
-    flexDirection: "column"
+    flexDirection: "column",
+    justifyContent: "center",
+    alignItems: "center"
   },
   profilItemImage: {
     flex: 1,
-    // width: 80,
-    // height: 80,
-    width: "80%",
-    height: "80%",
-    resizeMode: "contain",
-    borderRadius: 20,
-    margin: 5,
+    width: 70,
+    height: 60,
+    alignItems: "center",
+    // width: "80%",
+    // height: "80%",
+    resizeMode: "cover",
+    borderRadius: 12,
+    //margin: 2,
     backgroundColor: "lightgrey"
   },
   profilItemDistance: {
@@ -239,7 +242,7 @@ export default styles = StyleSheet.create({
     marginBottom: 5
   },
   descriptionItem: {
-    //flex: 1,
+    flex: 1,
     flexDirection: "row",
     //justifyContent: "space-around",
     //backgroundColor: "#eee",

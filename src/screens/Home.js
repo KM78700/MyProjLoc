@@ -3,12 +3,10 @@ import {
   ActivityIndicator,
   Text,
   View,
-  Button,
   Image,
   FlatList,
   TouchableOpacity
 } from "react-native";
-import { Ionicons } from "@expo/vector-icons";
 import styles from "../../styles";
 import { GlobalFilter } from "../constants/FilterGroups";
 
@@ -27,30 +25,28 @@ import FirebaseContext from "../firebase/FirebaseContext";
 
 const Home = () => {
   const navigation = useNavigation();
+
+  //--- utilistaeur connecté
   const { user, firebase } = useContext(FirebaseContext);
 
-  //---
+  //--- hooks
   const [isLoding, setIsLoding] = useState(true);
-  const [users, setUsers] = useState([]);
+  const [prestataires, setPrestataires] = useState([]);
 
-  //--- Upload USERS
-  const handleSnapshot = snapshot => {
-    const users = snapshot.docs.map(doc => ({
-      id: doc.id,
-      ...doc.data()
-    }));
-    setUsers(users);
-    console.log(users);
-  };
-
+  //DATA -liste des prestataires
   useEffect(() => {
-    const getUsers = () => {
-      firebase.db.collection("users").onSnapshot(handleSnapshot);
-    };
+    firebase.db.collection("users").onSnapshot(snapshot => {
+      const dataPrestataires = snapshot.docs.map(doc => ({
+        id: doc.id,
+        ...doc.data()
+      }));
+      setPrestataires(dataPrestataires);
+      //console.log(prestataires);
+    });
+
     setTimeout(() => {
       setIsLoding(false);
     }, 1500);
-    return getUsers();
   }, [firebase]);
 
   //--- ActivityIndicator
@@ -84,7 +80,7 @@ const Home = () => {
         >
           Chargement des données
         </Text>
-        <ActivityIndicator size="large" color="blue" />
+        <ActivityIndicator size="large" />
       </View>
     );
   }
@@ -96,15 +92,14 @@ const Home = () => {
       <FiltresBar />
       {/* FLATLIST */}
       <FlatList
-        data={users}
+        data={prestataires}
         // keyExtractor={(item, index) => index.toString()}
         renderItem={({ item }) => (
           //--- TouchableOpacity
           <TouchableOpacity
             onPress={() => {
               navigation.navigate("Details", {
-                id: item.uid,
-                messageId: item.messageId
+                prestataire_id: item.uid //id du prestataire sélectionné
               });
             }}
           >
@@ -123,7 +118,10 @@ const Home = () => {
               <View style={{ width: "75%" }}>
                 {/* Rate + Icônes services */}
                 <View style={styles.descriptionRateAndServices}>
-                  <Rate note={3} />
+                  <RateAverage
+                    note={item.rate_average}
+                    nbAvis={item.avis_count}
+                  />
                   <ServicesBar />
                 </View>
                 {/* Fin Rate + Icônes service */}

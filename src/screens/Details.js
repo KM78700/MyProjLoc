@@ -106,6 +106,10 @@ export default Details = () => {
     );
   }
 
+  const onChatClick = event => {
+    navigation.navigate("Chat", { connectedUser: user, currentUser: userId });
+  };
+  
   //---
   return (
     <ScrollView>
@@ -264,7 +268,7 @@ export default Details = () => {
           </TouchableOpacity>
 
           {/* Message */}
-          <TouchableOpacity onPress={() => navigation.navigate("Chat")}>
+          <TouchableOpacity onPress={onChatClick}>
             <View
               style={{
                 flexDirection: "column",
@@ -538,12 +542,10 @@ export default Details = () => {
                       {item.description}
                     </Text>
                   </View>
-                  {/*  */}
                 </View>
               )}
             />
           )}
-          {/* )} */}
         </View>
       </View>
     </ScrollView>

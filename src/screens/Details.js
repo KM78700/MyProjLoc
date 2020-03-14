@@ -1,4 +1,9 @@
-import React, { useContext, useState, useEffect } from "react";
+import React, {
+  useContext,
+  useState,
+  useEffect,
+  useImperativeHandle
+} from "react";
 import {
   StyleSheet,
   Text,
@@ -34,32 +39,33 @@ import { useRoute } from "@react-navigation/core";
 
 //-- Import FirebaseContext
 import FirebaseContext from "../firebase/FirebaseContext";
-import { useScreens } from "react-native-screens";
-import uuid from "uuid";
-import { Button } from "react-native-paper";
+// import { useScreens } from "react-native-screens";
+// import uuid from "uuid";
+// import { Button } from "react-native-paper";
 
 export default Details = () => {
   const navigation = useNavigation();
   const route = useRoute();
 
   //---
-  const { user, firebase } = useContext(FirebaseContext);
+  const { user, firebase } = useContext(FirebaseContext); //utilisateur connecté
+  const [prestataireId, setPrestataireId] = useState({}); //prestataire sélectionné
+  const [prestataireAvis, setPrestataireAvis] = useState(); //avis du prestataire sélectionné
   const [isUseEffect1, setIsUseEffect1] = useState(true);
   const [isUseEffect2, setIsUseEffect2] = useState(true);
-  const [userId, setUserId] = useState({});
-  const [userAvis, setUserAvis] = useState();
+  const [colorFavoris, setColorfavoris] = useState("white");
 
-  //--- Lecture de la fiche du prestataire
+  //--- DATA - Fiche du prestataire sélectionné
   useEffect(() => {
     firebase.db
       .collection("users")
-      .doc(route.params.id)
+      .doc(route.params.prestataire_id)
       .get()
       .then(doc => {
         if (!doc.exists) {
           console.log("No such document!");
         } else {
-          setUserId(doc.data());
+          setPrestataireId(doc.data());
           setTimeout(() => {
             setIsUseEffect1(false);
           }, 0);
@@ -68,24 +74,26 @@ export default Details = () => {
       .catch(err => {
         console.log("Error getting document", err);
       });
-  }, [firebase]);
+  }, []);
 
-  //--- Lecture des avis du prestataire
+  //--- DATA - Liste des avis du prestataire sélectionné
   useEffect(() => {
     firebase.db
       .collection("avis_services")
-      .where("destinataire_id", "==", route.params.id)
+      .where("prestataire_id", "==", route.params.prestataire_id)
+      // .orderBy("createAt", "desc")
       .onSnapshot(snapshot => {
-        const avis = snapshot.docs.map(doc => ({
+        const dataAvis = snapshot.docs.map(doc => ({
           id: doc.id,
           ...doc.data()
         }));
-        setUserAvis(avis);
+        //---
+        setPrestataireAvis(dataAvis);
         setTimeout(() => {
           setIsUseEffect2(false);
         }, 0);
       });
-  }, [firebase]);
+  }, []);
 
   //--- ActivityIndicator
   if (isUseEffect1 || isUseEffect2) {
@@ -97,9 +105,11 @@ export default Details = () => {
       </View>
     );
   }
+
   const onChatClick = event => {
     navigation.navigate("Chat", { connectedUser: user, currentUser: userId });
   };
+  
   //---
   return (
     <ScrollView>
@@ -131,17 +141,18 @@ export default Details = () => {
                 position: "absolute",
                 top: 20,
                 right: 20,
-                borderWidth: 2,
-                borderColor: "magenta",
-                backgroundColor: "gray",
+                backgroundColor: "#BFC9CA",
                 padding: 10,
                 borderRadius: 50
               }}
               onPress={() => {
-                navigation.navigate("Favoris");
+                //navigation.navigate("Favoris");
+                colorFavoris === "white"
+                  ? setColorfavoris("magenta")
+                  : setColorfavoris("white");
               }}
             >
-              <FontAwesome name={"heart"} size={30} color={"white"} />
+              <FontAwesome name={"heart"} size={30} color={colorFavoris} />
             </TouchableOpacity>
           </View>
 
@@ -165,17 +176,17 @@ export default Details = () => {
                 position: "absolute",
                 top: 20,
                 right: 20,
-                borderWidth: 2,
-                borderColor: "magenta",
-                backgroundColor: "gray",
+                backgroundColor: "#BFC9CA",
                 padding: 10,
                 borderRadius: 50
               }}
               onPress={() => {
-                navigation.navigate("Favoris");
+                colorFavoris === "white"
+                  ? setColorfavoris("magenta")
+                  : setColorfavoris("white");
               }}
             >
-              <FontAwesome name={"heart"} size={30} color={"white"} />
+              <FontAwesome name={"heart"} size={30} color={colorFavoris} />
             </TouchableOpacity>
           </View>
 
@@ -199,17 +210,17 @@ export default Details = () => {
                 position: "absolute",
                 top: 20,
                 right: 20,
-                borderWidth: 2,
-                borderColor: "magenta",
-                backgroundColor: "gray",
+                backgroundColor: "#BFC9CA",
                 padding: 10,
                 borderRadius: 50
               }}
               onPress={() => {
-                navigation.navigate("Favoris");
+                colorFavoris === "white"
+                  ? setColorfavoris("magenta")
+                  : setColorfavoris("white");
               }}
             >
-              <FontAwesome name={"heart"} size={30} color={"white"} />
+              <FontAwesome name={"heart"} size={30} color={colorFavoris} />
             </TouchableOpacity>
           </View>
         </Swiper>
@@ -232,7 +243,8 @@ export default Details = () => {
           <TouchableOpacity
             onPress={() =>
               navigation.navigate("Avis", {
-                presta_id: userId
+                presta_id: route.params.prestataire_id,
+                dataPrestataire: prestataireId
               })
             }
           >
@@ -316,13 +328,13 @@ export default Details = () => {
                   // flex: 1,
                   marginTop: 8,
                   marginLeft: 8,
-                  width: 60,
-                  height: 60,
+                  width: 50,
+                  height: 50,
                   resizeMode: "cover",
                   borderRadius: 50,
                   backgroundColor: "lightgrey"
                 }}
-                source={{ uri: userId.photo }}
+                source={{ uri: prestataireId.photo }}
               />
               <View style={{ flexDirection: "column" }}>
                 <Text
@@ -333,7 +345,7 @@ export default Details = () => {
                     fontWeight: "bold"
                   }}
                 >
-                  {userId.pseudo}
+                  {prestataireId.pseudo}
                 </Text>
                 <Text
                   style={{
@@ -364,7 +376,10 @@ export default Details = () => {
                 }}
               >
                 <View>
-                  <RateAverage note={userId.rate_average} />
+                  <RateAverage
+                    note={prestataireId.rate_average}
+                    nbAvis={prestataireId.avis_count}
+                  />
                 </View>
 
                 <View
@@ -396,12 +411,6 @@ export default Details = () => {
               </View>
             </View>
             {/*  */}
-            <FontAwesome
-              style={styles.buttonLabel}
-              name={"phone-square"}
-              size={30}
-            />
-            <Text>Appeler</Text>
           </View>
 
           {/* Description */}
@@ -413,7 +422,7 @@ export default Details = () => {
                 fontSize: 16
               }}
             >
-              {userId.description}
+              {prestataireId.description}
             </Text>
           </View>
           {/* Fin de description */}
@@ -426,9 +435,10 @@ export default Details = () => {
           </View>
 
           {/* AVIS */}
-          {userAvis && (
+
+          {prestataireAvis && (
             <FlatList
-              data={userAvis}
+              data={prestataireAvis}
               // keyExtractor={(item, index) => index.toString()}
               renderItem={({ item }) => (
                 <View
@@ -439,6 +449,9 @@ export default Details = () => {
                     borderColor: "#d6d7da"
                   }}
                 >
+                  {/* {setAverage(item.rate)}
+                  {console.log("moyenne : " + average)} */}
+
                   {/*  */}
                   <View
                     style={{
@@ -452,8 +465,8 @@ export default Details = () => {
                       <Image
                         style={{
                           // flex: 1,
-                          width: 60,
-                          height: 60,
+                          width: 40,
+                          height: 40,
                           resizeMode: "cover",
                           borderRadius: 50,
                           backgroundColor: "lightgrey"
@@ -470,27 +483,30 @@ export default Details = () => {
                         >
                           {item.titre}
                         </Text>
-                        <Text
-                          style={{
-                            fontSize: 16,
-                            fontWeight: "bold",
-                            color: "brown",
-                            paddingTop: 0,
-                            paddingLeft: 8
-                          }}
-                        >
-                          {item.proprietaire}
-                        </Text>
 
-                        <Text
-                          style={{
-                            fontSize: 16,
-                            Color: "gray",
-                            paddingLeft: 8
-                          }}
-                        >
-                          {item.proprietaire_ville}
-                        </Text>
+                        <View style={{ flexDirection: "row" }}>
+                          <Text
+                            style={{
+                              fontSize: 16,
+                              fontWeight: "bold",
+                              color: "brown",
+                              paddingTop: 0,
+                              paddingLeft: 8
+                            }}
+                          >
+                            {item.proprietaire}
+                          </Text>
+
+                          <Text
+                            style={{
+                              fontSize: 16,
+                              Color: "#707B7C",
+                              paddingLeft: 2
+                            }}
+                          >
+                            ({item.proprietaire_ville})
+                          </Text>
+                        </View>
                       </View>
                     </View>
 
@@ -499,8 +515,8 @@ export default Details = () => {
                       <Rate note={item.rate} />
                       <Text
                         style={{
-                          fontSize: 14,
-                          color: "gray",
+                          fontSize: 13,
+                          color: "#707B7C",
                           textAlign: "right"
                         }}
                       >

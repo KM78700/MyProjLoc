@@ -14,7 +14,8 @@ import {
   ImageBackground,
   ActivityIndicator,
   ScrollView,
-  FlatList
+  FlatList,
+  Linking
 } from "react-native";
 import {
   Ionicons,
@@ -94,7 +95,7 @@ export default Details = () => {
         }, 0);
       });
   }, []);
-
+  console.log(prestataireId);
   //--- ActivityIndicator
   if (isUseEffect1 || isUseEffect2) {
     return (
@@ -109,7 +110,7 @@ export default Details = () => {
   const onChatClick = event => {
     navigation.navigate("Chat", { connectedUser: user, currentUser: userId });
   };
-  
+
   //---
   return (
     <ScrollView>
@@ -287,7 +288,11 @@ export default Details = () => {
           </TouchableOpacity>
 
           {/* Appeler */}
-          <TouchableOpacity>
+          <TouchableOpacity
+            onPress={() => {
+              Linking.openURL("tel:" + prestataireId.phone);
+            }}
+          >
             <View
               style={{
                 flexDirection: "column",

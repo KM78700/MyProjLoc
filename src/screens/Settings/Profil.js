@@ -12,8 +12,6 @@ export default function Profil() {
   const { user, firebase } = useContext(FirebaseContext);
   const [currentUser, setCurrentUser] = useState([]);
 
-  const navigation = useNavigation();
-
   const handleSnapshot = snapshot => {
     snapshot &&
       setCurrentUser(
@@ -39,6 +37,7 @@ export default function Profil() {
   const [newUsername, setNewUsername] = useState();
   const [newPseudo, setNewPseudo] = useState();
   const [newEmail, setNewEmail] = useState();
+  const [newPhone, setNewPhone] = useState();
   const [newBio, setNewBio] = useState();
   const [newDescription, setNewDescription] = useState();
 
@@ -60,6 +59,12 @@ export default function Profil() {
           : "",
         pseudo: newPseudo ? newPseudo : currentUser[0].pseudo,
         email: newEmail ? newEmail : currentUser[0].email,
+        phone: newPhone
+          ? newPhone
+          : currentUser[0].phone
+          ? currentUser[0].phone
+          : "",
+
         username: newUsername
           ? newUsername
           : currentUser[0].username
@@ -90,6 +95,7 @@ export default function Profil() {
     setNewAddress("");
     setNewCodePostal("");
     setNewVille("");
+    setNewPhone("");
 
     //firebase.db.console.log("Modifier les données dans la base de données");
   };
@@ -148,6 +154,15 @@ export default function Profil() {
         </View>
 
         <View style={styles.field}>
+          <Text>Votre téléphone </Text>
+          <TextInput
+            style={styles.input}
+            onChangeText={text => setNewPhone(text)}
+            value={newPhone}
+            placeholder={currentUser[0] && currentUser[0].phone}
+          />
+        </View>
+        <View style={styles.field}>
           <Text>Votre Description </Text>
           <TextInput
             style={styles.input}
@@ -174,12 +189,7 @@ export default function Profil() {
 
         <View style={styles.field}>
           <Text>Votre adresse email </Text>
-          <TextInput
-            style={styles.input}
-            onChangeText={text => setNewEmail(text)}
-            value={newEmail}
-            placeholder={currentUser[0] && currentUser[0].email}
-          />
+          <Text>{currentUser[0] && currentUser[0].email}</Text>
         </View>
         <View style={styles.field}>
           <Text>Nouveau mot de passe </Text>

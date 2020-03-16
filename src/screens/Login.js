@@ -21,10 +21,11 @@ const Login = () => {
   const [password, setPassword] = useState("");
 
   const getAccount = async () => {
-    const localAccount = await AsyncStorage.getItem("account");
-    if (localAccount) {
-      setTimeout(() => navigation.replace("Home"));
-    }
+    // const localAccount = await AsyncStorage.getItem("account");
+    // if (localAccount) {
+    //   setTimeout(() => navigation.replace("Home"));
+    // }
+    navigation.navigate(Login);
   };
 
   useEffect(() => {

@@ -3,18 +3,17 @@ import {
   ActivityIndicator,
   Text,
   View,
-  Button,
   Image,
   FlatList,
   TouchableOpacity
 } from "react-native";
-import { Ionicons } from "@expo/vector-icons";
 import styles from "../../styles";
 import { GlobalFilter } from "../constants/FilterGroups";
 
 //--- Components
 import RateAverage from "../components/RateAverage";
 import Filtres from "../components/Filtres";
+import LoadingComponent from "../components/LoadingComponent";
 import Rate from "../components/Rate";
 import Search from "../components/Search";
 import FiltresBar from "../components/FiltresBar";
@@ -24,10 +23,14 @@ import { useNavigation } from "@react-navigation/core";
 
 //-- Import FirebaseContext
 import FirebaseContext from "../firebase/FirebaseContext";
+import { Theme } from "../constants/GlobalConstantes";
 
 const Home = props => {
   const navigation = useNavigation();
+
+  //--- utilistaeur connecté
   const { user, firebase } = useContext(FirebaseContext);
+
   //---
   const [isLoding, setIsLoding] = useState(true);
   const [users, setUsers] = useState([]);
@@ -36,15 +39,10 @@ const Home = props => {
   //  ---- Filtres
   const [distance, setDistance] = useState(GlobalFilter.Rayon);
   const [minStars, setMinStars] = useState(GlobalFilter.MinStars);
-  const [menage, setMenage] = useState(
-    GlobalFilter.ServicesFilters[0].selected
-  );
-  const [accueil, setAccueil] = useState(
-    GlobalFilter.ServicesFilters[1].selected
-  );
-  const [travaux, setTravaux] = useState(
-    GlobalFilter.ServicesFilters[2].selected
-  );
+
+  const [menage, setMenage] = useState(false);
+  const [accueil, setAccueil] = useState(false);
+  const [travaux, setTravaux] = useState(false);
 
   //--- Upload USERS
   const handleSnapshot = snapshot => {
@@ -55,65 +53,35 @@ const Home = props => {
     setUsers(users);
   };
 
-  reloadServices = () => {
+  reloadServices = (a, m, t) => {
     setDistance(GlobalFilter.Rayon);
     setMinStars(GlobalFilter.MinStars);
-
-    console.log("--------------------------");
-    console.log(GlobalFilter.ServicesFilters[0].selected);
-    console.log(GlobalFilter.ServicesFilters[1].selected);
-    console.log(GlobalFilter.ServicesFilters[2].selected);
-    console.log("--------------------------");
-
-    setMenage(GlobalFilter.ServicesFilters[0].selected);
-    setAccueil(GlobalFilter.ServicesFilters[1].selected);
-    setTravaux(GlobalFilter.ServicesFilters[2].selected);
+    if (a != null) setAccueil(a);
+    if (m != null) setMenage(m);
+    if (t != null) setTravaux(t);
   };
 
+  //--- hooks
+  const [prestataires, setPrestataires] = useState([]);
+
+  //DATA -liste des prestataires
   useEffect(() => {
-    const getUsers = () => {
-      firebase.db.collection("users").onSnapshot(handleSnapshot);
-    };
+    firebase.db.collection("users").onSnapshot(snapshot => {
+      const dataPrestataires = snapshot.docs.map(doc => ({
+        id: doc.id,
+        ...doc.data()
+      }));
+      setPrestataires(dataPrestataires);
+    });
+
     setTimeout(() => {
       setIsLoding(false);
     }, 1500);
-    return getUsers();
   }, [firebase, searchText]);
 
   //--- ActivityIndicator
   if (isLoding) {
-    return (
-      <View
-        style={{
-          flex: 1,
-          flexDirection: "column",
-          justifyContent: "center"
-        }}
-      >
-        <Text
-          style={{
-            fontSize: 40,
-            fontWeight: "bold",
-            textAlign: "center",
-            color: "brown",
-            padding: 10
-          }}
-        >
-          Bienvenue
-        </Text>
-        <Text
-          style={{
-            fontSize: 16,
-            textAlign: "center",
-            paddingTop: 10,
-            paddingBottom: 20
-          }}
-        >
-          Chargement des données
-        </Text>
-        <ActivityIndicator size="large" color="blue" />
-      </View>
-    );
+    return <LoadingComponent />;
   }
 
   onSearchLocation = text => {
@@ -125,31 +93,48 @@ const Home = props => {
     };
   };
 
+  onParamsPress = () => {
+    alert(
+      "Filtres :\n" +
+        "Distance : " +
+        distance +
+        "\nMinStars : " +
+        minStars +
+        "\nAccueil : " +
+        accueil +
+        "\nMénage : " +
+        menage +
+        "\nTravaux : " +
+        travaux
+    );
+  };
+
   //--- Return
   return (
     <View style={styles.container}>
-      <View style={{ height: 110 }}>
-        <Text style={{ fontSize: 20 }}>FilterResult</Text>
-        <Text>Distance : {distance}</Text>
-        <Text>Note : {minStars}</Text>
-        <Text>Accueil : {accueil}</Text>
-        <Text>Menage : {menage}</Text>
-        <Text>Travaux : {travaux}</Text>
+      <View style={{ height: 20 }}>
+        <TouchableOpacity onPress={onParamsPress}>
+          <Text style={{ color: "red" }}>Test variables</Text>
+        </TouchableOpacity>
       </View>
       {/* FILTRE */}
       <Search onSearchLocation={onSearchLocation} />
-      <FiltresBar reloadServices={reloadServices} />
+      <FiltresBar
+        reloadServices={reloadServices}
+        a={accueil}
+        m={menage}
+        t={travaux}
+      />
       {/* FLATLIST */}
       <FlatList
-        data={users}
+        data={prestataires}
         // keyExtractor={(item, index) => index.toString()}
         renderItem={({ item }) => (
           //--- TouchableOpacity
           <TouchableOpacity
             onPress={() => {
               navigation.navigate("Details", {
-                id: item.uid,
-                messageId: item.messageId
+                prestataire_id: item.uid //id du prestataire sélectionné
               });
             }}
           >
@@ -168,7 +153,10 @@ const Home = props => {
               <View style={{ width: "75%" }}>
                 {/* Rate + Icônes services */}
                 <View style={styles.descriptionRateAndServices}>
-                  <Rate note={3} />
+                  <RateAverage
+                    note={item.rate_average}
+                    nbAvis={item.avis_count}
+                  />
                   <ServicesBar />
                 </View>
                 {/* Fin Rate + Icônes service */}

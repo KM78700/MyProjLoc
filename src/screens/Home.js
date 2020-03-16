@@ -54,6 +54,7 @@ const Home = props => {
   };
 
   reloadServices = (a, m, t) => {
+    console.log(a, m, t);
     setDistance(GlobalFilter.Rayon);
     setMinStars(GlobalFilter.MinStars);
     if (a != null) setAccueil(a);

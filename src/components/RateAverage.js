@@ -5,7 +5,7 @@ import { Entypo } from "@expo/vector-icons";
 const RateAverage = props => {
   const { note, nbAvis } = props;
 
-  if (!note) return null;
+  if (note === null) return null;
 
   const displayStars = rate => {
     const stars = [];

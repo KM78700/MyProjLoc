@@ -5,7 +5,7 @@ import { useNavigation } from "@react-navigation/core";
 import { Theme } from "../constants/GlobalConstantes";
 
 export default function MapButtonsBar(props) {
-  const { onDeltaPlus, onDeltaMinus } = props;
+  const { onDeltaPlus, onDeltaMinus, onCenter } = props;
 
   const navigation = useNavigation();
 
@@ -27,7 +27,7 @@ export default function MapButtonsBar(props) {
         icon="arrow-collapse-all"
         color={Theme.AppColor}
         size={40}
-        onPress={() => Alert.alert("Button arrow-collapse-all pressed")}
+        onPress={onCenter}
       />
       <IconButton
         icon="arrow-expand-all"

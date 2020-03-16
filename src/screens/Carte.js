@@ -20,7 +20,11 @@ export default function Map(props) {
   const { locations } = props;
   const navigation = useNavigation();
 
+  const onCenter = () => {
+    console.log("center map");
+  };
   const onDeltaPlus = () => {
+    console.log("sssss");
     let newZoom = mapState.latitudeDelta * 0.5;
     let region = {
       latitude: mapState.latitude,
@@ -90,6 +94,7 @@ export default function Map(props) {
       <MapButtonsBar
         onDeltaPlus={onDeltaPlus}
         onDeltaMinus={onDeltaMinus}
+        onCenter={onCenter}
       ></MapButtonsBar>
     </View>
   );

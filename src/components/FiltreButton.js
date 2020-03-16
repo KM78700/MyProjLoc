@@ -19,15 +19,13 @@ export default FiltreButton = props => {
   const navigation = useNavigation();
 
   const checkFiltreSelected = () => {
-    let serv = null;
-    for (let i = 0; i < GlobalFilter.ServicesFilters.length; i++) {
-      if (GlobalFilter.ServicesFilters[i].code === code)
-        serv = GlobalFilter.ServicesFilters[i];
-    }
     if (!isGlobalFilter) {
       setIsFiltreSelected(!isFiltreSelected);
       setBackColor(isFiltreSelected ? "#ffc7bd" : "white");
-      if (serv) serv.selected = isFiltreSelected;
+      if (code === "FILTER_1") reloadServices(isFiltreSelected, null, null);
+      else if (code === "FILTER_2")
+        reloadServices(null, isFiltreSelected, null);
+      if (code === "FILTER_3") reloadServices(null, null, isFiltreSelected);
     } else {
       navigation.navigate("Filter", { reloadServices: reloadServices });
     }

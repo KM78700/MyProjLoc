@@ -54,7 +54,6 @@ const Home = props => {
   };
 
   reloadServices = (a, m, t) => {
-    console.log(a, m, t);
     setDistance(GlobalFilter.Rayon);
     setMinStars(GlobalFilter.MinStars);
     if (a != null) setAccueil(a);
@@ -118,7 +117,7 @@ const Home = props => {
           <Text style={{ color: "red" }}>Test variables</Text>
         </TouchableOpacity>
       </View>
-      {/* FILTRE */}
+
       <Search onSearchLocation={onSearchLocation} />
       <FiltresBar
         reloadServices={reloadServices}
@@ -126,12 +125,11 @@ const Home = props => {
         m={menage}
         t={travaux}
       />
-      {/* FLATLIST */}
+
       <FlatList
         data={prestataires}
         // keyExtractor={(item, index) => index.toString()}
         renderItem={({ item }) => (
-          //--- TouchableOpacity
           <TouchableOpacity
             onPress={() => {
               navigation.navigate("Details", {
@@ -152,23 +150,19 @@ const Home = props => {
 
               {/* SECTION 75% */}
               <View style={{ width: "75%" }}>
-                {/* Rate + Icônes services */}
                 <View style={styles.descriptionRateAndServices}>
                   <RateAverage
-                    note={item.rate_average}
-                    nbAvis={item.avis_count}
+                    note={item.rate_average ? item.rate_average : 0}
+                    nbAvis={item.avis_count ? item.avis_count : 0}
                   />
                   <ServicesBar />
                 </View>
-                {/* Fin Rate + Icônes service */}
 
-                {/* Description */}
                 <View style={styles.descriptionItem}>
                   <Text numberOfLines={4} style={{ textAlign: "justify" }}>
                     {item.description}
                   </Text>
                 </View>
-                {/* Fin Description */}
               </View>
             </View>
           </TouchableOpacity>

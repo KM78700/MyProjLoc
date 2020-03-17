@@ -10,6 +10,8 @@ import {
 import styles from "../../styles";
 import { GlobalFilter } from "../constants/FilterGroups";
 
+import { getDistance, getPreciseDistance } from "geolib";
+
 //--- Components
 import RateAverage from "../components/RateAverage";
 import Filtres from "../components/Filtres";
@@ -115,9 +117,24 @@ const Home = props => {
         travaux
     );
   };
+
+  const myPos1 = { latitude: 48.9346535, longitude: 2.3329436 };
+  const myPos2 = { latitude: 48.8737304, longitude: 2.3194495 };
+
   const getDistance = (currentCoordonates, connectedCoordonates) => {
-    console.log(currentCoordonates);
-    return "3.1" + "  Km";
+    //console.log(currentCoordonates);
+    let dis = 0;
+    if (currentCoordonates) {
+      dis = _getDistance(currentCoordonates, myPos2);
+      //console.log(dis / 1000);
+    }
+
+    return dis === 0 ? "?" : dis / 1000 + "  Km";
+  };
+
+  _getDistance = (pos1, pos2) => {
+    var pdis = getPreciseDistance(pos1, pos2);
+    return pdis;
   };
 
   //--- Return

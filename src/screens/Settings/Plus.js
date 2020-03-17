@@ -12,11 +12,14 @@ import { useNavigation } from "@react-navigation/core";
 import FirebaseContext from "../../firebase/FirebaseContext";
 import { getDistance, getPreciseDistance } from "geolib";
 import Geocoder from "react-native-geocoder";
+import * as Location from "expo-location";
 
 export default Profile = () => {
   const navigation = useNavigation();
   const { user, firebase } = useContext(FirebaseContext);
   const [dist, setDist] = useState("");
+  const [address, setAddress] = useState("208 boulevard gallieni 92390 ");
+  const [coordonates, setCoordonates] = useState("");
 
   const removeAccount = async () => {
     const localAccount = await AsyncStorage.removeItem("account");
@@ -33,23 +36,53 @@ export default Profile = () => {
     navigation.navigate("Location");
   };
 
+  const handleCalcCoordonates = async () => {
+    navigation.navigate("LocationCoordonates");
+  };
+
   //--- Return
   return (
     <View style={styles.container}>
-      <View style={{ width: "90%", height: 100 }}>
+      <View style={{ width: "90%", height: 200 }}>
         <TouchableOpacity
-          style={{ borderColor: "#0000FF", borderWidth: 5, borderRadius: 10 }}
+          style={{
+            borderColor: "#0000FF",
+            borderWidth: 1,
+            borderRadius: 10,
+            margin: 10
+          }}
+          onPress={handleCalcCoordonates}
+        >
+          <Text
+            style={{
+              fontSize: 18,
+              textAlign: "center",
+              margin: 10,
+              padding: 10
+            }}
+          >
+            Get coordonates
+          </Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity
+          style={{
+            borderColor: "#0000FF",
+            borderWidth: 1,
+            borderRadius: 10,
+            margin: 10
+          }}
           onPress={handleCalcDistance}
         >
           <Text
             style={{
-              fontSize: 28,
+              fontSize: 18,
               textAlign: "center",
-              marginTop: 10,
-              marginBottom: 10
+              margin: 10,
+              padding: 10
             }}
           >
-            Géolocalisarion
+            Géolocalisation
           </Text>
         </TouchableOpacity>
       </View>

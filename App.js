@@ -22,6 +22,7 @@ import Avis from "./src/screens/Avis";
 import FilterScreen from "./src/screens/FilterScreen";
 import PostService from "./src/screens/Settings/PostService";
 import Location from "./src/screens/Location";
+import LocationCoordonates from "./src/screens/LocationCoordonates";
 
 //--- Components
 import InfoBtnHeader from "./src/components/InfoBtnHeader";
@@ -120,6 +121,10 @@ const App = () => {
           />
           <Stack.Screen name="Filter" component={FilterScreen} />
           <Stack.Screen name="Location" component={Location} />
+          <Stack.Screen
+            name="LocationCoordonates"
+            component={LocationCoordonates}
+          />
         </Stack.Navigator>
       </NavigationContainer>
     </FirebaseContext.Provider>

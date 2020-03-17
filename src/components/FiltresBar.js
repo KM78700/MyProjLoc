@@ -6,7 +6,7 @@ import { Theme } from "../constants/GlobalConstantes";
 
 const FiltresBar = props => {
   [key, useKey] = useState(false);
-  const { reloadServices } = props;
+  const { a, m, t, reloadServices } = props;
   return (
     <View
       style={{
@@ -27,6 +27,9 @@ const FiltresBar = props => {
                 color={btn.color}
                 isGlobalFilter={btn.isGlobalFilter}
                 reloadServices={reloadServices}
+                a={a}
+                m={m}
+                t={t}
               />
             </View>
           );

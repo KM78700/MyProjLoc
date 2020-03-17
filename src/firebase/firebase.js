@@ -2,6 +2,7 @@ import firebaseConfig from "./config";
 import app from "firebase/app";
 import "firebase/auth";
 import "firebase/firestore";
+var randomCoordinates = require("random-coordinates");
 
 //--- Universally Unique IDentifiers
 import uuid from "uuid";
@@ -33,17 +34,27 @@ class Firebase {
 
   //-- Signup
   SignupUser = async (email, password) => {
+    const coord = randomCoordinates();
+    const createdDate = new Date();
+    console.log(createdDate);
     const response = await this.auth.createUserWithEmailAndPassword(
       email,
       password
     );
 
     if (response.user.uid) {
+      console.log(coord);
       const user = {
         uid: response.user.uid,
         email: email,
         username: "username",
+        coordinates: {
+          latitude: coord.split(",")[0],
+          longitude: coord.split(",")[1]
+        },
         bio: "bio",
+        description: "Nouveau membre",
+        createAt: createdDate,
         photo:
           "https://firebasestorage.googleapis.com/v0/b/myproj2-634bf.appspot.com/o/portrait.png?alt=media&token=1316cdcc-1de2-4cef-83d0-8ce66cabb1dc",
         token: null

@@ -60,6 +60,10 @@ export default class myLocation extends Component {
     this.setState({ regionName: reg[0] });
   };
 
+  _getCoordonate = async address => {
+    return await Location.geocodeAsync(address);
+  };
+
   render() {
     let text = "Waiting..";
     let long = "?";

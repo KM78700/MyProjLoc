@@ -66,13 +66,20 @@ const Home = props => {
 
   //DATA -liste des prestataires
   useEffect(() => {
-    firebase.db.collection("users").onSnapshot(snapshot => {
-      const dataPrestataires = snapshot.docs.map(doc => ({
-        id: doc.id,
-        ...doc.data()
-      }));
-      setPrestataires(dataPrestataires);
-    });
+    firebase.db
+      .collection("users")
+      //.orderBy("createAt", "asc")
+      .onSnapshot(snapshot => {
+        const dataPrestataires = snapshot.docs.map(doc => ({
+          id: doc.id,
+          ...doc.data()
+        }));
+
+        // .collection("users")
+        // .orderBy("createAt", "asc")
+
+        setPrestataires(dataPrestataires);
+      });
 
     setTimeout(() => {
       setIsLoding(false);
@@ -107,6 +114,10 @@ const Home = props => {
         "\nTravaux : " +
         travaux
     );
+  };
+  const getDistance = (currentCoordonates, connectedCoordonates) => {
+    console.log(currentCoordonates);
+    return "3.1" + "  Km";
   };
 
   //--- Return
@@ -145,7 +156,9 @@ const Home = props => {
                   source={{ uri: item.photo }}
                 />
                 <Text style={{ textAlign: "center" }}>{item.pseudo}</Text>
-                <Text style={styles.profilItemDistance}>3,2 km</Text>
+                <Text style={styles.profilItemDistance}>
+                  {getDistance(item.coordinates)}
+                </Text>
               </View>
 
               {/* SECTION 75% */}

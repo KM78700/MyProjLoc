@@ -12,7 +12,10 @@ export default FiltreButton = props => {
     color,
     isGlobalFilter,
     filterState,
-    reloadServices
+    reloadServices,
+    a,
+    m,
+    t
   } = props;
   const [isFiltreSelected, setIsFiltreSelected] = useState(true);
   const [backColor, setBackColor] = useState("white");
@@ -27,7 +30,12 @@ export default FiltreButton = props => {
         reloadServices(null, isFiltreSelected, null);
       if (code === "FILTER_3") reloadServices(null, null, isFiltreSelected);
     } else {
-      navigation.navigate("Filter", { reloadServices: reloadServices });
+      navigation.navigate("Filter", {
+        reloadServices: reloadServices,
+        a: a,
+        m: m,
+        t: t
+      });
     }
   };
 

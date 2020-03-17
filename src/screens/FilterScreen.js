@@ -13,23 +13,13 @@ import { GlobalFilter } from "../constants/FilterGroups";
 import { useNavigation } from "@react-navigation/core";
 
 export default function FilterScreen(props) {
-  const { reloadServices } = props.route.params.reloadServices;
-
+  const { a, m, t, reloadServices } = props.route.params.reloadServices;
   const navigation = useNavigation();
-
   const [pathLength, setPathLength] = useState(GlobalFilter.Rayon);
   const [minStars, setMinStars] = useState(GlobalFilter.MinStars);
-
-  const [menage, setMenage] = useState(
-    GlobalFilter.ServicesFilters[0].selected
-  );
-  const [accueil, setAccueil] = useState(
-    GlobalFilter.ServicesFilters[1].selected
-  );
-  const [travaux, setTravaux] = useState(
-    GlobalFilter.ServicesFilters[2].selected
-  );
-
+  const [accueil, setAccueil] = useState(a);
+  const [menage, setMenage] = useState(m);
+  const [travaux, setTravaux] = useState(t);
   const [prestationValue, setPrestationValue] = useState([]);
   const starsList = [false, false, false, true, false];
   const [selectedStars, setSelectedStars] = useState(0);
@@ -42,14 +32,15 @@ export default function FilterScreen(props) {
   };
 
   useEffect(() => {
-    setMenage(GlobalFilter.ServicesFilters[0].selected);
-    setAccueil(GlobalFilter.ServicesFilters[1].selected);
-    setTravaux(GlobalFilter.ServicesFilters[2].selected);
+    setAccueil(a);
+    setMenage(m);
+    setTravaux(t);
   }, []);
 
   const getServiceState = elem => {
-    if (elem.code === "FILTER_1") return menage;
-    else if (elem.code === "FILTER_2") return accueil;
+    console.log(elem.code);
+    if (elem.code === "FILTER_1") return accueil;
+    else if (elem.code === "FILTER_2") return menage;
     else if (elem.code === "FILTER_3") return travaux;
     else return false;
   };
@@ -86,14 +77,11 @@ export default function FilterScreen(props) {
                     style={styles.prestaSwitch}
                     onValueChange={() => {
                       if (elem.code === "FILTER_1") {
-                        setMenage(!menage);
-                        GlobalFilter.ServicesFilters[0].selected = menage;
-                      } else if (elem.code === "FILTER_2") {
                         setAccueil(!accueil);
-                        GlobalFilter.ServicesFilters[1].selected = accueil;
+                      } else if (elem.code === "FILTER_2") {
+                        setMenage(!menage);
                       } else if (elem.code === "FILTER_3") {
                         setTravaux(!travaux);
-                        GlobalFilter.ServicesFilters[2].selected = travaux;
                       }
                     }}
                     value={getServiceState(elem)}

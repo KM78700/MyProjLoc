@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { StyleSheet, View, Text, Alert, Dimensions } from "react-native";
 import MapView, { Marker, Callout } from "react-native-maps";
 import { useNavigation } from "@react-navigation/core";
+import FirebaseContext from "../firebase/FirebaseContext";
 
 import { Theme } from "../constants/GlobalConstantes";
 import MapButtonsBar from "../components/MapButtonsBar";
@@ -10,6 +11,10 @@ import { IconButton, Colors } from "react-native-paper";
 
 export default function Map(props) {
   let map: any;
+
+  const { user, firebase } = useContext(FirebaseContext);
+  const [prestataires, setPrestataires] = useState([]);
+
   const [mapState, setMapState] = useState({
     latitude: 48.8588377,
     longitude: 2.2770206,
@@ -23,8 +28,8 @@ export default function Map(props) {
   const onCenter = () => {
     console.log("center map");
   };
+
   const onDeltaPlus = () => {
-    console.log("sssss");
     let newZoom = mapState.latitudeDelta * 0.5;
     let region = {
       latitude: mapState.latitude,
@@ -49,8 +54,17 @@ export default function Map(props) {
   };
 
   useEffect(() => {
-    //  setMapZoom(0.1);
-  }, []);
+    firebase.db
+      .collection("users")
+      //.orderBy("createAt", "asc")
+      .onSnapshot(snapshot => {
+        const dataPrestataires = snapshot.docs.map(doc => ({
+          id: doc.id,
+          ...doc.data()
+        }));
+        setPrestataires(dataPrestataires);
+      });
+  }, [firebase]);
 
   return (
     <View style={styles.container}>
@@ -67,29 +81,33 @@ export default function Map(props) {
         zoomEnabled={true}
         ref={ref => (map = ref)}
       >
-        {/* {locations &&
-          locations.rooms &&
-          locations.rooms.map(good => {
+        {prestataires &&
+          prestataires &&
+          prestataires.map(prest => {
             return (
-              <Marker
-                key={good._id}
-                image={require("../assets/pin.png")}
-                coordinate={{
-                  latitude: good.loc[1],
-                  longitude: good.loc[0]
-                }}
-              >
-                <Callout
-                  onPress={() =>
-                    navigation.navigate("GoodDetail", { id: good._id })
-                  }
-                  style={{ padding: 10 }}
+              prest.coordinates && (
+                <Marker
+                  key={prest.uid}
+                  image={require("../../assets/pin.png")}
+                  coordinate={{
+                    latitude: prest.coordinates.latitude,
+                    longitude: prest.coordinates.longitude
+                  }}
                 >
-                  <RateAndTitle good={good} taille={"S"} />
-                </Callout>
-              </Marker>
+                  <Callout
+                  // onPress={() =>
+                  //   navigation.navigate("PrestaDetail", { id: prest.uid })
+                  // }
+                  >
+                    {/* <RateAndTitle prest={prest} taille={"S"} /> */}
+                    <View>
+                      <Text>{prest.email}</Text>
+                    </View>
+                  </Callout>
+                </Marker>
+              )
             );
-          })} */}
+          })}
       </MapView>
       <MapButtonsBar
         onDeltaPlus={onDeltaPlus}

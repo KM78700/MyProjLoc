@@ -42,7 +42,6 @@ export default function PhotoPicker(props) {
 
   useEffect(() => {
     getPermissionAsync();
-    console.log("hi");
   });
 
   _pickImage = async () => {

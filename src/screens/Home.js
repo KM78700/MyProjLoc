@@ -82,7 +82,6 @@ const Home = props => {
 
         setPrestataires(dataPrestataires);
       });
-
     setTimeout(() => {
       setIsLoding(false);
     }, 1500);
@@ -129,7 +128,7 @@ const Home = props => {
       //console.log(dis / 1000);
     }
 
-    return dis === 0 ? "?" : dis / 1000 + "  Km";
+    return dis === 0 ? "Dist. inconnues" : (dis / 1000).toFixed(2) + " Km";
   };
 
   _getDistance = (pos1, pos2) => {

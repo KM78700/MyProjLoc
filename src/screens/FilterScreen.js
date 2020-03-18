@@ -13,7 +13,7 @@ import { GlobalFilter } from "../constants/FilterGroups";
 import { useNavigation } from "@react-navigation/core";
 
 export default function FilterScreen(props) {
-  const { a, m, t, reloadServices } = props.route.params.reloadServices;
+  const { a, m, t, reloadServices } = props.route.params;
   const navigation = useNavigation();
   const [pathLength, setPathLength] = useState(GlobalFilter.Rayon);
   const [minStars, setMinStars] = useState(GlobalFilter.MinStars);
@@ -35,10 +35,13 @@ export default function FilterScreen(props) {
     setAccueil(a);
     setMenage(m);
     setTravaux(t);
+    // console.log("----------------");
+    // console.log(a);
+    // console.log(m);
+    // console.log(t);
   }, []);
 
   const getServiceState = elem => {
-    console.log(elem.code);
     if (elem.code === "FILTER_1") return accueil;
     else if (elem.code === "FILTER_2") return menage;
     else if (elem.code === "FILTER_3") return travaux;

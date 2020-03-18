@@ -93,28 +93,26 @@ const Home = props => {
   }
 
   onSearchLocation = text => {
-    const region = {
-      latitude: 50,
-      longitude: 14,
-      latitudeDelta: 0.01,
-      longitudeDelta: 0.01
-    };
+    console.log(printFilter(text));
   };
 
-  onParamsPress = () => {
-    alert(
-      "Filtres :\n" +
-        "Distance : " +
-        distance +
-        "\nMinStars : " +
-        minStars +
-        "\nAccueil : " +
-        accueil +
-        "\nMénage : " +
-        menage +
-        "\nTravaux : " +
-        travaux
-    );
+  const printFilter = proximite => {
+    const filterText =
+      "---------- Filtres -----\n" +
+      "A proximité de :" +
+      proximite +
+      "\nDistance : " +
+      distance +
+      "\nMinStars : " +
+      minStars +
+      "\nAccueil : " +
+      accueil +
+      "\nMénage : " +
+      menage +
+      "\nTravaux : " +
+      travaux +
+      "\n--------------------------";
+    return filterText;
   };
 
   const myPos1 = { latitude: 48.9346535, longitude: 2.3329436 };
@@ -139,12 +137,6 @@ const Home = props => {
   //--- Return
   return (
     <View style={styles.container}>
-      <View style={{ height: 20 }}>
-        <TouchableOpacity onPress={onParamsPress}>
-          <Text style={{ color: "red" }}>Test variables</Text>
-        </TouchableOpacity>
-      </View>
-
       <Search onSearchLocation={onSearchLocation} />
       <FiltresBar
         reloadServices={reloadServices}
@@ -155,7 +147,7 @@ const Home = props => {
 
       <FlatList
         data={prestataires}
-        // keyExtractor={(item, index) => index.toString()}
+        keyExtractor={(item, index) => index.toString()}
         renderItem={({ item }) => (
           <TouchableOpacity
             onPress={() => {
@@ -167,21 +159,10 @@ const Home = props => {
             <View style={styles.userItem}>
               {/* SECTION 25% - Photo + pseudo */}
               <View style={styles.profilItem}>
-                {/* <Image
-                  style={styles.profilItemImage}
-                  source={{
-                    uri:
-                      item.photo.length != ""
-                        ? item.photo
-                        : "https://publicdomainvectors.org/tn_img/1389952697.png"
-                  }}
-                /> */}
-
                 <Image
                   style={styles.profilItemImage}
                   source={{ uri: item.photo }}
                   defaultSource={require("../../assets/Avatar.png")}
-                  //defaultSource="https://publicdomainvectors.org/tn_img/1389952697.png"
                 />
 
                 <Text style={{ textAlign: "center" }}>{item.pseudo}</Text>

@@ -167,10 +167,23 @@ const Home = props => {
             <View style={styles.userItem}>
               {/* SECTION 25% - Photo + pseudo */}
               <View style={styles.profilItem}>
+                {/* <Image
+                  style={styles.profilItemImage}
+                  source={{
+                    uri:
+                      item.photo.length != ""
+                        ? item.photo
+                        : "https://publicdomainvectors.org/tn_img/1389952697.png"
+                  }}
+                /> */}
+
                 <Image
                   style={styles.profilItemImage}
                   source={{ uri: item.photo }}
+                  defaultSource={require("../../assets/Avatar.png")}
+                  //defaultSource="https://publicdomainvectors.org/tn_img/1389952697.png"
                 />
+
                 <Text style={{ textAlign: "center" }}>{item.pseudo}</Text>
                 <Text style={styles.profilItemDistance}>
                   {getDistance(item.coordinates)}

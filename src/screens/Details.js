@@ -50,7 +50,7 @@ export default Details = () => {
 
   //---
   const { user, firebase } = useContext(FirebaseContext); //utilisateur connecté
-  const [prestataireId, setPrestataireId] = useState({}); //prestataire sélectionné
+  const [prestataire, setPrestataire] = useState({}); //prestataire sélectionné
   const [prestataireAvis, setPrestataireAvis] = useState(); //avis du prestataire sélectionné
   const [isUseEffect1, setIsUseEffect1] = useState(true);
   const [isUseEffect2, setIsUseEffect2] = useState(true);
@@ -66,7 +66,7 @@ export default Details = () => {
         if (!doc.exists) {
           console.log("No such document!");
         } else {
-          setPrestataireId(doc.data());
+          setPrestataire(doc.data());
           setTimeout(() => {
             setIsUseEffect1(false);
           }, 0);
@@ -95,7 +95,7 @@ export default Details = () => {
         }, 0);
       });
   }, []);
-  console.log(prestataireId);
+  console.log(prestataire);
   //--- ActivityIndicator
   if (isUseEffect1 || isUseEffect2) {
     return (
@@ -108,7 +108,10 @@ export default Details = () => {
   }
 
   const onChatClick = event => {
-    navigation.navigate("Chat", { connectedUser: user, currentUser: userId });
+    navigation.navigate("Chat", {
+      connectedUser: user,
+      currentUser: prestataire
+    });
   };
 
   //---
@@ -245,7 +248,7 @@ export default Details = () => {
             onPress={() =>
               navigation.navigate("Avis", {
                 presta_id: route.params.prestataire_id,
-                dataPrestataire: prestataireId
+                dataPrestataire: prestataire
               })
             }
           >
@@ -290,7 +293,7 @@ export default Details = () => {
           {/* Appeler */}
           <TouchableOpacity
             onPress={() => {
-              Linking.openURL("tel:" + prestataireId.phone);
+              Linking.openURL("tel:" + prestataire.phone);
             }}
           >
             <View
@@ -339,7 +342,7 @@ export default Details = () => {
                   borderRadius: 50,
                   backgroundColor: "lightgrey"
                 }}
-                source={{ uri: prestataireId.photo }}
+                source={{ uri: prestataire.photo }}
               />
               <View style={{ flexDirection: "column" }}>
                 <Text
@@ -350,7 +353,7 @@ export default Details = () => {
                     fontWeight: "bold"
                   }}
                 >
-                  {prestataireId.pseudo}
+                  {prestataire.pseudo}
                 </Text>
                 <Text
                   style={{
@@ -382,8 +385,8 @@ export default Details = () => {
               >
                 <View>
                   <RateAverage
-                    note={prestataireId.rate_average}
-                    nbAvis={prestataireId.avis_count}
+                    note={prestataire.rate_average}
+                    nbAvis={prestataire.avis_count}
                   />
                 </View>
 
@@ -427,7 +430,7 @@ export default Details = () => {
                 fontSize: 16
               }}
             >
-              {prestataireId.description}
+              {prestataire.description}
             </Text>
           </View>
           {/* Fin de description */}

@@ -223,8 +223,11 @@ export default styles = StyleSheet.create({
     // height: "80%",
     resizeMode: "cover",
     borderRadius: 12,
+    borderColor: "lightgrey",
+    borderWidth: 1
+
     //margin: 2,
-    backgroundColor: "lightgrey"
+    //backgroundColor: "lightgrey"
   },
   profilItemDistance: {
     textAlign: "center",

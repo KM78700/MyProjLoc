@@ -67,13 +67,8 @@ const Home = props => {
   const [prestataires, setPrestataires] = useState([]);
   const [connectedUser, setConnectedUser] = useState([]);
 
-  useEffect(() => {
-    // console.log("--------------------");
-    // console.log(accueil);
-    // console.log(menage);
-    // console.log(travaux);
-    // console.log("--------------------");
-  }, [accueil, menage, travaux]);
+  useEffect(() => {}, [accueil, menage, travaux]);
+
   //DATA -liste des prestataires
   useEffect(() => {
     firebase.db

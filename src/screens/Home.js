@@ -90,7 +90,6 @@ const Home = props => {
           ...doc.data()
         }));
         setConnectedUser(myUser[0]);
-        console.log(myUser[0]);
       });
 
     setTimeout(() => {
@@ -131,7 +130,11 @@ const Home = props => {
     if (currentCoordonates) {
       dis = _getDistance(currentCoordonates, connectedUser.coordinates);
     }
-    if (currentCoordonates === connectedCoordonates) return "moi même";
+    if (currentCoordonates != undefined) {
+      if (currentCoordonates === connectedCoordonates) {
+        return "moi même";
+      }
+    }
     return dis === 0 ? "Dist. inconnues" : (dis / 1000).toFixed(2) + " Km";
   };
 

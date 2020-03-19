@@ -65,6 +65,7 @@ const Home = props => {
 
   //--- hooks
   const [prestataires, setPrestataires] = useState([]);
+  const [connectedUser, setConnectedUser] = useState([]);
 
   //DATA -liste des prestataires
   useEffect(() => {
@@ -76,12 +77,22 @@ const Home = props => {
           id: doc.id,
           ...doc.data()
         }));
-
-        // .collection("users")
         // .orderBy("createAt", "asc")
-
         setPrestataires(dataPrestataires);
       });
+    // utilisateur courant
+    firebase.db
+      .collection("users")
+      .where("uid", "==", user.uid)
+      .onSnapshot(snapshot => {
+        const myUser = snapshot.docs.map(doc => ({
+          id: doc.id,
+          ...doc.data()
+        }));
+        setConnectedUser(myUser[0]);
+        console.log(myUser[0]);
+      });
+
     setTimeout(() => {
       setIsLoding(false);
     }, 1500);
@@ -115,17 +126,12 @@ const Home = props => {
     return filterText;
   };
 
-  const myPos1 = { latitude: 48.9346535, longitude: 2.3329436 };
-  const myPos2 = { latitude: 48.8737304, longitude: 2.3194495 };
-
   const getDistance = (currentCoordonates, connectedCoordonates) => {
-    //console.log(currentCoordonates);
     let dis = 0;
     if (currentCoordonates) {
-      dis = _getDistance(currentCoordonates, myPos2);
-      //console.log(dis / 1000);
+      dis = _getDistance(currentCoordonates, connectedUser.coordinates);
     }
-
+    if (currentCoordonates === connectedCoordonates) return "moi même";
     return dis === 0 ? "Dist. inconnues" : (dis / 1000).toFixed(2) + " Km";
   };
 

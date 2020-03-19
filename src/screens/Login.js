@@ -17,7 +17,7 @@ import PasswordTextBox from "../components/PasswordTextBox";
 const Login = () => {
   const navigation = useNavigation();
   const { user, firebase } = useContext(FirebaseContext);
-  const [email, setEmail] = useState("rbr@rbr.com");
+  const [email, setEmail] = useState("toto@toto.com");
   const [password, setPassword] = useState("123456");
 
   const getAccount = async () => {

@@ -16,7 +16,13 @@ const ChatScreen = props => {
   useEffect(() => {
     setConnectedUser(route.params.connectedUser);
     setCurrentUser(route.params.currentUser);
-    //setMyMessages([]);
+    console.log("------ route.params ------");
+    console.log(route.params);
+    console.log("------------");
+    // console.log("------currentUser ------");
+    // console.log(currentUser);
+    // console.log("------------");
+
     let messRef = firebase.db
       .collection("messages")
       .orderBy("createdAt", "desc");
@@ -31,7 +37,8 @@ const ChatScreen = props => {
         snapshot.forEach(doc => {
           // console.log(doc.id, "=>", doc.data());
           myMessages.push({
-            _id: doc.data()._id2,
+            _id: doc.data()._id,
+            //_id: doc.data()._id2,
             text: doc.data().text,
             createdAt: new Date(),
             user: {

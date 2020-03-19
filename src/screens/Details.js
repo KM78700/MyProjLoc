@@ -95,7 +95,6 @@ export default Details = () => {
         }, 0);
       });
   }, []);
-  console.log(prestataire);
   //--- ActivityIndicator
   if (isUseEffect1 || isUseEffect2) {
     return (

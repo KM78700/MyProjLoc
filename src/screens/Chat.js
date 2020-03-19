@@ -16,13 +16,6 @@ const ChatScreen = props => {
   useEffect(() => {
     setConnectedUser(route.params.connectedUser);
     setCurrentUser(route.params.currentUser);
-    console.log("------ route.params ------");
-    console.log(route.params);
-    console.log("------------");
-    // console.log("------currentUser ------");
-    // console.log(currentUser);
-    // console.log("------------");
-
     let messRef = firebase.db
       .collection("messages")
       .orderBy("createdAt", "desc");

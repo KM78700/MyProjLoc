@@ -67,6 +67,13 @@ const Home = props => {
   const [prestataires, setPrestataires] = useState([]);
   const [connectedUser, setConnectedUser] = useState([]);
 
+  useEffect(() => {
+    // console.log("--------------------");
+    // console.log(accueil);
+    // console.log(menage);
+    // console.log(travaux);
+    // console.log("--------------------");
+  }, [accueil, menage, travaux]);
   //DATA -liste des prestataires
   useEffect(() => {
     firebase.db
@@ -163,7 +170,9 @@ const Home = props => {
           <TouchableOpacity
             onPress={() => {
               navigation.navigate("Details", {
-                prestataire_id: item.uid //id du prestataire sélectionné
+                prestataire_id: item.uid,
+                item: item,
+                distance: getDistance(item.coordinates) //id du prestataire sélectionné
               });
             }}
           >

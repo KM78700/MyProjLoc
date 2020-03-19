@@ -44,44 +44,30 @@ import FirebaseContext from "../firebase/FirebaseContext";
 // import uuid from "uuid";
 // import { Button } from "react-native-paper";
 
-export default Details = () => {
+export default Details = props => {
   const navigation = useNavigation();
   const route = useRoute();
 
   //---
   const { user, firebase } = useContext(FirebaseContext); //utilisateur connecté
+  const { item, prestataire_id, distance } = props.route.params;
   const [prestataire, setPrestataire] = useState({}); //prestataire sélectionné
   const [prestataireAvis, setPrestataireAvis] = useState(); //avis du prestataire sélectionné
   const [isUseEffect1, setIsUseEffect1] = useState(true);
   const [isUseEffect2, setIsUseEffect2] = useState(true);
   const [colorFavoris, setColorfavoris] = useState("white");
 
-  //--- DATA - Fiche du prestataire sélectionné
   useEffect(() => {
-    firebase.db
-      .collection("users")
-      .doc(route.params.prestataire_id)
-      .get()
-      .then(doc => {
-        if (!doc.exists) {
-          console.log("No such document!");
-        } else {
-          setPrestataire(doc.data());
-          setTimeout(() => {
-            setIsUseEffect1(false);
-          }, 0);
-        }
-      })
-      .catch(err => {
-        console.log("Error getting document", err);
-      });
-  }, []);
+    //--- DATA - Fiche du prestataire sélectionné
+    setPrestataire(item);
+    setTimeout(() => {
+      setIsUseEffect1(false);
+    }, 0);
 
-  //--- DATA - Liste des avis du prestataire sélectionné
-  useEffect(() => {
+    //--- DATA - Liste des avis du prestataire sélectionné
     firebase.db
       .collection("avis_services")
-      .where("prestataire_id", "==", route.params.prestataire_id)
+      .where("prestataire_id", "==", prestataire_id)
       // .orderBy("createAt", "desc")
       .onSnapshot(snapshot => {
         const dataAvis = snapshot.docs.map(doc => ({
@@ -95,6 +81,7 @@ export default Details = () => {
         }, 0);
       });
   }, []);
+
   //--- ActivityIndicator
   if (isUseEffect1 || isUseEffect2) {
     return (
@@ -246,7 +233,7 @@ export default Details = () => {
           <TouchableOpacity
             onPress={() =>
               navigation.navigate("Avis", {
-                presta_id: route.params.prestataire_id,
+                presta_id: prestataire_id,
                 dataPrestataire: prestataire
               })
             }
@@ -363,7 +350,7 @@ export default Details = () => {
                     color: "brown"
                   }}
                 >
-                  3.2 km
+                  {distance}
                 </Text>
               </View>
             </View>

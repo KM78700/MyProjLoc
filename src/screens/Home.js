@@ -127,19 +127,21 @@ const Home = props => {
 
   const getDistance = (currentCoordonates, connectedCoordonates) => {
     let dis = 0;
-    if (currentCoordonates) {
+
+    if (currentCoordonates && connectedUser != undefined) {
       dis = _getDistance(currentCoordonates, connectedUser.coordinates);
     }
-    if (currentCoordonates != undefined) {
-      if (currentCoordonates === connectedCoordonates) {
-        return "moi même";
-      }
-    }
-    return dis === 0 ? "Dist. inconnues" : (dis / 1000).toFixed(2) + " Km";
+
+    if (currentCoordonates === undefined) return "Dist. inconnue";
+
+    return dis === 0 ? "moi même" : (dis / 1000).toFixed(2) + " Km";
   };
 
-  _getDistance = (pos1, pos2) => {
-    var pdis = getPreciseDistance(pos1, pos2);
+  const _getDistance = (pos1, pos2) => {
+    let pdis = 0;
+    if (pos1 && pos2) {
+      pdis = getPreciseDistance(pos1, pos2);
+    }
     return pdis;
   };
 

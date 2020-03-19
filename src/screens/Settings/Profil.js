@@ -7,6 +7,7 @@ import PhotoPicker from "./PhotoPicker";
 
 //-- Import FirebaseContext
 import FirebaseContext from "../../firebase/FirebaseContext";
+import randomLocation from "random-location";
 
 export default function Profil() {
   const { user, firebase } = useContext(FirebaseContext);
@@ -45,8 +46,25 @@ export default function Profil() {
   const [newCodePostal, setNewCodePostal] = useState();
   const [newVille, setNewVille] = useState();
 
+  const handleSubmitGeolocalisation = () => {
+    const P = {
+      latitude: 48.9346535,
+      longitude: 2.3329436
+    };
+    const R = 50000; // meters`
+    const randomPoint = randomLocation.randomCirclePoint(P, R);
+    //console.log(randomPoint);
+
+    firebase.db
+      .collection("users")
+      .doc(user.uid)
+      .update({
+        bio: newBio ? newBio : currentUser[0].bio ? "" : "",
+        coordinates: randomPoint
+      });
+  };
+
   const handleSubmit = () => {
-    console.log(user);
     firebase.db
       .collection("users")
       .doc(user.uid)
@@ -214,6 +232,13 @@ export default function Profil() {
 
         <TouchableOpacity style={styles.buttonSmall} onPress={handleSubmit}>
           <Text>Modifier votre mot de passe</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity
+          style={styles.buttonSmall}
+          onPress={handleSubmitGeolocalisation}
+        >
+          <Text>Générate random coordonates</Text>
         </TouchableOpacity>
       </View>
     </ScrollView>

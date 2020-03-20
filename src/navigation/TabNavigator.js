@@ -43,10 +43,10 @@ export default TabNavigator = () => {
       })}
       //--- tabOptions
       tabBarOptions={{
-        activeTintColor: "tomato",
+        activeTintColor: Theme.appColor,
         inactiveTintColor: "#909090",
         style: {
-          backgroundColor: Theme.buttonLabelColor,
+          backgroundColor: Theme.footerColor,
           height: 60,
           paddingTop: 10,
           paddingBottom: 5

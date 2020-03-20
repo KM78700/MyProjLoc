@@ -57,7 +57,7 @@ const App = () => {
 
   //-- optionHeader
   const optionHeader = {
-    headerStyle: { backgroundColor: Theme.buttonLabelColor, height: 90 },
+    headerStyle: { backgroundColor: Theme.appColor, height: 90 },
     headerTitle: () => (
       <Text style={{ color: "white", fontSize: 25 }}>{Theme.appName}</Text>
     ),

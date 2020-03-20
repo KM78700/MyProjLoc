@@ -3,10 +3,11 @@ import {
   View,
   Text,
   StyleSheet,
-  Slider,
+  //Slider,
   TouchableOpacity,
   Switch
 } from "react-native";
+import { Slider } from "react-native-elements";
 
 import Stars from "../components/Stars";
 import { GlobalFilter } from "../constants/FilterGroups";
@@ -55,6 +56,8 @@ export default function FilterScreen(props) {
         <View style={styles.sliderZone}>
           <Slider
             style={styles.slider}
+            minimumTrackTintColor={Theme.appColor}
+            thumbTintColor={Theme.appColor}
             step={1}
             maximumValue={101}
             value={pathLength}
@@ -172,7 +175,7 @@ const styles = StyleSheet.create({
     paddingVertical: 14,
     paddingHorizontal: 10,
     margin: 20,
-    backgroundColor: "blue"
+    backgroundColor: Theme.appColor
   },
   buttonText: {
     color: "white",

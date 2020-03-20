@@ -232,7 +232,7 @@ export default styles = StyleSheet.create({
   profilItemDistance: {
     textAlign: "center",
     fontSize: 12,
-    fontWeight: "bold",
+    //fontWeight: "bold",
     color: "brown"
   },
   descriptionRateAndServices: {

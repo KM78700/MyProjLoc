@@ -11,6 +11,7 @@ import {
 import Stars from "../components/Stars";
 import { GlobalFilter } from "../constants/FilterGroups";
 import { useNavigation } from "@react-navigation/core";
+//import Slider from "@react-native-community/slider";
 
 export default function FilterScreen(props) {
   const { a, m, t, reloadServices } = props.route.params;
@@ -35,10 +36,6 @@ export default function FilterScreen(props) {
     setAccueil(a);
     setMenage(m);
     setTravaux(t);
-    // console.log("----------------");
-    // console.log(a);
-    // console.log(m);
-    // console.log(t);
   }, []);
 
   const getServiceState = elem => {
@@ -59,14 +56,16 @@ export default function FilterScreen(props) {
           <Slider
             style={styles.slider}
             step={1}
-            maximumValue={100}
+            maximumValue={101}
             value={pathLength}
             onValueChange={sliderValue => {
               setPathLength(sliderValue);
               GlobalFilter.Rayon = sliderValue;
             }}
           />
-          <Text style={styles.sliderText}>{pathLength} KM</Text>
+          <Text style={styles.sliderText}>
+            {pathLength <= 100 ? pathLength + "KM" : "Illimité"}{" "}
+          </Text>
         </View>
       </View>
       {GlobalFilter.ServicesFilters &&

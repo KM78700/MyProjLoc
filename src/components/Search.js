@@ -16,7 +16,7 @@ const Search = props => {
       textInputDisable
       cancelButtonDisable
       //iconColor="#EE578D"
-      placeholder="A proximité"
+      placeholder="A proximité (A remplacer par recherche libre)"
       onChangeText={props.onSearchLocation}
       onPressCancel={() => {
         this.filterList("");

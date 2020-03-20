@@ -11,7 +11,7 @@ import {
 import Stars from "../components/Stars";
 import { GlobalFilter } from "../constants/FilterGroups";
 import { useNavigation } from "@react-navigation/core";
-//import Slider from "@react-native-community/slider";
+import { Theme } from "../constants/GlobalConstantes";
 
 export default function FilterScreen(props) {
   const { a, m, t, reloadServices } = props.route.params;
@@ -76,6 +76,7 @@ export default function FilterScreen(props) {
                 <View style={styles.presta}>
                   <Text style={styles.prestaText}>{elem.caption}</Text>
                   <Switch
+                    trackColor={{ true: Theme.appColor, false: "grey" }}
                     style={styles.prestaSwitch}
                     onValueChange={() => {
                       if (elem.code === "FILTER_1") {
@@ -147,7 +148,9 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "space-between"
   },
-  prestaSwitch: { marginHorizontal: 25 },
+  prestaSwitch: {
+    marginHorizontal: 25
+  },
   prestaText: {
     paddingLeft: 20,
     fontSize: 20

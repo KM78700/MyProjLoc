@@ -20,7 +20,7 @@ const styles = StyleSheet.create({
     paddingVertical: 14,
     paddingHorizontal: 10,
     margin: 20,
-    //backgroundColor: Theme.AppColor
+    backgroundColor: Theme.appColor
     backgroundColor: "blue"
   },
   buttonText: {

@@ -170,7 +170,7 @@ export default styles = StyleSheet.create({
     left: 20
   },
   buttonTitle: {
-    color: Theme.AppColor,
+    color: Theme.appColor,
     fontSize: 25
   },
   buttonBar: {

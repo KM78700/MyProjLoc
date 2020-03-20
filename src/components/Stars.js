@@ -37,7 +37,7 @@ export default function Stars(props) {
     starWrapper: {
       flexDirection: "row",
       alignItems: "center",
-      borderColor: Theme.AppColor,
+      borderColor: Theme.appColor,
       borderWidth: canSelect && selected ? 2 : 0,
       borderRadius: 3
       //borderColor: "red"

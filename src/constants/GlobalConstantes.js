@@ -10,3 +10,7 @@ export const Theme = {
   buttonBandColor: "#d4e6f1",
   buttonLabelAlterneColor: "#FF0000"
 };
+
+export const ConnectedUser = {
+  coordonates: {}
+};

@@ -25,7 +25,7 @@ import { useNavigation } from "@react-navigation/core";
 
 //-- Import FirebaseContext
 import FirebaseContext from "../firebase/FirebaseContext";
-import { Theme } from "../constants/GlobalConstantes";
+import { Theme, ConnectedUser } from "../constants/GlobalConstantes";
 
 const Home = props => {
   const navigation = useNavigation();
@@ -67,7 +67,9 @@ const Home = props => {
   const [prestataires, setPrestataires] = useState([]);
   const [connectedUser, setConnectedUser] = useState([]);
 
-  useEffect(() => {}, [accueil, menage, travaux]);
+  useEffect(() => {
+    ConnectedUser.coordonates = connectedUser.coordinates;
+  }, [connectedUser]);
 
   //DATA -liste des prestataires
   useEffect(() => {

@@ -4,19 +4,22 @@ import MapView, { Marker, Callout } from "react-native-maps";
 import { useNavigation } from "@react-navigation/core";
 import FirebaseContext from "../firebase/FirebaseContext";
 
-import { Theme } from "../constants/GlobalConstantes";
+import { Theme, ConnectedUser } from "../constants/GlobalConstantes";
 import MapButtonsBar from "../components/MapButtonsBar";
 import { IconButton, Colors } from "react-native-paper";
 
 export default function Map(props) {
-  console.log(props);
   let map: any;
   const { user, firebase } = useContext(FirebaseContext);
   const [prestataires, setPrestataires] = useState([]);
 
   const [mapState, setMapState] = useState({
-    latitude: 48.8588377,
-    longitude: 2.2770206,
+    latitude: ConnectedUser.coordonates.latitude
+      ? ConnectedUser.coordonates.latitude
+      : 48.8588377,
+    longitude: ConnectedUser.coordonates.longitude
+      ? ConnectedUser.coordonates.longitude
+      : 2.2770206,
     latitudeDelta: 0.8,
     longitudeDelta: 0.8
   });

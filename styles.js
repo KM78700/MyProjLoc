@@ -8,7 +8,7 @@ export default styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#fff",
     alignItems: "center",
-    backgroundColor: Theme.appColorfnac
+    backgroundColor: Theme.appColor
   },
   container: {
     flex: 1,

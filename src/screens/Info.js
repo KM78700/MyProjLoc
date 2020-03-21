@@ -8,8 +8,12 @@ const Info = () => {
   //--- Return
   return (
     <View style={styles.container}>
-      <Text style={{ fontSize: 25 }}>Informations</Text>
-      <Text style={{ fontSize: 25 }}></Text>
+      <Text style={{ fontSize: 22, color: "blue", padding: 10 }}>
+        Notre solution s’améliore constamment,{"\n"}
+        mais nos valeurs ne changeront jamais
+      </Text>
+
+      <Text style={{ fontSize: 25, paddingTop: 200 }}>Informations</Text>
 
       <Text style={{ fontSize: 20, color: "#909090" }}>
         Description de l'application

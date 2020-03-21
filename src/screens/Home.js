@@ -68,7 +68,8 @@ const Home = props => {
   const [connectedUser, setConnectedUser] = useState([]);
 
   useEffect(() => {
-    ConnectedUser.coordonates = connectedUser.coordinates;
+    if (connectedUser && connectedUser.coordinates)
+      ConnectedUser.coordonates = connectedUser.coordinates;
   }, [connectedUser]);
 
   //DATA -liste des prestataires

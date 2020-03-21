@@ -20,15 +20,7 @@ const PrestaBtnHeader = () => {
   return (
     <View style={styles.container} style={{ backgroundColor: "transparent" }}>
       <TouchableOpacity onPress={presta}>
-        <Entypo
-          style={{
-            marginLeft: 10,
-            color: "#909090",
-            paddingRight: 15
-          }}
-          name={"add-user"}
-          size={30}
-        />
+        <Entypo style={styles.headerButton} name={"add-user"} size={30} />
       </TouchableOpacity>
     </View>
   );

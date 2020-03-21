@@ -22,15 +22,7 @@ const InfoBtnHeader = () => {
   return (
     <View style={styles.container} style={{ backgroundColor: "transparent" }}>
       <TouchableOpacity onPress={info}>
-        <Entypo
-          style={{
-            marginLeft: 10,
-            color: "white",
-            paddingRight: 15
-          }}
-          name={"info"}
-          size={30}
-        />
+        <Entypo style={styles.headerButton} name={"info"} size={30} />
       </TouchableOpacity>
     </View>
   );

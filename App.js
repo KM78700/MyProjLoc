@@ -57,7 +57,7 @@ const App = () => {
 
   //-- optionHeader
   const optionHeader = {
-    headerStyle: { backgroundColor: Theme.appColor, height: 90 },
+    headerStyle: { backgroundColor: Theme.appColor, height: 85 },
     headerTitle: () => (
       <Text style={{ color: "white", fontSize: 25 }}>{Theme.appName}</Text>
     ),
@@ -66,10 +66,14 @@ const App = () => {
   };
   //--- optionHeaderDetails
   const optionHeaderDetails = {
-    headerStyle: { backgroundColor: Theme.buttonLabelColor, height: 90 },
+    headerStyle: { backgroundColor: Theme.appColor, height: 85 },
     headerTitle: () => (
       <Text style={{ color: "white", fontSize: 25 }}>{Theme.appName}</Text>
     ),
+    //  headerLeft: () => <InfoBtnHeader />,
+    // headerLeft: () => (
+    //   <TouchableOpacity onPress={() => console.log("")}><Text>rr</Text></TouchableOpacity>
+    // ),
     headerRight: () => (
       <TouchableOpacity onPress={() => console.log("")}></TouchableOpacity>
     )

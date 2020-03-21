@@ -90,7 +90,7 @@ export default function Map(props) {
               prest.coordinates && (
                 <Marker
                   key={prest.uid}
-                  image={require("../../assets/pin.png")}
+                  image={require("../../assets/key.png")}
                   coordinate={{
                     latitude: prest.coordinates.latitude,
                     longitude: prest.coordinates.longitude

@@ -250,5 +250,10 @@ export default styles = StyleSheet.create({
     //justifyContent: "space-around",
     //backgroundColor: "#eee",
     paddingRight: 15
+  },
+  headerButton: {
+    marginLeft: 10,
+    color: "white",
+    paddingRight: 15
   }
 });

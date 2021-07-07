@@ -1,22 +1,23 @@
 import React, { useContext, useState } from "react";
 import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
-//import styles from "../../styles";
 
 //-- Icônes
 import { Ionicons, Entypo, FontAwesome } from "@expo/vector-icons";
 
 const Filtre = props => {
   const { title1, title2, service, color } = props;
+
   const [isFiltreColor, setIsFiltreColor] = useState(true);
+  
   const [backColor, setBackColor] = useState("white");
   const [textColor, setTextColor] = useState("black");
 
   const checkFiltreColor = () => {
     if (isFiltreColor) {
-      setBackColor("#ffc7bd");
+      setBackColor("#d4e6f1");
       setTextColor("black");
     } else if (isFiltreColor) {
-      setBackColor("#ffc7bd");
+      setBackColor("#d4e6f1");
       setTextColor("black");
       alert("screen filtre");
     } else {
@@ -29,7 +30,7 @@ const Filtre = props => {
   return (
     <TouchableOpacity
       style={{
-        borderWidth: 0.5,
+        borderWidth: 1.5,
         borderColor: "lightgray",
         backgroundColor: backColor,
         borderRadius: 10,
@@ -47,16 +48,17 @@ const Filtre = props => {
       >
         <Entypo
           style={{
-            paddingTop: 10,
+            paddingTop: 8,
             textAlign: "center"
           }}
           color={color}
           name={service}
-          size={22}
+          size={20}
         />
         <Text
           style={{
             paddingTop: 2,
+            paddingBottom: 8,
             fontSize: 12,
             textAlign: "center",
             color: textColor
@@ -64,32 +66,9 @@ const Filtre = props => {
         >
           {title1}
         </Text>
-        <Text
-          style={{
-            paddingBottom: 2,
-            fontSize: 12,
-            textAlign: "center",
-            color: textColor
-          }}
-        >
-          {title2}
-        </Text>
       </View>
     </TouchableOpacity>
   );
 };
 
 export default Filtre;
-
-// styles = StyleSheet.create({
-//   container: {
-//     borderWidth: 0.5,
-//     borderColor: "lightgray",
-//     backgroundColor: "white",
-//     borderRadius: 10,
-//     marginTop: 8,
-//     marginBottom: 8,
-//     marginLeft: 2,
-//     marginRight: 2
-//   }
-// });

@@ -1,12 +1,9 @@
 import React, { useContext, useState } from "react";
 import { Text, View, TextInput, TouchableOpacity } from "react-native";
 import styles from "../../styles";
-
-//--- Import navigation
 import { useNavigation } from "@react-navigation/core";
-
-//-- Import FirebaseContext
 import FirebaseContext from "../firebase/FirebaseContext";
+import { Theme } from "../constants/GlobalConstantes";
 
 const Signup = () => {
   const navigation = useNavigation();
@@ -23,12 +20,12 @@ const Signup = () => {
   //-- return
   return (
     <View style={styles.containerAuth}>
-      <Text style={styles.logo}> MyProj </Text>
+      <Text style={styles.logo}> {Theme.appName} </Text>
       <TextInput
         style={styles.border}
         value={email}
         onChangeText={text => {
-          setEmail(text);
+          setEmail(text.toLowerCase());
         }}
         placeholder="Email"
       />
@@ -54,7 +51,7 @@ const Signup = () => {
         placeholder="Bio"
       /> */}
       <TouchableOpacity style={styles.button} onPress={UserSignup}>
-        <Text>Créer un compte</Text>
+        <Text style={styles.buttonTitle}>Créer un compte</Text>
       </TouchableOpacity>
     </View>
   );

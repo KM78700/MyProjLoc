@@ -1,27 +1,41 @@
 export const GlobalFilter = {
-  Rayon: 0,
-  MinStars: 0,
+  Rayon: 50,
+  MinStars: 4,
   ServicesFilters: [
     {
       code: "FILTER_1",
-      caption: "Ménage",
+      caption: "Accueil",
+      color: "brown",
+      width: "25%",
+      service: "key",
       selected: false
     },
     {
       code: "FILTER_2",
-      caption: "Checkin checkout",
+      caption: "Ménage",
+      color: "green",
+      width: "25%",
+      service: "trash",
       selected: false
     },
     {
       code: "FILTER_3",
-      caption: "Bricolage",
+      caption: "Travaux",
+      color: "blue",
+      width: "25%",
+      service: "tools",
       selected: false
     },
+
     {
       code: "FILTER-GLOBAL",
-      caption: "Filtrer",
+      caption: "Filtres",
+      width: "25%",
+      service: "menu",
       selected: false,
-      isAll: true
+      isGlobalFilter: true
     }
   ]
 };
+
+export default GlobalFilter;

@@ -4,14 +4,15 @@ import { View, Text, Button } from "react-native";
 //--- Screens
 import Home from "../screens/Home";
 import Carte from "../screens/Carte";
-import Chat from "../screens/Chat";
+import ChatList from "../screens/ChatList";
 import Favoris from "../screens/Favoris";
-import Plus from "../screens/Plus";
-
+import Plus from "../screens/Settings/Plus";
+import SettingsTopTabNavigator from "./SettingsTopTabNavigator";
 //--- Tabnavigator
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { createStackNavigator } from "@react-navigation/stack";
 import { FontAwesome, Ionicons } from "@expo/vector-icons";
+import { Theme } from "../constants/GlobalConstantes";
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -30,7 +31,7 @@ export default TabNavigator = () => {
             iconName = focused ? "search" : "search";
           } else if (route.name === "Carte") {
             iconName = focused ? "map-marker" : "map-marker";
-          } else if (route.name === "Chat") {
+          } else if (route.name === "ChatList") {
             iconName = focused ? "comments" : "comments";
           } else if (route.name === "Favoris") {
             iconName = focused ? "heart" : "heart";
@@ -45,7 +46,7 @@ export default TabNavigator = () => {
         activeTintColor: "tomato",
         inactiveTintColor: "#909090",
         style: {
-          backgroundColor: "#171F33",
+          backgroundColor: Theme.buttonLabelColor,
           height: 60,
           paddingTop: 10,
           paddingBottom: 5
@@ -54,9 +55,9 @@ export default TabNavigator = () => {
     >
       <Tab.Screen name="Search" component={Home} />
       <Tab.Screen name="Carte" component={Carte} />
-      <Tab.Screen name="Chat" component={Chat} />
+      <Tab.Screen name="ChatList" component={ChatList} />
       <Tab.Screen name="Favoris" component={Favoris} />
-      <Tab.Screen name="Plus" component={Plus} />
+      <Tab.Screen name="Plus" component={SettingsTopTabNavigator} />
     </Tab.Navigator>
   );
 };

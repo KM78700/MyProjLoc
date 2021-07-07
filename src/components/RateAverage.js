@@ -2,8 +2,8 @@ import React from "react";
 import { StyleSheet, View, Text, Image } from "react-native";
 import { Entypo } from "@expo/vector-icons";
 
-const Rate = props => {
-  const { note } = props;
+const RateAverage = props => {
+  const { note, nbAvis } = props;
 
   if (!note) return null;
 
@@ -23,13 +23,18 @@ const Rate = props => {
   return (
     <View>
       <View style={styles.titleWrapper}>
-        <View style={styles.starWrapper}>{displayStars(note)}</View>
+        <View style={styles.starWrapper}>
+          {displayStars(note)}
+          <Text>
+            ({nbAvis} {nbAvis <= 1 ? "note" : "notes"})
+          </Text>
+        </View>
       </View>
     </View>
   );
 };
 
-export default Rate;
+export default RateAverage;
 
 //--------------------------------
 //----------- STYLES -------------

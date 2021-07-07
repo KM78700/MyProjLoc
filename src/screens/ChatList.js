@@ -2,24 +2,21 @@ import React from "react";
 import { Text, View } from "react-native";
 import styles from "../../styles";
 
-const Info = () => {
+const ChatList = () => {
   //--- Function
 
   //--- Return
   return (
     <View style={styles.container}>
-      <Text style={{ fontSize: 25 }}>Informations</Text>
-      <Text style={{ fontSize: 25 }}></Text>
-
+      <Text style={{ fontSize: 25 }}>Chat</Text>
       <Text style={{ fontSize: 20, color: "#909090" }}>
-        Description de l'application
+        Liste des prestataires en relation via le chat
       </Text>
-      <Text>+</Text>
       <Text style={{ fontSize: 20, color: "#909090" }}>
-        Product Roadmap V1, V2 ...
+        A trier par date du dernier Chat
       </Text>
     </View>
   );
 };
 
-export default Info;
+export default ChatList;

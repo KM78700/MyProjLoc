@@ -1,4 +1,4 @@
-import React, { useState, Component } from "react";
+import React, { useState, Component, useEffect } from "react";
 import {
   View,
   Text,
@@ -7,15 +7,52 @@ import {
   TouchableOpacity,
   Switch
 } from "react-native";
-import Stars from "../components/FilterHeaderBar/Stars";
+
+import Stars from "../components/Stars";
 import { GlobalFilter } from "../constants/FilterGroups";
+import { useNavigation } from "@react-navigation/core";
 
-//import { Theme } from "../constants/Constants";
+export default function FilterScreen(props) {
+  const { reloadServices } = props.route.params.reloadServices;
 
-export default function FilterScreen() {
-  const [pathLength, setPathLength] = useState(0);
+  const navigation = useNavigation();
+
+  const [pathLength, setPathLength] = useState(GlobalFilter.Rayon);
+  const [minStars, setMinStars] = useState(GlobalFilter.MinStars);
+
+  const [menage, setMenage] = useState(
+    GlobalFilter.ServicesFilters[0].selected
+  );
+  const [accueil, setAccueil] = useState(
+    GlobalFilter.ServicesFilters[1].selected
+  );
+  const [travaux, setTravaux] = useState(
+    GlobalFilter.ServicesFilters[2].selected
+  );
+
   const [prestationValue, setPrestationValue] = useState([]);
   const starsList = [false, false, false, true, false];
+  const [selectedStars, setSelectedStars] = useState(0);
+
+  const onAppliquerFilter = () => {
+    let filterText = `Filtre(s) appliqué(s) \n  \n  Distance : ${pathLength}  \n MinStars : ${minStars} \n\n Menage : ${menage} \n Accueil : ${accueil} \n  Travau : ${travaux} `;
+    alert(filterText);
+    props.route.params.reloadServices();
+    navigation.navigate("Home");
+  };
+
+  useEffect(() => {
+    setMenage(GlobalFilter.ServicesFilters[0].selected);
+    setAccueil(GlobalFilter.ServicesFilters[1].selected);
+    setTravaux(GlobalFilter.ServicesFilters[2].selected);
+  }, []);
+
+  const getServiceState = elem => {
+    if (elem.code === "FILTER_1") return menage;
+    else if (elem.code === "FILTER_2") return accueil;
+    else if (elem.code === "FILTER_3") return travaux;
+    else return false;
+  };
 
   return (
     <View>
@@ -30,7 +67,10 @@ export default function FilterScreen() {
             step={1}
             maximumValue={100}
             value={pathLength}
-            onValueChange={sliderValue => setPathLength(sliderValue)}
+            onValueChange={sliderValue => {
+              setPathLength(sliderValue);
+              GlobalFilter.Rayon = sliderValue;
+            }}
           />
           <Text style={styles.sliderText}>{pathLength} KM</Text>
         </View>
@@ -38,16 +78,26 @@ export default function FilterScreen() {
       {GlobalFilter.ServicesFilters &&
         GlobalFilter.ServicesFilters.map((elem, index) => {
           return (
-            <View>
-              {!elem.isAll ? (
+            <View key={index}>
+              {!elem.isGlobalFilter ? (
                 <View style={styles.presta}>
-                  <Switch
-                    onValueChange={() => {}}
-                    style={styles.prestaSwitch}
-                    value={elem.selected}
-                  />
-
                   <Text style={styles.prestaText}>{elem.caption}</Text>
+                  <Switch
+                    style={styles.prestaSwitch}
+                    onValueChange={() => {
+                      if (elem.code === "FILTER_1") {
+                        setMenage(!menage);
+                        GlobalFilter.ServicesFilters[0].selected = menage;
+                      } else if (elem.code === "FILTER_2") {
+                        setAccueil(!accueil);
+                        GlobalFilter.ServicesFilters[1].selected = accueil;
+                      } else if (elem.code === "FILTER_3") {
+                        setTravaux(!travaux);
+                        GlobalFilter.ServicesFilters[2].selected = travaux;
+                      }
+                    }}
+                    value={getServiceState(elem)}
+                  />
                 </View>
               ) : null}
             </View>
@@ -55,21 +105,28 @@ export default function FilterScreen() {
         })}
       {starsList.map((elem, index) => {
         return (
-          <TouchableOpacity style={styles.stars} onPress={() => {}}>
+          <TouchableOpacity
+            key={index}
+            style={styles.stars}
+            onPress={() => {
+              setMinStars(index + 1);
+              GlobalFilter.MinStars = index + 1;
+            }}
+          >
             <Stars
               style={styles.stars}
               rate={index + 1}
               taille={25}
               filtre={true}
               canSelect={true}
-              selected={elem}
+              selected={index === minStars - 1}
             ></Stars>
           </TouchableOpacity>
         );
       })}
-      <TouchableOpacity>
+      <TouchableOpacity onPress={onAppliquerFilter}>
         <View style={styles.button}>
-          <Text style={styles.buttonText}>Appliquer Fitre</Text>
+          <Text style={styles.buttonText}>Appliquer Filtre</Text>
         </View>
       </TouchableOpacity>
     </View>
@@ -97,8 +154,10 @@ const styles = StyleSheet.create({
     paddingVertical: 10,
     paddingLeft: 20,
     flexDirection: "row",
-    alignItems: "center"
+    alignItems: "center",
+    justifyContent: "space-between"
   },
+  prestaSwitch: { marginHorizontal: 25 },
   prestaText: {
     paddingLeft: 20,
     fontSize: 20
@@ -108,8 +167,6 @@ const styles = StyleSheet.create({
   },
   sliderZone: {
     padding: 10
-    //marginHorizontal: 20,
-    //marginHorizontal: 20,
   },
   sliderText: {
     top: 20,

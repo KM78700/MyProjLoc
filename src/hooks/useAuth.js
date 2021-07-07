@@ -8,12 +8,10 @@ const useAuth = () => {
     const unsubscibe = firebase.auth.onAuthStateChanged(user => {
       if (user) {
         setAuthUser(user);
-        console.log("-------");
-        console.log("User : " + user.email + " connecté");
+
       } else {
         setAuthUser(null);
-        console.log("-------");
-        console.log("User déconnecté");
+
       }
     });
     return () => unsubscibe;
